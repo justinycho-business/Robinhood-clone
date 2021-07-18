@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { addFundsToPortfolio } from '../store/dashboard';
 import './Dashboard.css';
+
 
 function Dashboard() {
     const dispatch = useDispatch()
@@ -9,10 +11,27 @@ function Dashboard() {
 
     const [portfolioValue, setPortolioValue] = useState("")
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // return dispatch(addFunds({portfolioValue}))
+    // function to check if user is logged in then returns the user ID
+    const loggedInUser = useSelector((state) => {
+        if(!state.session.user) return null;
+        return state.session.user.id
+    });
+
+    // function to handle the addFunds on click form
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        const payload = {
+            userId: loggedInUser,
+            portfolioValue
+        }
+        return dispatch(addFundsToPortfolio(payload))
     }
+
+
+    useEffect(() => {
+    }, [dispatch])
+
 
     return (
         <div class='wrapper'>
@@ -34,14 +53,17 @@ function Dashboard() {
             <div className='addFundsDiv'>
                 <h3>Buying Power</h3>
                 <h3>Add the available cash Monday {user.username}</h3>
-                <label>Add Funds</label>
-                <input
-                    type="portfolioValue"
-                    value={portfolioValue}
-                    onChange={(e) => setPortolioValue(e.target.value)}
-                    required
-                />
-                <button type="submit">Submit Funds</button>
+                <form action='/api/dashboard/addFunds' method="post">
+                    <input
+                        type="text"
+                        placeholder="Amount of funds to add"
+                        name='portfolioValue'
+                        value={portfolioValue}
+                        onChange={(e) => setPortolioValue(e.target.value)}
+                        required
+                    />
+                    <button type="submit" onClick={() => handleSubmit}>Submit Funds</button>
+                </form>
             </div>
             <div className='watchlistDiv'>
                 <h1>Watchlist</h1>
