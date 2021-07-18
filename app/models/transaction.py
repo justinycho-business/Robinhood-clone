@@ -14,7 +14,7 @@ def to_dict(self):
         return {
           'id': self.id,
           'user_id': self.user_id,
-          'company_id': self.comapny_id,
+          'company_id': self.company_id,
           'purchase_price': self.purchase_price,
           'quantity': self.quantity,
           'buy_sell': self.buy_sell
