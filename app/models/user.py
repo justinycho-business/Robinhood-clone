@@ -12,8 +12,8 @@ class User(db.Model, UserMixin):
     username = db.Column(db.VARCHAR(40), nullable=False, unique=True)
     email = db.Column(db.VARCHAR(255), nullable=False, unique=True)
     hashed_password = db.Column(db.VARCHAR(255), nullable=False)
-    portfolio_value = db.Column(db.FLOATFIELD)
-    buying_power = db.Column(db.FLOATFIELD)
+    portfolio_value = db.Column(db.FLOAT(10, 2))
+    buying_power = db.Column(db.FLOAT(10, 2))
     session_token = db.Column(db.VARCHAR, nullable=False)
 
     @property

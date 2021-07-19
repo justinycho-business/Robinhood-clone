@@ -6,7 +6,7 @@ class Transaction(db.Model):
     id = db.Column(db.INTEGER, primary_key=True)
     user_id = db.Column(db.INTEGER, nullable=False, unique=True)
     company_id = db.Column(db.INTEGER, nullable=False, unique=True)
-    purchase_price = db.Column(db.FLOATFIELD)
+    purchase_price = db.Column(db.FLOAT(10, 2))
     quantity = db.Column(db.INTEGER)
     buy_sell = db.Column(db.BOOLEAN)
 
