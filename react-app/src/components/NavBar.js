@@ -7,6 +7,9 @@ import './styles/NavBar.css';
 
 
 const NavBar = () => {
+
+  
+
   const user = useSelector(state => state.session.user)
   const removeSignUpFromNavBar = useSelector(state => state.session.user)
 
@@ -16,63 +19,59 @@ const NavBar = () => {
         <div>
           <p>Welcome {user.username}</p>
         </div>
-      <ul>
-        <li>
-          <NavLink to='/' exact={true} activeClassName='active'>
+         <div>
+          <NavLink to='/' exact={true} activeClassName='active' className='home'>
             Home
           </NavLink>
-        </li>
-        <li>
-          <NavLink to='/login' exact={true} activeClassName='active'>
+        </div>
+        <div>
+          <NavLink to='/login' exact={true} activeClassName='active' className='login'>
             Login
           </NavLink>
-        </li>
-        <li>
+        </div>
+
+        {/* <div>
           <NavLink to='/users' exact={true} activeClassName='active'>
             Users
           </NavLink>
-        </li>
-        <li>
-          <NavLink to='/dashboard/:userId' exact={true} activeClassName='active'>
-            Dashboard
-          </NavLink>
-        </li>
-        <li>
+        </div> */}
+        <div>
           <LogoutButton />
-        </li>
-      </ul>
+        </div>
     </nav>
-    );
+
+
   } else {
     return (
-      <nav>
-      <ul>
-        <li>
-          <NavLink to='/' exact={true} activeClassName='active'>
+           <nav>
+        <div>
+          <p>Welcome {user.username}</p>
+        </div>
+         <div>
+          <NavLink to='/' exact={true} activeClassName='active' className='home'>
             Home
           </NavLink>
-        </li>
-        <li>
-          <NavLink to='/login' exact={true} activeClassName='active'>
+        </div>
+        <div>
+          <NavLink to='/login' exact={true} activeClassName='active' className='login'>
             Login
           </NavLink>
-        </li>
-        <li>
-          <NavLink to='/sign-up' exact={true} activeClassName='active'>
+        </div>
+        <div>
+          <NavLink to='/sign-up' exact={true} activeClassName='active' className='signup'>
             Sign Up
           </NavLink>
-        </li>
-        <li>
+        </div>
+        {/* <div>
           <NavLink to='/users' exact={true} activeClassName='active'>
             Users
           </NavLink>
-        </li>
-        <li>
+        </div> */}
+        <div>
           <LogoutButton />
-        </li>
-      </ul>
+        </div>
     </nav>
-    )
+  )
   }
 }
 
