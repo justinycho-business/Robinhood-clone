@@ -1,3 +1,4 @@
+from app.models import transaction
 from .db import db
 
 class Company(db.Model):
@@ -5,6 +6,9 @@ class Company(db.Model):
 
     id = db.Column(db.INTEGER, primary_key=True)
     ticker = db.Column(db.VARCHAR, nullable=False)
+    transaction = db.relationship("Transaction", back_populates="company")
+    watchlist = db.relationship("Watchlist", back_populates="company")
+
 
 def to_dict(self):
         return {
