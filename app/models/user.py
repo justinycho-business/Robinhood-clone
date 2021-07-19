@@ -6,12 +6,15 @@ from flask_login import UserMixin
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
-    id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(40), nullable=False)
-    last_name = db.Column(db.String(40), nullable=False)
-    username = db.Column(db.String(40), nullable=False, unique=True)
-    email = db.Column(db.String(255), nullable=False, unique=True)
-    hashed_password = db.Column(db.String(255), nullable=False)
+    id = db.Column(db.INTEGER, primary_key=True)
+    first_name = db.Column(db.VARCHAR, nullable=False)
+    last_name = db.Column(db.VARCHAR, nullable=False)
+    username = db.Column(db.VARCHAR(40), nullable=False, unique=True)
+    email = db.Column(db.VARCHAR(255), nullable=False, unique=True)
+    hashed_password = db.Column(db.VARCHAR(255), nullable=False)
+    portfolio_value = db.Column(db.FLOATFIELD)
+    buying_power = db.Column(db.FLOATFIELD)
+    session_token = db.Column(db.VARCHAR, nullable=False)
 
     @property
     def password(self):
@@ -27,8 +30,11 @@ class User(db.Model, UserMixin):
     def to_dict(self):
         return {
             'id': self.id,
-            'firstName': self.first_name,
-            'firstLame': self.last_name,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'portfolio_value': self.portfolio_value,
+            'buying_power': self.buying_power,
+            'session_token': self.session_token
         }
