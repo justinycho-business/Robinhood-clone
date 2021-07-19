@@ -27,27 +27,27 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Switch>
-        <Route path='/login' exact={true}>
-          <LoginForm />
-        </Route>
-        <NavBar />
-        <Route path='/sign-up' exact={true}>
-          <SignUpForm />
-        </Route>
-        <ProtectedRoute path='/users' exact={true} >
-          <UsersList />
-        </ProtectedRoute>
-        <ProtectedRoute path='/users/:userId' exact={true} >
-          <User />
-        </ProtectedRoute>
-        <Route path='/' exact={true} >
-          <h1>My Home Page</h1>
-          <h2>Maple Stocks</h2>
-        </Route>
-        <ProtectedRoute path='/dashboard/:userId' exact={true} >
-          <Dashboard/>
-        </ProtectedRoute>
+      <NavBar />
+        <Switch>
+          <Route path='/login' exact={true}>
+            <LoginForm />
+          </Route>
+          <ProtectedRoute path='/dashboard/:userId' exact={true} >
+            <Dashboard/>
+          </ProtectedRoute>
+          <Route path='/sign-up' exact={true}>
+            <SignUpForm />
+          </Route>
+          <ProtectedRoute path='/users' exact={true} >
+            <UsersList />
+          </ProtectedRoute>
+          <ProtectedRoute path='/users/:userId' exact={true} >
+            <User />
+          </ProtectedRoute>
+          <Route path='/' exact={true} >
+            <h1>My Home Page</h1>
+            <h2>Maple Stocks</h2>
+          </Route>
       </Switch>
     </BrowserRouter>
   );
