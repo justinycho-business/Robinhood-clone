@@ -52,7 +52,7 @@
 .buy-form{
     display: flex;
     flex-direction: column;
-    align-content: flex-end;
+    float: auto;
 }
 .buy-btn{
     margin-top: 30px;
@@ -132,4 +132,8 @@
     margin-top: 45px;
     margin-right: 20px;
      font-size: 14px;
+}
+.buying-power-container{
+font-size: 10px;
+margin-left: 40px;
 }

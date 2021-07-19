@@ -5,6 +5,8 @@ import './styles/Stocks.css';
 const Stocks = () => {
     const [totalStocks, setTotalStocks] = useState(1)
     const marketCost = 10;
+    const buyingPower = 100.00
+    const n = buyingPower.toFixed(2)
     return (
         <div className='stocks-background'>
             <div className='stocks-info-container'>
@@ -36,6 +38,9 @@ const Stocks = () => {
                                 <button className='buy-btn'>Buy</button>
                             </div>
                         </form>
+                        <div className='buying-power-container'>
+                            <h2>${n} buying power available</h2>
+                        </div>
                     </div>
                 </div>
                 <div className='watchlist-container'>
