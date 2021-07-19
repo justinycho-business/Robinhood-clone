@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { login } from '../../store/session';
+import '.././styles/LoginForm.css'
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -15,6 +16,7 @@ const LoginForm = () => {
     const data = await dispatch(login(email, password));
     if (data) {
       setErrors(data);
+
     }
   };
 
@@ -27,38 +29,52 @@ const LoginForm = () => {
   };
 
   if (user) {
-    return <Redirect to='/' />;
+    return <Redirect to='/dashboard' />;
   }
 
   return (
-    <form onSubmit={onLogin}>
-      <div>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
+    <div className='row'>
+      <div className='column-1'>
       </div>
-      <div>
-        <label htmlFor='email'>Email</label>
-        <input
-          name='email'
-          type='text'
-          placeholder='Email'
-          value={email}
-          onChange={updateEmail}
-        />
+      <div class="column-2">
+        <form classname='login-form'>
+          <label className='login-title'> Welcome to our App </label>
+          <div className='login-name-input'>
+            <label htmlFor='email' className='form-label'>Email or username</label>
+            <input
+              name='email'
+              type='text'
+              placeholder='Email'
+              value={email}
+              onChange={updateEmail}
+            />
+          </div>
+          <div className='login-password-input'>
+            <label htmlFor='password' class='form-label'>Password</label>
+            <input
+              name='password'
+              type='password'
+              placeholder='Password'
+              value={password}
+              onChange={updatePassword}
+            />
+          </div>
+        </form>
+        <div className='errors'>
+
+          {errors.length > 0 ? (
+            <div>
+              <p><i class="fas fa-exclamation-circle"></i> Unable to log in with provided credentials.</p>
+            </div>
+          ) : (
+            <p></p>
+          )}
+        </div>
+        <div className='login-form-btn-container'>
+          <button type='submit' className='login-form-btn' onClick={onLogin}>Sign In</button>
+        </div>
       </div>
-      <div>
-        <label htmlFor='password'>Password</label>
-        <input
-          name='password'
-          type='password'
-          placeholder='Password'
-          value={password}
-          onChange={updatePassword}
-        />
-        <button type='submit'>Login</button>
-      </div>
-    </form>
+    </div >
   );
 };
 
