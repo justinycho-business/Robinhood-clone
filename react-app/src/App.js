@@ -24,7 +24,7 @@ function App() {
   if (!loaded) {
     return null;
   }
-
+  
   return (
     <BrowserRouter>
       <NavBar />
