@@ -16,6 +16,7 @@ const LoginForm = () => {
     const data = await dispatch(login(email, password));
     if (data) {
       setErrors(data);
+
     }
   };
 
@@ -37,14 +38,9 @@ const LoginForm = () => {
       </div>
       <div class="column-2">
         <form classname='login-form'>
-          <label> Welcome to our app </label>
-          <div>
-            {errors.map((error, ind) => (
-              <div key={ind}>{error}</div>
-            ))}
-          </div>
+          <label className='login-title'> Welcome to our App </label>
           <div className='login-name-input'>
-            <label htmlFor='email'>Email or username</label>
+            <label htmlFor='email' className='form-label'>Email or username</label>
             <input
               name='email'
               type='text'
@@ -54,7 +50,7 @@ const LoginForm = () => {
             />
           </div>
           <div className='login-password-input'>
-            <label htmlFor='password'>Password</label>
+            <label htmlFor='password' class='form-label'>Password</label>
             <input
               name='password'
               type='password'
@@ -64,11 +60,21 @@ const LoginForm = () => {
             />
           </div>
         </form>
-        <div className='login-form-btn'>
-          <button type='submit' className='login-form-btn' onClick={onLogin}>Login</button>
+        <div className='errors'>
+
+          {errors.length > 0 ? (
+            <div>
+              <p><i class="fas fa-exclamation-circle"></i> Unable to log in with provided credentials.</p>
+            </div>
+          ) : (
+            <p></p>
+          )}
+        </div>
+        <div className='login-form-btn-container'>
+          <button type='submit' className='login-form-btn' onClick={onLogin}>Sign In</button>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
