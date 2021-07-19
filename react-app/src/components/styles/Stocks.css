@@ -8,10 +8,98 @@
     height:100%;
     background-color: black;
 }
-.stocks-graph-container{
+.stocks-info-container{
+    display: flex;
+    justify-content: flex-start;
     margin-top: 60px;
     padding-top: 36px;
     height: 100%;
     width: 50%;
     background-color: white;
 }
+.stock-title{
+    font-size: 36px;
+    font-weight: 500;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin-left: 10px;
+    margin-bottom: 0px;
+}
+.stock-price{
+    margin-top: 0px;
+    margin-left: 10px;
+    font-size: 36px;
+    font-weight: 700;
+}
+.stock-change{
+    margin-top: 0px;
+    margin-left: 10px;
+    font-size: 14px;
+}
+.side-bar-content{
+    position: absolute;
+    display: flex;
+    align-items: left;
+    margin-left: 680px;
+}
+
+.actions-container{
+    background-color: white;
+    width: 250px;
+    height: 400px;
+    outline: 1px solid black;
+    box-shadow: 10px 5px 5px black;
+}
+.buy-form{
+    display: flex;
+    flex-direction: column;
+    align-content: flex-end;
+}
+.buy-btn{
+    margin-top: 30px;
+    margin-left: 100px;
+}
+
+.buy-btn{
+    display: flex;
+    margin-left: 80px;
+    /* background-color: rgb(13, 223, 24); */
+    background-color: rgb(207, 30, 68);
+    border: none;
+    color: white;
+    padding: 15px 40px;
+    text-align: center;
+    align-self: flex-start;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 4px;
+  }
+  .buy-btn:hover{
+    /* background-color: rgb(10, 168, 18); */
+    background-color: rgb(128, 17, 41);
+  }
+
+.watchlist-btn{
+    display: flex;
+    /* background-color: rgb(13, 223, 24); */
+    background-color: white;
+    border: none;
+    color: rgb(207, 30, 68);
+    padding: 15px 40px;
+    text-align: center;
+    align-self: flex-start;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 4px;
+    margin-left: 400px;
+    margin-top: 450px;
+    outline: 1px solid;
+}
+.watchlist-btn:hover{
+    /* background-color: rgb(10, 168, 18); */
+    background-color: rgb(128, 17, 41);
+}
+.watchlist-container{
+      border-radius: 8px;
+  }
