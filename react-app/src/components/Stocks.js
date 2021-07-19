@@ -5,7 +5,6 @@ import './styles/Stocks.css';
 const Stocks = () => {
     const user = useSelector(state => state.session.user)
     const removeSignUpFromNavBar = useSelector(state => state.session.user)
-    const options = [1, 5, 10, 20]
     return (
         <div className='stocks-background'>
             <div className='stocks-info-container'>
