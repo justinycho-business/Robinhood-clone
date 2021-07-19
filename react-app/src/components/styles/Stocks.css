@@ -11,7 +11,7 @@
 .stocks-info-container{
     display: flex;
     justify-content: flex-start;
-    margin-top: 60px;
+    margin-top: 70px;
     padding-top: 36px;
     height: 100%;
     width: 50%;
@@ -47,7 +47,7 @@
     width: 250px;
     height: 400px;
     outline: 1px solid black;
-    box-shadow: 10px 5px 5px black;
+    box-shadow: 1px 1px 5px black;
 }
 .buy-form{
     display: flex;
@@ -103,3 +103,33 @@
 .watchlist-container{
       border-radius: 8px;
   }
+.form-item{
+      font-size: 12px;
+      font-weight: normal;
+  }
+.form-shares {
+      display: flex;
+  }
+.form-shares-input{
+      margin-top: 40px;
+      margin-right: 40px;
+      height: 50%; 
+      max-width: 40px;
+     }
+
+.form-market-price{
+        display: flex;
+     }
+.market-price{
+        margin-top: 45px;
+        margin-right: 20px;
+         font-size: 14px;
+     }
+.est-cost-container{
+    display: flex;
+}
+.total-price{
+    margin-top: 45px;
+    margin-right: 20px;
+     font-size: 14px;
+}
