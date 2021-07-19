@@ -42,6 +42,7 @@ function App() {
         </ProtectedRoute>
         <Route path='/' exact={true} >
           <h1>My Home Page</h1>
+          <h2>Maple Stocks</h2>
         </Route>
       </Switch>
     </BrowserRouter>

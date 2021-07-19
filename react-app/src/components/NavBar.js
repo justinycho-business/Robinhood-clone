@@ -6,31 +6,30 @@ import './styles/NavBar.css';
 const NavBar = () => {
   return (
     <nav>
-      <ul>
-        <li>
-          <NavLink to='/' exact={true} activeClassName='active'>
+
+        <div>
+          <NavLink to='/' exact={true} activeClassName='active' className='home'>
             Home
           </NavLink>
-        </li>
-        <li>
-          <NavLink to='/login' exact={true} activeClassName='active'>
+        </div>
+        <div>
+          <NavLink to='/login' exact={true} activeClassName='active' className='login'>
             Login
           </NavLink>
-        </li>
-        <li>
-          <NavLink to='/sign-up' exact={true} activeClassName='active'>
+        </div>
+        <div>
+          <NavLink to='/sign-up' exact={true} activeClassName='active' className='signup'>
             Sign Up
           </NavLink>
-        </li>
-        <li>
+        </div>
+        {/* <div>
           <NavLink to='/users' exact={true} activeClassName='active'>
             Users
           </NavLink>
-        </li>
-        <li>
+        </div> */}
+        <div>
           <LogoutButton />
-        </li>
-      </ul>
+        </div>
     </nav>
   );
 }
