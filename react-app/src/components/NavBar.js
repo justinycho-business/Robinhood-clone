@@ -41,9 +41,6 @@ const NavBar = () => {
     return (
       <nav>
         <div>
-          <p>Welcome {user.username}</p>
-        </div>
-        <div>
           <NavLink to='/' exact={true} activeClassName='active' className='home'>
             Home
           </NavLink>
