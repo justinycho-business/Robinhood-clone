@@ -1,15 +1,10 @@
-import { useSelector } from 'react-redux'
 import { useState } from 'react';
 import './styles/Stocks.css';
 
 
 const Stocks = () => {
     const [totalStocks, setTotalStocks] = useState(1)
-    const user = useSelector(state => state.session.user)
-    const removeSignUpFromNavBar = useSelector(state => state.session.user)
     const marketCost = 10;
-    let estCost = 10;
-
     return (
         <div className='stocks-background'>
             <div className='stocks-info-container'>
