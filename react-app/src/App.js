@@ -8,6 +8,7 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import Dashboard from './components/Dashboard';
+import Home from './components/Home';
 import { authenticate } from './store/session';
 
 function App() {
@@ -27,11 +28,11 @@ function App() {
 
   return (
     <BrowserRouter>
+      <NavBar />
       <Switch>
         <Route path='/login' exact={true}>
           <LoginForm />
         </Route>
-        <NavBar />
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
         </Route>
@@ -42,8 +43,7 @@ function App() {
           <User />
         </ProtectedRoute>
         <Route path='/' exact={true} >
-          <h1>My Home Page</h1>
-          <h2>Maple Stocks</h2>
+          <Home/>
         </Route>
         <ProtectedRoute path='/dashboard/:userId' exact={true} >
           <Dashboard/>
