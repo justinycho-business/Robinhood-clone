@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import NavBar from './components/NavBar';
+import Stocks from './components/Stocks'
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
@@ -31,6 +32,9 @@ function App() {
         <Route path='/login' exact={true}>
           <LoginForm />
         </Route>
+        <Route path='/stocks'>
+          <Stocks />
+        </Route>
         <NavBar />
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
@@ -46,8 +50,9 @@ function App() {
           <h2>Maple Stocks</h2>
         </Route>
         <ProtectedRoute path='/dashboard/:userId' exact={true} >
-          <Dashboard/>
+          <Dashboard />
         </ProtectedRoute>
+
       </Switch>
     </BrowserRouter>
   );
