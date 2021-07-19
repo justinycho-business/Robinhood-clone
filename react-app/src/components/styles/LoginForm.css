@@ -18,8 +18,7 @@ html, body {
     float: left;
     width: 50%;
     flex: 50%;
-}
-    
+}   
 .row{
     display: flex;
     height:100%;
