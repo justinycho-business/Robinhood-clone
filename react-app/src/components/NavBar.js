@@ -7,19 +7,16 @@ import './styles/NavBar.css';
 
 
 const NavBar = () => {
-
-  
-
   const user = useSelector(state => state.session.user)
   const removeSignUpFromNavBar = useSelector(state => state.session.user)
 
-  if(removeSignUpFromNavBar) {
+  if (removeSignUpFromNavBar) {
     return (
       <nav>
         <div>
           <p>Welcome {user.username}</p>
         </div>
-         <div>
+        <div>
           <NavLink to='/' exact={true} activeClassName='active' className='home'>
             Home
           </NavLink>
@@ -38,16 +35,15 @@ const NavBar = () => {
         <div>
           <LogoutButton />
         </div>
-    </nav>
-
-
+      </nav>
+    )
   } else {
     return (
-           <nav>
+      <nav>
         <div>
           <p>Welcome {user.username}</p>
         </div>
-         <div>
+        <div>
           <NavLink to='/' exact={true} activeClassName='active' className='home'>
             Home
           </NavLink>
@@ -70,8 +66,8 @@ const NavBar = () => {
         <div>
           <LogoutButton />
         </div>
-    </nav>
-  )
+      </nav>
+    )
   }
 }
 
