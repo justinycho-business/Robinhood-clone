@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { addFundsToPortfolio } from '../store/dashboard';
+import { LineChart, Line, Area, Tooltip, CartesianGrid, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 import './styles/Dashboard.css'
 
 
@@ -10,6 +11,18 @@ function Dashboard() {
     const user = useSelector(state => state.session.user)
 
     const [portfolioValue, setPortolioValue] = useState("")
+
+    const graphData = [{uv: 75, time: 10}, {uv: 20, time: 15}, {uv: 45, time: 15}, {uv: 15, time: 25}, {uv: 35, time: 25}]
+    const renderLineChart = (
+        <ResponsiveContainer width="100%" aspect={2}>
+        <LineChart data={graphData}>
+            <Line type="monotone" dataKey="uv" stroke="#8884d8" />
+            <CartesianGrid stroke="#ccc" />
+            <XAxis dataKey="name" />
+            <YAxis />
+        </LineChart>
+        </ResponsiveContainer>
+    )
 
     // function to check if user is logged in then returns the user ID
     const loggedInUser = useSelector((state) => {
@@ -41,7 +54,16 @@ function Dashboard() {
                 <h3>Add a daily percent change {user.username}</h3>
             </div>
             <div className='graph'>
-                <div>Graph Goes Here</div>
+                <div>renderLineChart
+                <ResponsiveContainer width="100%" aspect={2}>
+                <LineChart data={graphData}>
+                    <Line type="monotone" dataKey="uv" stroke="#8884d8" />
+                    <CartesianGrid stroke="#ccc" />
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                </LineChart>
+                </ResponsiveContainer>
+                </div>
                 <button>1D</button>
                 <button>1W</button>
                 <button>1M</button>
