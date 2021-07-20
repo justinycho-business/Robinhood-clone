@@ -23,7 +23,6 @@
 
 .graph {
     grid-area: graph;
-    background-color: lightgray;
     margin: 0;
     padding: 10px;
 }
