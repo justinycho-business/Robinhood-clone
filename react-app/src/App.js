@@ -24,7 +24,7 @@ function App() {
   if (!loaded) {
     return null;
   }
-  
+
   return (
     <BrowserRouter>
       <NavBar />
@@ -48,7 +48,11 @@ function App() {
             <h1>My Home Page</h1>
             <h2>Maple Stocks</h2>
           </Route>
+          <Route path='/about-us' exact={true}>
+            <AboutUs />
+          </Route>
       </Switch>
+      <Footer />
     </BrowserRouter>
   );
 }

@@ -5,10 +5,12 @@ import './styles/Footer.css';
 const Footer = () => {
   return(
     <div className="footer">
-        <div className="navFooterContainer">
-  
-            </div>
-        </div>
+          <div>
+          <NavLink to='/about-us' className='about_us' exact={true}>
+            About us
+          </NavLink>
+          </div>
+    </div>
   )
 }
 
