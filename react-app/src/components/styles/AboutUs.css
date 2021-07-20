@@ -1,0 +1,95 @@
+.title_container {
+  font-weight: bold;
+  font-size: 40px;
+  text-align: center;
+  margin: 10px;
+}
+
+.about_us_outer_container {
+  /* display: flex;
+  justify-content: space-around; */
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  padding: 120px 0px;
+  box-sizing: border-box;
+  background: rgb(225, 235, 220);
+}
+
+.about_us_inner_container {
+  min-width: 1280px;
+  max-width: 1280px;
+  padding-left: 37px;
+  padding-right: 37px;
+}
+
+.about_us_container {
+  margin-left: -9px;
+  margin-right: -9px;
+  width: calc(100% + 18px);
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+/* .person_container {
+  margin-left: 6px;
+  margin-right: 6px;
+  width: calc(50% - 12px);
+  display: block;
+  visibility: visible;
+}
+
+.person_inner_container {
+  margin-left: 9px;
+  margin-right: 9px;
+  width: 288px;
+  display: block;
+  visibility: visible;
+} */
+
+.each_person {
+  /* border: 0.5px solid grey;
+  border-radius: 10px; */
+  margin: 10px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  right: 50px;
+  margin-left: 300px;
+}
+
+.person_pic {
+  /* height: 75px;
+  width: 75px; */
+  max-width: 25%;
+  margin: 10px;
+  border-radius: 50%;
+  border: 3px solid #B4A0E5;
+}
+
+.person_desc {
+  margin-left: 100px;
+  font-family: "Capsule Sans Display",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 50;
+  line-height: 40px;
+  -webkit-letter-spacing: -0.32px;
+  -moz-letter-spacing: -0.32px;
+  -ms-letter-spacing: -0.32px;
+  letter-spacing: -0.32px;
+  -webkit-text-decoration: unset;
+  text-decoration: unset;
+}
+
+.second_title_container {
+  display: flex;
+  justify-content: center;
+}
+
+.second_title {
+  font-size: 70px;
+}
