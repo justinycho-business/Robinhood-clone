@@ -72,4 +72,9 @@ nav{
 
 .feather_icon {
     color: black;
+    display: flex;
+}
+
+.fa-feather:before {
+    margin-left: 5px;
 }
