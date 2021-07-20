@@ -35,7 +35,6 @@ app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(dashboard_routes, url_prefix='/api/dashboard')
 
-app.register_blueprint(stock_routes, url_prefix='/api/company')
 app.register_blueprint(stock_routes, url_prefix='/api/stocks')
 
 db.init_app(app)
