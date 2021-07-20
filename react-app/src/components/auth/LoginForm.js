@@ -31,7 +31,7 @@ const LoginForm = () => {
   };
 
   if (user) {
-    return <Redirect to='/dashboard' />;
+    return <Redirect to={`/dashboard/${user.id}`} />;
   }
 
   return (

@@ -40,7 +40,7 @@ function App() {
         <Route path='/login' exact={true}>
           <LoginForm />
         </Route>
-         <Route path='/stocks'>
+         <Route path='/stocks' exact={true}>
           <Stocks />
         </Route>
         <ProtectedRoute path='/dashboard/:userId' exact={true} >
