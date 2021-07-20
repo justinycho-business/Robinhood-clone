@@ -4,9 +4,11 @@ class Watchlist(db.Model):
     __tablename__ = 'watchlists'
 
     id = db.Column(db.INTEGER, primary_key=True)
-    user_id = db.Column(db.INTEGER, nullable=False, unique=True)
-    company_id = db.Column(db.INTEGER, nullable=False, unique=True)
     ticker = db.Column(db.VARCHAR, nullable=False)
+    user_id = db.Column(db.INTEGER, db.ForeignKey('users.id'), nullable=False, unique=True)
+    company_id = db.Column(db.INTEGER, db.ForeignKey('companies.id'), nullable=False, unique=True)
+    user = db.relationship("User", back_populates="watchlist")
+    company = db.relationship("Company", back_populates="watchlist")
 
 def to_dict(self):
         return {
