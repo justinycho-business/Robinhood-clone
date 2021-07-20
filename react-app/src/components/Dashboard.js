@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { addFundsToPortfolio } from '../store/dashboard';
+import intradayData from '../data/data';
 
 import { LineChart, Line, Area, Tooltip, CartesianGrid, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 import './styles/Dashboard.css'
@@ -13,18 +14,6 @@ function Dashboard() {
     const user = useSelector(state => state.session.user)
 
     const [portfolioValue, setPortolioValue] = useState("")
-
-    const graphData = [{uv: 75, time: 10}, {uv: 20, time: 15}, {uv: 45, time: 15}, {uv: 15, time: 25}, {uv: 35, time: 25}]
-    const renderLineChart = (
-        <ResponsiveContainer width="100%" aspect={2}>
-        <LineChart data={graphData}>
-            <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-            <CartesianGrid stroke="#ccc" />
-            <XAxis dataKey="name" />
-            <YAxis />
-        </LineChart>
-        </ResponsiveContainer>
-    )
 
     // function to check if user is logged in then returns the user ID
     const loggedInUser = useSelector((state) => {
@@ -47,6 +36,36 @@ function Dashboard() {
     useEffect(() => {
     }, [dispatch])
 
+    // <ResponsiveContainer width="100%" aspect={2}>
+    // <LineChart data={graphData}>
+    //     <Line type="monotone" dataKey="close" stroke="#8884d8" />
+    //     <CartesianGrid stroke="#ccc" />
+    //     <XAxis dataKey="date" />
+    //     <YAxis />
+    // </LineChart>
+    // </ResponsiveContainer>
+
+    const min = (data) => {
+        let min = Infinity;
+        for(let i = 0; i < data.length; i++) {
+            let lowData = data[i].low
+            if(lowData < min) {
+                min = lowData;
+            };
+        }
+        return parseFloat((min * 0.995).toFixed(2));
+    };
+    const max = (data) => {
+        let max = 0;
+        for(let i = 0; i < data.length; i++) {
+            let highData = data[i].high;
+            if(highData > max) {
+                max = highData;
+            };
+        };
+        return parseFloat((max * 1.005).toFixed(2));
+    };
+
 
     return (
         <div class='wrapper'>
@@ -56,15 +75,16 @@ function Dashboard() {
                 <h3>Add a daily percent change {user.username}</h3>
             </div>
             <div className='graph'>
-                <div>renderLineChart
-                <ResponsiveContainer width="100%" aspect={2}>
-                <LineChart data={graphData}>
-                    <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-                    <CartesianGrid stroke="#ccc" />
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                </LineChart>
-                </ResponsiveContainer>
+                <div>
+                    <ResponsiveContainer width="100%" aspect={2}>
+                    <LineChart data={intradayData}>
+                        <Line dataKey="close" stroke="#6afa27"
+                            strokeWidth={2} dot={false} isAnimationActive={false}/>
+                        <XAxis hide={true} dataKey="date" />
+                        <YAxis hide={true} domain={[min(intradayData), max(intradayData)]}/>
+                        <Tooltip />
+                    </LineChart>
+                    </ResponsiveContainer>
                 </div>
                 <button>1D</button>
                 <button>1W</button>
