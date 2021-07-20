@@ -10,13 +10,16 @@ const AboutUs = () => {
         <div className="about_us_outer_container">
             <div className="about_us_inner_container">
                 <div className="about_us_container">
+                <div className="second_title_container">
+                  <h2 className="second_title">Meet our team</h2>
+                </div>
                     <div className="each_person">
                         <img src="/pics/Joshua.png" className="person_pic"></img>
                             <a href="https://github.com/josh-willy91" target="_blank">
                               Joshua Williams
                             </a>
                     <div className="person_desc">
-                        <h2>Awesome guy.</h2>
+                        <h3>Awesome guy.</h3>
                     </div>
                     </div>
                     <div className="each_person">
@@ -25,7 +28,7 @@ const AboutUs = () => {
                               Gary Rios
                             </a>
                     <div className="person_desc">
-                        <h2>Favorite color is green.</h2>
+                        <h3>Favorite color is green.</h3>
                     </div>
                     </div>
                     <div className="each_person">
@@ -34,7 +37,7 @@ const AboutUs = () => {
                               Ebrahim Tayara
                             </a>
                     <div className="person_desc">
-                        <h2>Sucks at CSS.</h2>
+                        <h3>Sucks at CSS.</h3>
                     </div>
                     </div>
                     <div className="each_person">
@@ -43,7 +46,7 @@ const AboutUs = () => {
                               Justin Cho
                             </a>
                     <div className="person_desc">
-                        <h2>Enjoys the finer things in life.</h2>
+                        <h3>Enjoys the finer things in life.</h3>
                     </div>
                     </div>
                   </div>

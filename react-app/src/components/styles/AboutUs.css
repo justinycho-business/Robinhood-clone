@@ -84,3 +84,12 @@
   -webkit-text-decoration: unset;
   text-decoration: unset;
 }
+
+.second_title_container {
+  display: flex;
+  justify-content: center;
+}
+
+.second_title {
+  font-size: 70px;
+}
