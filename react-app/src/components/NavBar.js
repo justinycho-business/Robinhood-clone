@@ -14,26 +14,29 @@ const NavBar = () => {
     return (
       <nav>
         <div>
-          <p>Welcome {user.username}</p>
-        </div>
-        <div>
-          <i class="fa-solid fa-feather-pointed"></i>
           <NavLink to='/' exact={true} activeClassName='active' className='home'>
-            Mr.Hood
+          <div className="feather_icon">
+          <i class="fas fa-feather"></i>
+          </div>
           </NavLink>
+        </div>
+        <div className="welcome_message">
+          <p>Welcome {user.username}</p>
         </div>
         {/* <div>
           <NavLink to='/users' exact={true} activeClassName='active'>
             Users
           </NavLink>
         </div> */}
-        <div>
-          <NavLink to={`/dashboard/${user.id}`} exact={true} activeClassName='active' className='home'>
-            Dashboard
-          </NavLink>
-        </div>
-        <div>
-          <LogoutButton />
+        <div className="nav_icons">
+          <div>
+            <NavLink to={`/dashboard/${user.id}`} exact={true} activeClassName='active' className='dashboard'>
+              Dashboard
+            </NavLink>
+          </div>
+          <div>
+            <LogoutButton />
+          </div>
         </div>
       </nav>
     )
@@ -46,7 +49,7 @@ const NavBar = () => {
           Mr.Hood <i class="fas fa-feather"></i>
           </div>
           </NavLink>
-          </div>
+        </div>
         {/* <div>
           <NavLink to='/login' exact={true} activeClassName='active' className='login'>
             Login
