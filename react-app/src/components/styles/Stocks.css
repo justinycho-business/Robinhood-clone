@@ -23,7 +23,7 @@
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     margin-left: 10px;
     margin-bottom: 0px;
-}
+    width:535px;}
 .stock-price{
     margin-top: 0px;
     margin-left: 10px;
@@ -39,6 +39,7 @@
     position: absolute;
     display: flex;
     align-items: left;
+    margin-top: 45px;
     margin-left: 680px;
 }
 .actions-container{
@@ -78,6 +79,7 @@
   }
 
 .watchlist-btn{
+    position: absolute;
     display: flex;
     /* background-color: rgb(13, 223, 24); */
     background-color: white;
@@ -90,7 +92,7 @@
     display: inline-block;
     font-size: 16px;
     border-radius: 4px;
-    margin-left: 400px;
+    /* margin-left: 400px; */
     margin-top: 450px;
     outline: 1px solid;
 }
@@ -99,7 +101,9 @@
     color: rgb(184, 62, 88);
 }
 .watchlist-container{
-      border-radius: 8px;
+    margin-top: 30px;;
+    margin-left: 180px;
+    border-radius: 8px;
   }
 .form-item{
       font-size: 12px;
@@ -134,4 +138,22 @@
 .buying-power-container{
 font-size: 10px;
 margin-left: 40px;
+}
+
+.company-graph{
+    position: absolute;
+    margin-top: 190px;;
+    height: 300px;
+    width: 600px;
+    margin-left: 12px;    
+}
+.time-btn{
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+    color: rgb(0, 0, 0);
 }

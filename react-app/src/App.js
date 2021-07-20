@@ -40,7 +40,7 @@ function App() {
         <Route path='/login' exact={true}>
           <LoginForm />
         </Route>
-         <Route path='/stocks' exact={true}>
+        <Route path='/stocks/:ticker' exact={true}>
           <Stocks />
         </Route>
         <ProtectedRoute path='/dashboard/:userId' exact={true} >
@@ -56,10 +56,10 @@ function App() {
           <User />
         </ProtectedRoute>
         <Route path='/' exact={true} >
-          <Home/>
+          <Home />
         </Route>
         <Route path='/stocks/justinpage' exact={true} >
-          <API/>
+          <API />
         </Route>
         <Route path='/about-us' exact={true}>
           <AboutUs />

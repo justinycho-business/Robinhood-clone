@@ -6,21 +6,25 @@ import requests
 import os
 
 apikey = os.environ.get('API_FIN_PUBLIC')
-apikey2=os.environ.get('API_2_FIN')
+apikey2 = os.environ.get('API_2_FIN')
 
 stock_routes = Blueprint('stocks', __name__)
 
-@stock_routes.route('/justinpage')
+
+@stock_routes.route('/justinpage/<path:ticker>')
 # @login_required
-def stock():
-    res = requests.get(f'https://cloud.iexapis.com/stable/stock/XOM/quote?token={apikey}')
-    print(res.json())
+def stock(ticker):
+    print("ticker reached:", ticker)
+    res = requests.get(
+        f'https://cloud.iexapis.com/stable/stock/{ticker}/quote?token={apikey}')
     return res.json()
+
 
 @stock_routes.route('/2')
 # @login_required
 def stock2():
-    res = requests.get(f'https://financialmodelingprep.com/api/v3/historical-chart/15min/AAPL?apikey={apikey2}')
+    res = requests.get(
+        f'https://financialmodelingprep.com/api/v3/historical-chart/15min/AAPL?apikey={apikey2}')
     print(res.json())
     return res.json()
 
@@ -32,4 +36,3 @@ def stocks():
 
 # @stock_routes.route('/<int:id>')
 # def stock(id):
-
