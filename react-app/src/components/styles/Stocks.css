@@ -6,7 +6,6 @@
     left: 0;
     width:100%;
     height:100%;
-    background-color: black;
 }
 .stocks-info-container{
     display: flex;
@@ -23,7 +22,7 @@
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     margin-left: 10px;
     margin-bottom: 0px;
-}
+    width:535px;}
 .stock-price{
     margin-top: 0px;
     margin-left: 10px;
@@ -79,6 +78,7 @@
   }
 
 .watchlist-btn{
+    position: absolute;
     display: flex;
     /* background-color: rgb(13, 223, 24); */
     background-color: white;
@@ -91,7 +91,7 @@
     display: inline-block;
     font-size: 16px;
     border-radius: 4px;
-    margin-left: 400px;
+    /* margin-left: 400px; */
     margin-top: 450px;
     outline: 1px solid;
 }
@@ -101,7 +101,7 @@
 }
 .watchlist-container{
     margin-top: 30px;;
-    margin-left: 50px;
+    margin-left: 180px;
     border-radius: 8px;
   }
 .form-item{

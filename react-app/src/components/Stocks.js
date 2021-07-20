@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 import './styles/Stocks.css';
 
@@ -11,15 +11,20 @@ const Stocks = () => {
     const user = useSelector(state => state.session.user)
     const buyingPower = 100.00
     const n = buyingPower.toFixed(2)
-    const ticker = 'APLE'
     const graphData = [{ uv: 75, time: 10 }, { uv: 20, time: 15 }, { uv: 45, time: 15 }, { uv: 15, time: 25 }, { uv: 35, time: 25 }]
+    let graphDataExample;
     const id = useParams()
 
     useEffect(() => {
         (async function fetchData() {
             const response = await fetch(`/api/stocks/justinpage/${id.ticker}`);
             const responseData = await response.json();
-            console.log(id.ticker);
+            console.log(responseData);
+            graphDataExample = [
+                { uv: responseData.previousClose, time: 10 },
+                { uv: responseData.previousClose, time: 15 }
+            ]
+            console.log(graphDataExample)
             setstockdata(responseData);
         })()
     }, [user]);
@@ -30,12 +35,12 @@ const Stocks = () => {
                 <div className='stock-details'>
                     <h2 className='stock-title'>{stockdata?.companyName}</h2>
                     <h2 className='stock-price'>${stockdata?.latestPrice}</h2>
-                    <h2 className='stock-change'> $ {stockdata?.change} ({(stockdata?.changePercent.toFixed(2))}%) Today</h2>
+                    <h2 className='stock-change'> $+ {stockdata?.change} ({(stockdata?.changePercent.toFixed(2))}%) Today</h2>
                 </div>
                 <div className='side-bar-content'>
                     <div className='actions-container'>
                         <form className='buy-form'>
-                            <label className='form-title'> Buy {ticker} :</label>
+                            <label className='form-title'> Buy {stockdata?.symbol} :</label>
                             <div className='form-shares'>
                                 <label className='form-item'>Shares: </label>
                                 <input className='form-shares-input' placeholder={1}
@@ -80,7 +85,7 @@ const Stocks = () => {
                     <button>All</button>
                 </div>
                 <div className='watchlist-container'>
-                    <button className='watchlist-btn'>Watch APLE</button>
+                    <button className='watchlist-btn'>Watch {stockdata?.symbol}</button>
                 </div>
             </div>
         </div>
