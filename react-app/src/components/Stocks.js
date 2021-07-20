@@ -7,6 +7,7 @@ const Stocks = () => {
     const marketCost = 10;
     const buyingPower = 100.00
     const n = buyingPower.toFixed(2)
+    const ticker = 'APLE'
     return (
         <div className='stocks-background'>
             <div className='stocks-info-container'>
@@ -18,7 +19,7 @@ const Stocks = () => {
                 <div className='side-bar-content'>
                     <div className='actions-container'>
                         <form className='buy-form'>
-                            <label className='form-title'> Buy APLE :</label>
+                            <label className='form-title'> Buy {ticker} :</label>
                             <div className='form-shares'>
                                 <label className='form-item'>Shares: </label>
                                 <input className='form-shares-input' placeholder={1}
