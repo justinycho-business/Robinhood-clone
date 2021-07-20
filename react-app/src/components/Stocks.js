@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
 import './styles/Stocks.css';
 
 
@@ -71,10 +71,10 @@ const Stocks = () => {
                     <div>
                         <ResponsiveContainer width="100%" aspect={2}>
                             <LineChart data={graphData}>
-                                <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-                                <CartesianGrid stroke="#ccc" />
+                                <Line dataKey="uv" stroke="#8884d8" />
                                 <XAxis dataKey="name" />
                                 <YAxis />
+                                <Tooltip />
                             </LineChart>
                         </ResponsiveContainer>
                     </div>
