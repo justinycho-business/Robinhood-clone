@@ -9,8 +9,13 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import Dashboard from './components/Dashboard';
+
+import Home from './components/Home';
+import API from './components/API'
+
 import Footer from './components/Footer';
 import AboutUs from './components/AboutUs';
+
 import { authenticate } from './store/session';
 
 function App() {
@@ -35,7 +40,7 @@ function App() {
         <Route path='/login' exact={true}>
           <LoginForm />
         </Route>
-        <Route path='/stocks'>
+         <Route path='/stocks'>
           <Stocks />
         </Route>
         <ProtectedRoute path='/dashboard/:userId' exact={true} >
@@ -51,8 +56,10 @@ function App() {
           <User />
         </ProtectedRoute>
         <Route path='/' exact={true} >
-          <h1>My Home Page</h1>
-          <h2>Maple Stocks</h2>
+          <Home/>
+        </Route>
+        <Route path='/stocks/justinpage' exact={true} >
+          <API/>
         </Route>
         <Route path='/about-us' exact={true}>
           <AboutUs />
