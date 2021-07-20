@@ -1,10 +1,13 @@
-import { useSelector } from 'react-redux'
+import { useState } from 'react';
 import './styles/Stocks.css';
 
 
 const Stocks = () => {
-    const user = useSelector(state => state.session.user)
-    const removeSignUpFromNavBar = useSelector(state => state.session.user)
+    const [totalStocks, setTotalStocks] = useState(1)
+    const marketCost = 10;
+    const buyingPower = 100.00
+    const n = buyingPower.toFixed(2)
+    const ticker = 'APLE'
     return (
         <div className='stocks-background'>
             <div className='stocks-info-container'>
@@ -16,24 +19,29 @@ const Stocks = () => {
                 <div className='side-bar-content'>
                     <div className='actions-container'>
                         <form className='buy-form'>
-                            <label> Buy AAPL <select>
-                                <option value={1}> 1 </option>
-                                <option value={5}> 5 </option>
-                                <option value={10}> 10 </option>
-                            </select> </label>
-                            <div>
-                                <label>Shares </label>
+                            <label className='form-title'> Buy {ticker} :</label>
+                            <div className='form-shares'>
+                                <label className='form-item'>Shares: </label>
+                                <input className='form-shares-input' placeholder={1}
+                                    onChange={(e) => setTotalStocks(e.target.value)}
+                                    value={totalStocks}
+                                ></input>
                             </div>
-                            <divv>
-                                <label>Market Price</label>
-                            </divv>
-                            <div>
-                                <label>Estimated Cost:</label>
+                            <div className='form-market-price'>
+                                <label className='form-item'>Market Price :</label>
+                                <h1 className='market-price'>{marketCost}</h1>
+                            </div>
+                            <div className='est-cost-container'>
+                                <label className='form-item'>Estimated Cost:</label>
+                                <h1 className='total-price'>{totalStocks * marketCost}</h1>
                             </div>
                             <div className='buy-btn-container'>
                                 <button className='buy-btn'>Buy</button>
                             </div>
                         </form>
+                        <div className='buying-power-container'>
+                            <h2>${n} buying power available</h2>
+                        </div>
                     </div>
                 </div>
                 <div className='watchlist-container'>
