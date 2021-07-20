@@ -17,8 +17,9 @@ const NavBar = () => {
           <p>Welcome {user.username}</p>
         </div>
         <div>
+          <i class="fa-solid fa-feather-pointed"></i>
           <NavLink to='/' exact={true} activeClassName='active' className='home'>
-            Home
+            Mr.Hood
           </NavLink>
         </div>
         {/* <div>
@@ -40,15 +41,18 @@ const NavBar = () => {
     return (
       <nav>
         <div>
+          <div className="feather_icon">
+            <i class="fa-solid fa-feather-pointed"></i>
+          </div>
           <NavLink to='/' exact={true} activeClassName='active' className='home'>
-            Home
+            Mr.Hood
           </NavLink>
         </div>
-        <div>
+        {/* <div>
           <NavLink to='/login' exact={true} activeClassName='active' className='login'>
             Login
           </NavLink>
-        </div>
+        </div> */}
         <div>
           <NavLink to='/sign-up' exact={true} activeClassName='active' className='signup'>
             Sign Up
