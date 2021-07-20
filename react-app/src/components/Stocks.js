@@ -1,19 +1,30 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './styles/Stocks.css';
 
 
 const Stocks = () => {
+    const [stockdata, setstockdata] = useState(null);
     const [totalStocks, setTotalStocks] = useState(1)
-    const marketCost = 10;
     const buyingPower = 100.00
     const n = buyingPower.toFixed(2)
     const ticker = 'APLE'
+
+    useEffect(() => {
+        (async function fetchData() {
+            const response = await fetch('/api/stocks/justinpage');
+            const responseData = await response.json();
+            console.log(responseData);
+            setstockdata(responseData);
+        })()
+
+    }, []);
+
     return (
         <div className='stocks-background'>
             <div className='stocks-info-container'>
                 <div className='stock-details'>
-                    <h2 className='stock-title'>Apple Hospitality REIT</h2>
-                    <h2 className='stock-price'>$14.08</h2>
+                    <h2 className='stock-title'>{stockdata?.companyName}</h2>
+                    <h2 className='stock-price'>{stockdata?.iexAskPrice}</h2>
                     <h2 className='stock-change'>-$0.46 (-3.20%) As of 10:59 AM PDT today</h2>
                 </div>
                 <div className='side-bar-content'>
@@ -29,11 +40,11 @@ const Stocks = () => {
                             </div>
                             <div className='form-market-price'>
                                 <label className='form-item'>Market Price :</label>
-                                <h1 className='market-price'>{marketCost}</h1>
+                                <h1 className='market-price'>{stockdata?.iexAskPrice}</h1>
                             </div>
                             <div className='est-cost-container'>
                                 <label className='form-item'>Estimated Cost:</label>
-                                <h1 className='total-price'>{totalStocks * marketCost}</h1>
+                                <h1 className='total-price'>{totalStocks * stockdata?.iexAskPrice}</h1>
                             </div>
                             <div className='buy-btn-container'>
                                 <button className='buy-btn'>Buy</button>
