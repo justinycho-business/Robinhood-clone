@@ -1,10 +1,16 @@
 
 
 // Define action types
+const DASHBOARD_DATA = 'dashboard/DASHBOARD_DATA';
 const ADD_FUNDS = 'dashboard/ADD_FUNDS';
 
 
 // Action Creators
+const dashboardData = (userData) => ({
+    type: DASHBOARD_DATA,
+    payload: userData
+})
+
 const addFunds = (amount) => ({
     type: ADD_FUNDS,
     payload: amount
@@ -12,6 +18,16 @@ const addFunds = (amount) => ({
 
 
 // Define Thunks
+export const getDashboardData = (id) => async (dispatch) => {
+    console.log('inside thunk ==============================')
+    const response = await fetch(`/api/dashboard/${id}`)
+
+    if(response.ok) {
+        const watchlistData = await response.json();
+        dispatch(dashboardData(watchlistData));
+    }
+}
+
 export const addFundsToPortfolio = (payload) => async (dispatch) => {
     const response = await fetch('/api/dashboard/addFunds/', {
         method: 'POST',
@@ -34,6 +50,8 @@ export default function dashboardReducer(state = initialState, action) {
     switch (action.type) {
         case ADD_FUNDS:
             return {...state, amount: [action.payload] }
+        case DASHBOARD_DATA:
+            return {...state, userData: [action.payload]}
         default:
             return state;
     };

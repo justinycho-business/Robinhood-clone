@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { addFundsToPortfolio } from '../store/dashboard';
+import { addFundsToPortfolio, getDashboardData } from '../store/dashboard';
 import intradayData from '../data/data';
 
 import { LineChart, Line, Area, Tooltip, CartesianGrid, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 import './styles/Dashboard.css'
 
 
-
 function Dashboard() {
     const dispatch = useDispatch()
     const user = useSelector(state => state.session.user)
+    const watchlist = useSelector(state => state?.dashboard?.userData)
+    const watchlistData = useSelector(state => state?.dashboard?.userData)
 
     const [portfolioValue, setPortolioValue] = useState("")
 
@@ -32,18 +33,11 @@ function Dashboard() {
         return dispatch(addFundsToPortfolio(payload))
     }
 
-
     useEffect(() => {
+        console.log('inside use effect =============================')
+        dispatch(getDashboardData(user?.id))
     }, [dispatch])
 
-    // <ResponsiveContainer width="100%" aspect={2}>
-    // <LineChart data={graphData}>
-    //     <Line type="monotone" dataKey="close" stroke="#8884d8" />
-    //     <CartesianGrid stroke="#ccc" />
-    //     <XAxis dataKey="date" />
-    //     <YAxis />
-    // </LineChart>
-    // </ResponsiveContainer>
 
     const min = (data) => {
         let min = Infinity;
@@ -110,7 +104,7 @@ function Dashboard() {
                 </form>
             </div>
             <div className='watchlistDiv'>
-                <h1>Watchlist</h1>
+                <h1>Portfolio</h1>
                 <ul className='watchlistUl'>
                     <li className='watchlistLi'>
                         <p className='ticker'>AAPL</p>
@@ -132,6 +126,25 @@ function Dashboard() {
                         <p className='lilGraph'>Small Graph</p>
                         <p className='price'>$652.09</p>
                         <p className='percent'>2.38%</p>
+                    </li>
+                </ul>
+            </div>
+            <div className='watchlistDiv'>
+                <h1>Watchlist</h1>
+                <ul className='watchlistUl'>
+                    {watchlistData && watchlistData[0]?.watchlistAPICallData.map((company) => (
+                        <li key={company.id}>
+                            <p className='ticker'>{company[0].symbol}</p>
+                            <p className='lilGraph'>small graph</p>
+                            <p className='price'>{company[0].price}</p>
+                            {/* <p className='percent'>{company.ticker}</p> */}
+                        </li>
+                    ))}
+                    <li className='watchlistLi'>
+                        <p className='ticker'>AAPL</p>
+                        <p className='lilGraph'>Small Graph</p>
+                        <p className='price'>Price</p>
+                        <p className='percent'>Percent Change</p>
                     </li>
                 </ul>
             </div>
