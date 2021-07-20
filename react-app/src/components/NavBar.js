@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 import { useSelector } from 'react-redux'
@@ -7,6 +7,7 @@ import './styles/NavBar.css';
 
 
 const NavBar = () => {
+  const [search, setSearch] = useState('')
   const user = useSelector(state => state.session.user)
   const removeSignUpFromNavBar = useSelector(state => state.session.user)
 
@@ -23,6 +24,8 @@ const NavBar = () => {
         <div className="welcome_message">
           <p>Welcome {user.username}</p>
         </div>
+        <label htmlFor="search">Search</label>
+        <input type="text" value={search} onChange={(e) => setSearch(e.target.value)}></input>
         {/* <div>
           <NavLink to='/users' exact={true} activeClassName='active'>
             Users
