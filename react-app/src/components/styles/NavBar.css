@@ -1,24 +1,52 @@
 nav{
-
-    display: flex;
+    /* display: flex;
     justify-content: space-evenly;
     align-items: center;
     flex-direction: row;
     width: 100%;
     height: 64px;
-    background-color: #E34819;
+    background-color: #E34819; */
 
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 1px 4px 0px rgb(0 0 0 / 20%);
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    height: 64px;
+    padding: 0 30px;
 }
 
 .signup{
-    display: block;
+    /* display: block;
     border-radius: 10px;
     background-color: lightgreen;
     padding: 10px;
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 20px;
+    text-decoration: none; */
+    color: black;
     text-decoration: none;
-
+    align-items: center;
+    box-sizing: border-box;
+    display: inline-flex;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    white-space: nowrap;
+    padding: 0px 36px;
+    height: 48px;
+    min-width: 144px;
+    border-radius: 24px;
+    cursor: pointer;
+    background-color: rgb(0, 200, 5);
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .login{
@@ -34,9 +62,43 @@ nav{
 .home{
     display: block;
     border-radius: 10px;
-    background-color:lightgreen;
     padding: 10px;
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 20px;
     text-decoration: none;
+    font-size: 27px;
+    color:black;
+}
+
+.feather_icon {
+    color: black;
+    display: flex;
+}
+
+.fa-feather:before {
+    margin-left: 5px;
+}
+
+.nav_icons {
+    display: flex;
+}
+
+.dashboard {
+    display: block;
+    border-radius: 10px;
+    background-color: white;
+    padding: 10px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 20px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 17px;
+    position: absolute;
+    right:100px;
+}
+
+.welcome_message {
+    position: absolute;
+    right: 1250px;
 }

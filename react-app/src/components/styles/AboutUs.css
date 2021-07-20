@@ -88,6 +88,7 @@
 .second_title_container {
   display: flex;
   justify-content: center;
+  margin-left: 27px;
 }
 
 .second_title {
