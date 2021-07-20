@@ -6,6 +6,7 @@
     left: 0;
     width:100%;
     height:100%;
+    background-color: black;
 }
 .stocks-info-container{
     display: flex;
@@ -145,4 +146,14 @@ margin-left: 40px;
     height: 300px;
     width: 600px;
     margin-left: 12px;    
+}
+.time-btn{
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+    color: rgb(0, 0, 0);
 }

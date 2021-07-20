@@ -1,33 +1,35 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 import './styles/Stocks.css';
 
 
 const Stocks = () => {
     const [stockdata, setstockdata] = useState(null);
-    const [totalStocks, setTotalStocks] = useState(1)
-    const user = useSelector(state => state.session.user)
-    const buyingPower = 100.00
-    const n = buyingPower.toFixed(2)
-    const graphData = [{ uv: 75, time: 10 }, { uv: 20, time: 15 }, { uv: 45, time: 15 }, { uv: 15, time: 25 }, { uv: 35, time: 25 }]
-    let graphDataExample;
-    const id = useParams()
+    const [totalStocks, setTotalStocks] = useState(1);
+    const user = useSelector(state => state.session.user);
+    const graphData = [{ uv: 75, time: 10 }, { uv: 20, time: 15 }, { uv: 45, time: 15 }, { uv: 15, time: 25 }, { uv: 35, time: 25 }];
+    const id = useParams();
+    const dispath = useDispatch();
+    // let graphDataExample;
 
     useEffect(() => {
         (async function fetchData() {
             const response = await fetch(`/api/stocks/justinpage/${id.ticker}`);
             const responseData = await response.json();
-            console.log(responseData);
-            graphDataExample = [
-                { uv: responseData.previousClose, time: 10 },
-                { uv: responseData.previousClose, time: 15 }
-            ]
-            console.log(graphDataExample)
+            // graphDataExample = [
+            //     { uv: responseData.previousClose, time: 10 },
+            //     { uv: responseData.previousClose, time: 15 }
+            // ]
+            console.log(user)
             setstockdata(responseData);
         })()
-    }, [user]);
+    }, [user, id]);
+
+    const addToWatchlist = (e) => {
+        e.preventDefault();
+    };
 
     return (
         <div className='stocks-background'>
@@ -61,7 +63,7 @@ const Stocks = () => {
                             </div>
                         </form>
                         <div className='buying-power-container'>
-                            <h2>${n} buying power available</h2>
+                            <h2>${user?.buying_power} buying power available</h2>
                         </div>
                     </div>
                 </div>
@@ -76,20 +78,20 @@ const Stocks = () => {
                             </LineChart>
                         </ResponsiveContainer>
                     </div>
-                    <button>1D</button>
-                    <button>1W</button>
-                    <button>1M</button>
-                    <button>3M</button>
-                    <button>1Y</button>
-                    <button>5Y</button>
-                    <button>All</button>
+                    <button className='time-btn'>1D</button>
+                    <button className='time-btn'>1W</button>
+                    <button className='time-btn'>1M</button>
+                    <button className='time-btn'>3M</button>
+                    <button className='time-btn'>1Y</button>
+                    <button className='time-btn'>5Y</button>
+                    <button className='time-btn'>All</button>
                 </div>
                 <div className='watchlist-container'>
-                    <button className='watchlist-btn'>Watch {stockdata?.symbol}</button>
+                    <button className='watchlist-btn' onClick={addToWatchlist}>Watch {stockdata?.symbol}</button>
                 </div>
             </div>
         </div>
     )
-}
+};
 
 export default Stocks;
