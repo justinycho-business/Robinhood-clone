@@ -9,26 +9,30 @@ const AboutUs = () => {
         </div>
         <div className="about_us_outer_container">
             <div className="about_us_inner_container">
-                <a href="https://github.com/josh-willy91" target="_blank">
                     <div className="each_person">
-                        <img src="/public/pics/Joshua.png" className="person_pic"></img>
+                        <img src="/pics/Joshua.png" className="person_pic"></img>
+                            <a href="https://github.com/josh-willy91" target="_blank">
+                              Joshua Williams
+                            </a>
                     </div>
-                </a>
-                <a href="https://github.com/babypwant" target="_blank">
                     <div className="each_person">
-                        <img src="/public/pics/Gary.png" className="person_pic"></img>
+                        <img src="/pics/Gary.png" className="person_pic"></img>
+                            <a href="https://github.com/babypwant" target="_blank">
+                              Gary Rios
+                            </a>
                     </div>
-                </a>
-                <a href="https://github.com/ebtayara" target="_blank">
                     <div className="each_person">
-                        <img src="/public/pics/Eb.png" className="person_pic"></img>
+                        <img src="/pics/Eb.png" className="person_pic"></img>
+                            <a href="https://github.com/ebtayara" target="_blank">
+                              Ebrahim Tayara
+                            </a>
                     </div>
-                </a>
-                <a href="https://github.com/justinycho-business" target="_blank">
                     <div className="each_person">
-                        <img src="/public/pics/Justin.png" className="person_pic"></img>
+                        <img src="/pics/Justin.png" className="person_pic"></img>
+                            <a href="https://github.com/justinycho-business" target="_blank">
+                              Justin Cho
+                            </a>
                     </div>
-                </a>
                 </div>
             </div>
         </div>
