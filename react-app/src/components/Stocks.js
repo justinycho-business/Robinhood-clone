@@ -9,6 +9,7 @@ const Stocks = () => {
     const n = buyingPower.toFixed(2)
     const ticker = 'APLE'
 
+
     useEffect(() => {
         (async function fetchData() {
             const response = await fetch('/api/stocks/justinpage');
@@ -16,8 +17,9 @@ const Stocks = () => {
             console.log(responseData);
             setstockdata(responseData);
         })()
-
     }, []);
+
+
 
     return (
         <div className='stocks-background'>
@@ -25,7 +27,7 @@ const Stocks = () => {
                 <div className='stock-details'>
                     <h2 className='stock-title'>{stockdata?.companyName}</h2>
                     <h2 className='stock-price'>{stockdata?.iexAskPrice}</h2>
-                    <h2 className='stock-change'>-$0.46 (-3.20%) As of 10:59 AM PDT today</h2>
+                    <h2 className='stock-change'>( {stockdata?.changePercent * 10}%) Today</h2>
                 </div>
                 <div className='side-bar-content'>
                     <div className='actions-container'>
