@@ -17,7 +17,7 @@ const Stocks = () => {
 
     useEffect(() => {
         (async function fetchData() {
-            const response = await fetch('/api/stocks/justinpage');
+            const response = await fetch(`/api/stocks/justinpage/${id.ticker}`);
             const responseData = await response.json();
             console.log(id.ticker);
             setstockdata(responseData);
