@@ -14,6 +14,15 @@ const AboutUs = () => {
                   <h2 className="second_title">Meet our team</h2>
                 </div>
                     <div className="each_person">
+                        <img src="/pics/Baylen.png" className="person_pic"></img>
+                            <a href="https://github.com/baylend123" target="_blank">
+                              Baylen Doss
+                            </a>
+                    <div className="person_desc">
+                        <h3>Project Advisor.</h3>
+                    </div>
+                    </div>
+                    <div className="each_person">
                         <img src="/pics/Joshua.png" className="person_pic"></img>
                             <a href="https://github.com/josh-willy91" target="_blank">
                               Joshua Williams
