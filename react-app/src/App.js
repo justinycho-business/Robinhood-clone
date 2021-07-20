@@ -9,6 +9,7 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import Dashboard from './components/Dashboard';
 import Home from './components/Home';
+import API from './components/API'
 import { authenticate } from './store/session';
 
 function App() {
@@ -30,6 +31,9 @@ function App() {
     <BrowserRouter>
       <NavBar />
       <Switch>
+        <Route path='/api' exact={true}>
+          <API/>
+        </Route>
         <Route path='/login' exact={true}>
           <LoginForm />
         </Route>
@@ -44,6 +48,9 @@ function App() {
         </ProtectedRoute>
         <Route path='/' exact={true} >
           <Home/>
+        </Route>
+        <Route path='/company' exact={true} >
+          <API/>
         </Route>
         <ProtectedRoute path='/dashboard/:userId' exact={true} >
           <Dashboard/>
