@@ -6,12 +6,14 @@ class Company(db.Model):
 
     id = db.Column(db.INTEGER, primary_key=True)
     ticker = db.Column(db.VARCHAR, nullable=False)
+    name = db.Column(db.VARCHAR, nullable=False)
     transaction = db.relationship("Transaction", back_populates="company")
     watchlist = db.relationship("Watchlist", back_populates="company")
 
 
-def to_dict(self):
+    def to_dict(self):
         return {
           'id': self.id,
-          'ticker': self.ticker
+          'ticker': self.ticker,
+          'name': self.name
         }

@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: ff698d4d29c7
+Revision ID: ae866c9a639d
 Revises: 
-Create Date: 2021-07-19 16:17:57.132011
+Create Date: 2021-07-20 17:43:54.489317
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'ff698d4d29c7'
+revision = 'ae866c9a639d'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,6 +21,7 @@ def upgrade():
     op.create_table('companies',
     sa.Column('id', sa.INTEGER(), nullable=False),
     sa.Column('ticker', sa.VARCHAR(), nullable=False),
+    sa.Column('name', sa.VARCHAR(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('users',
@@ -45,9 +46,7 @@ def upgrade():
     sa.Column('buy_sell', sa.BOOLEAN(), nullable=True),
     sa.ForeignKeyConstraint(['company_id'], ['companies.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('company_id'),
-    sa.UniqueConstraint('user_id')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('watchlists',
     sa.Column('id', sa.INTEGER(), nullable=False),
@@ -56,9 +55,7 @@ def upgrade():
     sa.Column('company_id', sa.INTEGER(), nullable=False),
     sa.ForeignKeyConstraint(['company_id'], ['companies.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('company_id'),
-    sa.UniqueConstraint('user_id')
+    sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
 
