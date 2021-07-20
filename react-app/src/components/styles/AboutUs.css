@@ -1,0 +1,39 @@
+.title_container {
+  font-weight: bold;
+  font-size: 40px;
+  text-align: center;
+  margin: 10px;
+}
+
+.about_us_outer_container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.about_us_inner_container {
+  border: 0.5px solid grey;
+  background-color: #A7C957;
+  border-radius: 10px;
+  width: 45%;
+  margin: 10px;
+  padding: 10px;
+}
+
+.each_person {
+  border: 0.5px solid grey;
+  border-radius: 10px;
+  background-color:#DEF6CA;
+  margin: 10px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  right: 50px;
+}
+
+.person_pic {
+  height: 75px;
+  width: 75px;
+  margin: 10px;
+  border-radius: 50%;
+  border: 3px solid #B4A0E5;
+}
