@@ -26,12 +26,11 @@ const Stocks = () => {
     const [totalStocks, setTotalStocks] = useState(1);
     const [ticker, setTicker] = useState(getTicker(urlString))
     const [userId, setUserId] = useState(null)
+    const [option, setOption] = useState('')
     const priceData = useSelector(state => state?.priceData?.oneDayDataStocks)
     const user = useSelector(state => state.session.user);
     const oneDayGraphData = useSelector(state => state?.priceData?.oneDayDataStocks)
     const id = useParams();
-
-
     const oneDayGraphDataTrimmed = (data) => {
         const result = []
         for (let i = 0; i < data.length; i++) {
@@ -51,6 +50,10 @@ const Stocks = () => {
             setUserId(user.id)
             dispatch(getDashboardData(user.id))
         })()
+            (async function fetchData() {
+                const response = await fetch(`/api/stocks/info/${id.ticker}`);
+                const responseData = await response.json();
+            })()
 
         dispatch(get1dayData(ticker))
     }, [user, id, dispatch]);
@@ -89,16 +92,13 @@ const Stocks = () => {
         )
     }
 
+
     const addToWatchlist = async (e) => {
         e.preventDefault();
         const response = await fetch(`/api/stocks/watchlist/${id.ticker}`);
         const responseData = await response.json();
         const company_id = responseData.Company_Info.id
         const user_id = user.id
-        const option = "remove"
-        console.log(ticker)
-        console.log(user_id)
-        console.log(company_id)
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
