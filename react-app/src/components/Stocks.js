@@ -44,18 +44,42 @@ const Stocks = () => {
         (async function fetchData() {
             setTicker(getTicker(urlString))
             const response = await fetch(`/api/stocks/justinpage/${ticker}`);
+
+    const id = useParams();
+
+    useEffect(() => {
+        (async function fetchData() {
+            const response = await fetch(`/api/stocks/info/${id.ticker}`);
             const responseData = await response.json();
             setstockdata(responseData);
             setUserId(user.id)
+            dispatch(getDashboardData(user.id))
+            console.log(watchlistData)
         })()
 
         dispatch(get1dayData(ticker))
-    }, [dispatch])
+    }, [user, id, dispatch]);
 
-    const addToWatchlist = (e) => {
+    const addToWatchlist = async (e) => {
         e.preventDefault();
-        const watchlistData = { ticker, userId }
-        console.log(watchlistData)
+        const response = await fetch(`/api/stocks/watchlist/${id.ticker}`);
+        const responseData = await response.json();
+        const company_id = responseData.Company_Info.id
+        const user_id = user.id
+        const option = "add"
+        console.log(ticker)
+        console.log(user_id)
+        console.log(company_id)
+        
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ option, company_id, user_id, ticker, })
+        };
+        const post = await fetch('/api/stocks/watchlist/options', requestOptions);
+        const data = await post.json();
+        console.log(data)
+        // this.setState({ postId: data.id });
     };
 
     const min = (data) => {
