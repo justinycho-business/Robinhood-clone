@@ -38,11 +38,10 @@ const Stocks = () => {
         const responseData = await response.json();
         const company_id = responseData.Company_Info.id
         const user_id = user.id
-        const option = "add"
+        const option = "remove"
         console.log(ticker)
         console.log(user_id)
         console.log(company_id)
-        
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
