@@ -50,14 +50,18 @@ const Stocks = () => {
             setUserId(user.id)
             dispatch(getDashboardData(user.id))
         })()
-            (async function fetchData() {
-                const response = await fetch(`/api/stocks/info/${id.ticker}`);
-                const responseData = await response.json();
-            })()
 
         dispatch(get1dayData(ticker))
     }, [user, id, dispatch]);
 
+    useEffect(() => {
+        (async function fetchData() {
+            const response = await fetch(`/api/stocks/watchlist/setter`);
+            const responseData = await response.json();
+            console.log(responseData)
+        })()
+
+    }, [])
 
     const min = (data) => {
         let min = Infinity;
