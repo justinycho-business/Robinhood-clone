@@ -102,3 +102,27 @@ nav{
     position: absolute;
     right: 1250px;
 }
+
+.search_container {
+    display: flex;
+    align-items: flex-end;
+}
+
+.search {
+    position: absolute;
+    right: 740px;
+}
+
+.logout_btn {
+    display: block;
+    border-radius: 10px;
+    background-color: white;
+    padding: 10px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 20px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 17px;
+    margin-left: 930px;
+}

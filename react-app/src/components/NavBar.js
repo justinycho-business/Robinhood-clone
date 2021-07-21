@@ -24,8 +24,10 @@ const NavBar = () => {
         <div className="welcome_message">
           <p>Welcome {user.username}</p>
         </div>
-        <label htmlFor="search">Search</label>
-        <input type="text" value={search} onChange={(e) => setSearch(e.target.value)}></input>
+        <div className="search_container">
+          <label htmlFor="search"></label>
+          <input placeholder="Search" className="search" type="text" value={search} onChange={(e) => setSearch(e.target.value)}></input>
+        </div>
         {/* <div>
           <NavLink to='/users' exact={true} activeClassName='active'>
             Users
