@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
 import './styles/Stocks.css';
 
 
@@ -22,7 +22,6 @@ const Stocks = () => {
             //     { uv: responseData.previousClose, time: 10 },
             //     { uv: responseData.previousClose, time: 15 }
             // ]
-            console.log(user)
             setstockdata(responseData);
         })()
     }, [user, id]);
