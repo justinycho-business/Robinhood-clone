@@ -19,7 +19,6 @@ const addFunds = (amount) => ({
 
 // Define Thunks
 export const getDashboardData = (id) => async (dispatch) => {
-    console.log('inside thunk ==============================')
     const response = await fetch(`/api/dashboard/${id}`)
 
     if(response.ok) {

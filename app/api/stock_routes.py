@@ -21,6 +21,17 @@ def stock(ticker):
     return res.json()
 
 
+@stock_routes.route('/<ticker>')
+def stocks(ticker):
+    def get_stock_data_1D():
+        result = []
+        res = requests.get(f'https://financialmodelingprep.com/api/v3/historical-chart/5min/{ticker}?apikey={apikey2}')
+        jsonData = res.json()
+        result.append(jsonData)
+        return result
+    return {'oneDay': get_stock_data_1D(), 'oneWeek': 0, 'oneMonth': 0, 'threeMonths': 0, 'oneYear': 0, 'fiveYears': 0}
+
+  
 @stock_routes.route('/watchlist/<path:ticker>')
 def watchlist_company(ticker):
     res = Company.query.filter_by(ticker=ticker).all()
