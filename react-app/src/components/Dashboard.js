@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { addFundsToPortfolio, getDashboardData } from '../store/dashboard';
+import moment from 'moment';
 import intradayData from '../data/data';
 
 import { LineChart, Line, Area, Tooltip, CartesianGrid, XAxis, YAxis, ResponsiveContainer } from 'recharts';
@@ -134,9 +135,18 @@ function Dashboard() {
                 <ul className='watchlistUl'>
                     {watchlistData && watchlistData[0]?.watchlistAPICallData.map((company) => (
                         <li key={company.id}>
-                            <p className='ticker'>{company[0].symbol}</p>
-                            <p className='lilGraph'>small graph</p>
-                            <p className='price'>{company[0].price}</p>
+                            <div className='ticker'>{company[0].symbol}</div>
+                            <div className='lilGraph'>
+                                <ResponsiveContainer width="100%" aspect={2}>
+                                <LineChart data={intradayData}>
+                                    <Line dataKey="close" stroke="#6afa27"
+                                        strokeWidth={2} dot={false} isAnimationActive={false}/>
+                                <XAxis hide={true} dataKey="date" />
+                                <YAxis hide={true} domain={[min(intradayData), max(intradayData)]}/>
+                                </LineChart>
+                                </ResponsiveContainer>
+                            </div>
+                            <div className='price'>{company[0].price}</div>
                             {/* <p className='percent'>{company.ticker}</p> */}
                         </li>
                     ))}

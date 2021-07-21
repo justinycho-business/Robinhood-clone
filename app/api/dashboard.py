@@ -27,7 +27,7 @@ def dashboard_data(id):
     watchlistData = Watchlist.query.filter_by(user_id = id).all()
     transactionData = Transaction.query.filter_by(user_id = id).all()
     portfolioData = Transaction.query.with_entities(func.sum(Transaction.quantity), Transaction.company_id).filter_by(user_id = id).group_by(Transaction.company_id).all()
-    print(portfolioData, "++++++++++++++++++++++++++++==========")
+
 
     def tuplelist_to_dict(list0):
         result = []

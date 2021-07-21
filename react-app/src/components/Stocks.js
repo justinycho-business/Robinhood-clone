@@ -1,31 +1,56 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import moment from 'moment';
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
+import { get1dayData } from '../store/stocks';
 import './styles/Stocks.css';
 
 
 const Stocks = () => {
+    const dispatch = useDispatch()
+
+    const urlString = window.location.href;
+
+    const getTicker = (string) => {
+        for(let i = string.length; i >= 0; i--) {
+            const slash = '/'
+            if(string[i] === slash) {
+                return string.substring(i + 1)
+            }
+        }
+    }
+
     const [stockdata, setstockdata] = useState(null);
     const [totalStocks, setTotalStocks] = useState(1);
-    const [ticker, setTicker] = useState('')
+    const [ticker, setTicker] = useState(getTicker(urlString))
     const [userId, setUserId] = useState(null)
+    const priceData = useSelector(state => state?.priceData?.oneDayDataStocks)
     const user = useSelector(state => state.session.user);
-    const graphData = [{ uv: 75, time: 10 }, { uv: 20, time: 15 }, { uv: 45, time: 15 }, { uv: 15, time: 25 }, { uv: 35, time: 25 }];
-    const id = useParams();
-    const dispath = useDispatch();
-    // Create a reducer for watchlist if not already done, figure out a way to get company id from backend since info seeded?
-    // need to figure out where to sell, maybe on dashboard you can choose the stocks since they're already making calls to the backend I believe.
+    const oneDayGraphData = useSelector(state => state?.priceData?.oneDayDataStocks)
+
+
+    const oneDayGraphDataTrimmed = (data) => {
+        const result = []
+        for(let i = 0; i < data.length; i++) {
+            if(data[i].date.startsWith(moment().format('YYYY-MM-DD'))) {
+                result.push(data[i])
+            }
+        }
+        return result.reverse()
+    }
 
     useEffect(() => {
         (async function fetchData() {
-            const response = await fetch(`/api/stocks/justinpage/${id.ticker}`);
+            setTicker(getTicker(urlString))
+            const response = await fetch(`/api/stocks/justinpage/${ticker}`);
             const responseData = await response.json();
             setstockdata(responseData);
-            setTicker(responseData.symbol)
             setUserId(user.id)
         })()
-    }, [user, id]);
+
+        dispatch(get1dayData(ticker))
+    }, [dispatch])
 
     const addToWatchlist = (e) => {
         e.preventDefault();
@@ -33,12 +58,44 @@ const Stocks = () => {
         console.log(watchlistData)
     };
 
+    const min = (data) => {
+        let min = Infinity;
+        for(let i = 0; i < data.length; i++) {
+            let lowData = data[i].low
+            if(lowData < min) {
+                min = lowData;
+            };
+        }
+        return parseFloat((min * 0.995).toFixed(2));
+    };
+    const max = (data) => {
+        let max = 0;
+        for(let i = 0; i < data.length; i++) {
+            let highData = data[i].high;
+            if(highData > max) {
+                max = highData;
+            };
+        };
+        return parseFloat((max * 1.005).toFixed(2));
+    };
+
+
+    if(!oneDayGraphData) {
+        return (
+            <div class="loader">
+                <div class="inner one"></div>
+                <div class="inner two"></div>
+                <div class="inner three"></div>
+            </div>
+        )
+    }
+
     return (
         <div className='stocks-background'>
             <div className='stocks-info-container'>
                 <div className='stock-details'>
                     <h2 className='stock-title'>{stockdata?.companyName}</h2>
-                    <h2 className='stock-price'>${stockdata?.latestPrice}</h2>
+                    <h2 className='stock-price'>${(stockdata?.latestPrice.toFixed(2))}</h2>
                     <h2 className='stock-change'> $+ {stockdata?.change} ({(stockdata?.changePercent.toFixed(2))}%) Today</h2>
                 </div>
                 <div className='side-bar-content'>
@@ -54,11 +111,11 @@ const Stocks = () => {
                             </div>
                             <div className='form-market-price'>
                                 <label className='form-item'>Market Price :</label>
-                                <h1 className='market-price'>{stockdata?.latestPrice}</h1>
+                                <h1 className='market-price'>{(stockdata?.latestPrice.toFixed(2))}</h1>
                             </div>
                             <div className='est-cost-container'>
                                 <label className='form-item'>Estimated Cost:</label>
-                                <h1 className='total-price'>${totalStocks * stockdata?.latestPrice}</h1>
+                                <h1 className='total-price'>${totalStocks * (stockdata?.latestPrice.toFixed(2))}</h1>
                             </div>
                             <div className='buy-btn-container'>
                                 <button className='buy-btn'>Buy</button>
@@ -72,10 +129,13 @@ const Stocks = () => {
                 <div className='company-graph'>
                     <div>
                         <ResponsiveContainer width="100%" aspect={2}>
-                            <LineChart data={graphData}>
-                                <Line dataKey="uv" stroke="#8884d8" />
-                                <XAxis dataKey="name" />
-                                <YAxis />
+                            <LineChart data={oneDayGraphData && oneDayGraphDataTrimmed(oneDayGraphData[0]?.oneDay[0])}>
+                                <Line dataKey="close" stroke="#6afa27"
+                                    strokeWidth={2} dot={false} isAnimationActive={false}/>
+                                <XAxis hide={true} dataKey="date" domain={[`${moment().format('YYYY-MM-DD')} 09:30:00`,
+                                    `${moment().format('YYYY-MM-DD')} 16:00:00`]}/>
+                                <YAxis hide={true} domain={[min(oneDayGraphDataTrimmed(oneDayGraphData[0]?.oneDay[0])),
+                                    max(oneDayGraphDataTrimmed(oneDayGraphData[0]?.oneDay[0]))]}/>
                                 <Tooltip />
                             </LineChart>
                         </ResponsiveContainer>

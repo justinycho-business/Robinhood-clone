@@ -12,6 +12,7 @@
     "chart.js": "^3.4.1",
     "fetch": "^1.1.0",
     "http-proxy-middleware": "^1.0.5",
+    "moment": "^2.29.1",
     "node-fetch": "^2.6.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
