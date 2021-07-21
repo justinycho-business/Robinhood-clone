@@ -8,6 +8,8 @@ import './styles/Stocks.css';
 const Stocks = () => {
     const [stockdata, setstockdata] = useState(null);
     const [totalStocks, setTotalStocks] = useState(1);
+    const [ticker, setTicker] = useState('')
+    const [userId, setUserId] = useState(null)
     const user = useSelector(state => state.session.user);
     const graphData = [{ uv: 75, time: 10 }, { uv: 20, time: 15 }, { uv: 45, time: 15 }, { uv: 15, time: 25 }, { uv: 35, time: 25 }];
     const id = useParams();
@@ -23,11 +25,15 @@ const Stocks = () => {
             //     { uv: responseData.previousClose, time: 15 }
             // ]
             setstockdata(responseData);
+            setTicker(responseData.symbol)
+            setUserId(user.id)
         })()
     }, [user, id]);
 
     const addToWatchlist = (e) => {
         e.preventDefault();
+        const watchlistData = { ticker, userId }
+        console.log(watchlistData)
     };
 
     return (
