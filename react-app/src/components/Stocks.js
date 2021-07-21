@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
+import { getDashboardData } from '../store/dashboard';
 import './styles/Stocks.css';
 
 
@@ -11,26 +12,46 @@ const Stocks = () => {
     const [ticker, setTicker] = useState('')
     const [userId, setUserId] = useState(null)
     const user = useSelector(state => state.session.user);
+    const watchlistData = useSelector(state => state?.dashboard?.userData)
     const graphData = [{ uv: 75, time: 10 }, { uv: 20, time: 15 }, { uv: 45, time: 15 }, { uv: 15, time: 25 }, { uv: 35, time: 25 }];
     const id = useParams();
-    const dispath = useDispatch();
+    const dispatch = useDispatch();
+
     // Create a reducer for watchlist if not already done, figure out a way to get company id from backend since info seeded?
     // need to figure out where to sell, maybe on dashboard you can choose the stocks since they're already making calls to the backend I believe.
 
     useEffect(() => {
         (async function fetchData() {
-            const response = await fetch(`/api/stocks/justinpage/${id.ticker}`);
+            const response = await fetch(`/api/stocks/info/${id.ticker}`);
             const responseData = await response.json();
             setstockdata(responseData);
             setTicker(responseData.symbol)
             setUserId(user.id)
+            dispatch(getDashboardData(user.id))
+            console.log(watchlistData)
         })()
-    }, [user, id]);
+    }, [user, id, dispatch]);
 
-    const addToWatchlist = (e) => {
+    const addToWatchlist = async (e) => {
         e.preventDefault();
-        const watchlistData = { ticker, userId }
-        console.log(watchlistData)
+        const response = await fetch(`/api/stocks/watchlist/${id.ticker}`);
+        const responseData = await response.json();
+        const company_id = responseData.Company_Info.id
+        const user_id = user.id
+        const option = "add"
+        console.log(ticker)
+        console.log(user_id)
+        console.log(company_id)
+        
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ option, company_id, user_id, ticker, })
+        };
+        const post = await fetch('/api/stocks/watchlist/options', requestOptions);
+        const data = await post.json();
+        console.log(data)
+        // this.setState({ postId: data.id });
     };
 
     return (

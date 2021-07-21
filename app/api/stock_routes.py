@@ -1,8 +1,9 @@
 from flask import Blueprint, jsonify
-
-from flask_login import login_required
+from app.models import User, db, Transaction, Watchlist, Company, watchlist
 from app.models import User, db, Company
+from flask import request
 import requests
+import ast
 import os
 
 apikey = os.environ.get('API_FIN_PUBLIC')
@@ -11,7 +12,7 @@ apikey2 = os.environ.get('API_2_FIN')
 stock_routes = Blueprint('stocks', __name__)
 
 
-@stock_routes.route('/justinpage/<path:ticker>')
+@stock_routes.route('/info/<path:ticker>')
 # @login_required
 def stock(ticker):
     print("ticker reached:", ticker)
@@ -20,19 +21,22 @@ def stock(ticker):
     return res.json()
 
 
-@stock_routes.route('/2')
-# @login_required
-def stock2():
-    res = requests.get(
-        f'https://financialmodelingprep.com/api/v3/historical-chart/15min/AAPL?apikey={apikey2}')
-    print(res.json())
-    return res.json()
+@stock_routes.route('/watchlist/<path:ticker>')
+def watchlist_company(ticker):
+    res = Company.query.filter_by(ticker=ticker).all()
+    data = res[0].to_dict()
+    return {"Company_Info": data}
 
 
-@stock_routes.route('/')
-def stocks():
-    return {"Hello"}
+@stock_routes.route('/watchlist/options', methods=['POST'])
+def watchlist_add():
+    req = request.data.decode("utf-8")
+    data = ast.literal_eval(req)
+    if data["option"] == 'add':
+        new_watchlist_item = Watchlist(
+            ticker=data['ticker'], user_id=data['user_id'], company_id=data['company_id'])
+        db.session.add(new_watchlist_item)
+        db.session.commit()
+        return {"message": f"{new_watchlist_item.ticker} has been added to watchlist !"}
 
-
-# @stock_routes.route('/<int:id>')
-# def stock(id):
+    return {"Successful return": "return string"}
