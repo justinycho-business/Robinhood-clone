@@ -2,6 +2,7 @@ from flask import Blueprint, json, jsonify
 from app.models import User, db, Transaction, Watchlist, Company, watchlist
 from app.forms.addFunds_form import AddFunds
 from flask_login import login_required
+from sqlalchemy.sql import func
 import requests
 import os
 
@@ -25,6 +26,15 @@ apikey2 = os.environ.get('API_2_FIN')
 def dashboard_data(id):
     watchlistData = Watchlist.query.filter_by(user_id = id).all()
     transactionData = Transaction.query.filter_by(user_id = id).all()
+    portfolioData = Transaction.query.with_entities(func.sum(Transaction.quantity), Transaction.company_id).filter_by(user_id = id).group_by(Transaction.company_id).all()
+    print(portfolioData, "++++++++++++++++++++++++++++==========")
+
+    def tuplelist_to_dict(list0):
+        result = []
+        for tuple0 in list0:
+            result.append({"company_id": tuple0[0], "quantity": tuple0[1]})
+        return result
+
     def get_watchlist():
         result = []
         watchlist_array = [watchlist.to_dict() for watchlist in watchlistData]
@@ -36,8 +46,12 @@ def dashboard_data(id):
         return result
 
     return {'watchlist': [watchlist.to_dict() for watchlist in watchlistData],
+            'portfolio': tuplelist_to_dict(portfolioData),
             'watchlistAPICallData': get_watchlist(),
             'transactions': [transaction.to_dict() for transaction in transactionData]}
+ #[{company_id: 11, quantity: 25}, {company_id: 12, quantity: 75}, {company_id: 11, quantity: 10}]
+
+
 
 # @dashboard_routes.route('/')
 # @login_required
