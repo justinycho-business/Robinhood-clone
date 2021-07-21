@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
 import { get1dayData } from '../store/stocks';
+import {getDashboardData} from '../store/dashboard'
 import './styles/Stocks.css';
 
 
@@ -40,11 +41,6 @@ const Stocks = () => {
         return result.reverse()
     }
 
-    useEffect(() => {
-        (async function fetchData() {
-            setTicker(getTicker(urlString))
-            const response = await fetch(`/api/stocks/justinpage/${ticker}`);
-
     const id = useParams();
 
     useEffect(() => {
@@ -54,7 +50,6 @@ const Stocks = () => {
             setstockdata(responseData);
             setUserId(user.id)
             dispatch(getDashboardData(user.id))
-            console.log(watchlistData)
         })()
 
         dispatch(get1dayData(ticker))
@@ -91,6 +86,7 @@ const Stocks = () => {
         }
         return parseFloat((min * 0.995).toFixed(2));
     };
+
     const max = (data) => {
         let max = 0;
         for(let i = 0; i < data.length; i++) {
@@ -177,6 +173,7 @@ const Stocks = () => {
             </div>
         </div>
     )
-};
+}
+
 
 export default Stocks;
