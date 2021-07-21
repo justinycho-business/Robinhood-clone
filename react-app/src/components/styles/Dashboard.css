@@ -48,13 +48,16 @@
     padding: 0;
 }
 
+.watchlist-li{
+    display: flex;
+}
 .watchlistLi {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: minMax(20px, auto);
     grid-template-areas:
     'ticker lilGraph price'
-    'shares lilGraph percent'
+
     ;
     font-size: 12px;
     letter-spacing: .5px;
@@ -69,6 +72,8 @@
     padding: 3px;
     text-align: center;
     font-weight: bold;
+    align-items: center;
+    justify-content: center;
 }
 
 .shares {
@@ -86,6 +91,7 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    background-color: white;
 }
 
 .price {
@@ -93,6 +99,8 @@
     margin: 0;
     padding: 3px;
     text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
 .percent {

@@ -20,6 +20,12 @@ apikey2 = os.environ.get('API_2_FIN')
 #     # Need to get the user ID from the request
 #     user = User.query.filter(User.id)
 
+@dashboard_routes.route('/lilgraphs', methods=['GET','POST'])
+@login_required
+def lilgraphs():
+    if request.method == 'GET':
+        request_data = request.json['hi']
+        print(request_data, "----------------------------------")
 
 @dashboard_routes.route('/<int:id>')
 @login_required

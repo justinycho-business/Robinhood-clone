@@ -26,7 +26,7 @@ const Stocks = () => {
     const [totalStocks, setTotalStocks] = useState(1);
     const [ticker, setTicker] = useState(getTicker(urlString))
     const [userId, setUserId] = useState(null)
-    const [option, setOption] = useState('')
+    const [option, setOption] = useState('add')
     const priceData = useSelector(state => state?.priceData?.oneDayDataStocks)
     const user = useSelector(state => state.session.user);
     const oneDayGraphData = useSelector(state => state?.priceData?.oneDayDataStocks)

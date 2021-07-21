@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { addFundsToPortfolio, getDashboardData } from '../store/dashboard';
+import { addFundsToPortfolio, getDashboardData, getlilgraphs } from '../store/dashboard';
+import { get1dayData } from '../store/stocks';
 import moment from 'moment';
 import intradayData from '../data/data';
 
@@ -35,9 +36,24 @@ function Dashboard() {
     }
 
     useEffect(() => {
-        console.log('inside use effect =============================')
         dispatch(getDashboardData(user?.id))
+        console.log('inside use effect =============================')
+
+        // dispatch(get1dayData())
     }, [dispatch])
+
+    if (watchlist) {
+        const get_watchlist_graphs= () => {
+            let result = []
+            for(let i = 0;i < watchlist[0]?.watchlist.length; i++) {
+                console.log(watchlist[0]?.watchlist[i].ticker)
+                dispatch(get1dayData(watchlist[0]?.watchlist[i].ticker))
+                // result.push(watchlist[0]?.watchlist[i].ticker)
+            }
+            return
+        }
+        get_watchlist_graphs()
+    }
 
 
     const min = (data) => {
@@ -134,8 +150,8 @@ function Dashboard() {
                 <h1>Watchlist</h1>
                 <ul className='watchlistUl'>
                     {watchlistData && watchlistData[0]?.watchlistAPICallData.map((company) => (
-                        <li key={company.id}>
-                            <div className='ticker'>{company[0].symbol}</div>
+                        <li className="watchlistLi" key={company.id}>
+                            <div className='ticker'><p>{company[0].symbol}</p></div>
                             <div className='lilGraph'>
                                 <ResponsiveContainer width="100%" aspect={2}>
                                 <LineChart data={intradayData}>
@@ -146,7 +162,7 @@ function Dashboard() {
                                 </LineChart>
                                 </ResponsiveContainer>
                             </div>
-                            <div className='price'>{company[0].price}</div>
+                            <div className='price'><p>${company[0].price}</p></div>
                             {/* <p className='percent'>{company.ticker}</p> */}
                         </li>
                     ))}
