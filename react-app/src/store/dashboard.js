@@ -27,7 +27,7 @@ export const getlilgraphs = (tickerlist) => async (dispatch) => {
     const response = await fetch(`/api/dashboard/lilgraphs`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({'hi': tickerlist})
+            body: JSON.stringify({tickerlist})
         });
 
     if(response.ok) {

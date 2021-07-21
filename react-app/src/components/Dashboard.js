@@ -43,6 +43,18 @@ function Dashboard() {
     }, [dispatch])
 
     if (watchlist) {
+        const get_watchlist_graphs1= () => {
+            let result = []
+            for(let i = 0;i < watchlist[0]?.watchlist.length; i++) {
+                console.log(watchlist[0]?.watchlist[i].ticker)
+                result.push(watchlist[0]?.watchlist[i].ticker)
+            }
+            return result
+        }
+        dispatch(getlilgraphs(get_watchlist_graphs1()))
+    }
+
+    if (watchlist) {
         const get_watchlist_graphs= () => {
             let result = []
             for(let i = 0;i < watchlist[0]?.watchlist.length; i++) {

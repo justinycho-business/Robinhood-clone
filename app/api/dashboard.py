@@ -1,10 +1,11 @@
-from flask import Blueprint, json, jsonify
+from flask import Blueprint, json, jsonify, request
 from app.models import User, db, Transaction, Watchlist, Company, watchlist
 from app.forms.addFunds_form import AddFunds
 from flask_login import login_required
 from sqlalchemy.sql import func
 import requests
 import os
+
 
 dashboard_routes = Blueprint('dashboard', __name__)
 
@@ -23,9 +24,14 @@ apikey2 = os.environ.get('API_2_FIN')
 @dashboard_routes.route('/lilgraphs', methods=['GET','POST'])
 @login_required
 def lilgraphs():
-    if request.method == 'GET':
-        request_data = request.json['hi']
-        print(request_data, "----------------------------------")
+    request_data = request.get_json()
+        # req = request.data.decode("utf-8")
+        # # data = ast.literal_eval(req)
+        # print(req, "----------------------------------")
+    request_data = request.get_json()
+    tickerlist = request_data['tickerlist']
+
+    print(request_data, "----------------------------------")
 
 @dashboard_routes.route('/<int:id>')
 @login_required
