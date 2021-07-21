@@ -1,34 +1,36 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
 import './styles/Stocks.css';
 
 
 const Stocks = () => {
     const [stockdata, setstockdata] = useState(null);
     const [totalStocks, setTotalStocks] = useState(1);
+    const [ticker, setTicker] = useState('')
+    const [userId, setUserId] = useState(null)
     const user = useSelector(state => state.session.user);
     const graphData = [{ uv: 75, time: 10 }, { uv: 20, time: 15 }, { uv: 45, time: 15 }, { uv: 15, time: 25 }, { uv: 35, time: 25 }];
     const id = useParams();
     const dispath = useDispatch();
-    // let graphDataExample;
+    // Create a reducer for watchlist if not already done, figure out a way to get company id from backend since info seeded?
+    // need to figure out where to sell, maybe on dashboard you can choose the stocks since they're already making calls to the backend I believe.
 
     useEffect(() => {
         (async function fetchData() {
             const response = await fetch(`/api/stocks/justinpage/${id.ticker}`);
             const responseData = await response.json();
-            // graphDataExample = [
-            //     { uv: responseData.previousClose, time: 10 },
-            //     { uv: responseData.previousClose, time: 15 }
-            // ]
-            console.log(user)
             setstockdata(responseData);
+            setTicker(responseData.symbol)
+            setUserId(user.id)
         })()
     }, [user, id]);
 
     const addToWatchlist = (e) => {
         e.preventDefault();
+        const watchlistData = { ticker, userId }
+        console.log(watchlistData)
     };
 
     return (
