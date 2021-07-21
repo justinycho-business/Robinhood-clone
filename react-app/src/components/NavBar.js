@@ -1,14 +1,34 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector, useEffect } from 'react-redux'
+import { getDashboardData } from '../store/dashboard';
 import './styles/NavBar.css';
 
-
 const NavBar = () => {
-  const [search, setSearch] = useState('')
-  const user = useSelector(state => state.session.user)
-  const removeSignUpFromNavBar = useSelector(state => state.session.user)
+    const [search, setSearch] = useState('')
+    const user = useSelector(state => state.session.user)
+    const removeSignUpFromNavBar = useSelector(state => state.session.user)
+
+
+  useEffect(() => {
+      const searchData = async() => {
+          const response = await fetch(`/api/search/info/${id.ticker}`)
+          const responseData = await response.json()
+          setSearch(responseData);
+          dispatch(getDashboardData(ticker.id))
+      }
+  }, [user, id, dispatch]);
+
+  //after we find the ticker, what happens when it's selected by user? shows up on dashboard or user gets redirected to page with stock details?
+  const searchResult = async(e) => {
+      e.preventDefault()
+      const response = await fetch(`/api/search/dashboard/${id.ticker})`)
+      const responseData = await response.json()
+      const company = responseData.Company.id
+
+      console.log(company)
+  }
 
   if (removeSignUpFromNavBar) {
     return (
