@@ -24,13 +24,14 @@ def stock(ticker):
 def stocks(ticker):
     def get_stock_data_1D():
         result = []
-        res = requests.get(f'https://financialmodelingprep.com/api/v3/historical-chart/5min/{ticker}?apikey={apikey2}')
+        res = requests.get(
+            f'https://financialmodelingprep.com/api/v3/historical-chart/5min/{ticker}?apikey={apikey2}')
         jsonData = res.json()
         result.append(jsonData)
         return result
     return {'oneDay': get_stock_data_1D(), 'oneWeek': 0, 'oneMonth': 0, 'threeMonths': 0, 'oneYear': 0, 'fiveYears': 0}
 
-  
+
 @stock_routes.route('/watchlist/<path:ticker>')
 def watchlist_company(ticker):
     res = Company.query.filter_by(ticker=ticker).all()
@@ -52,6 +53,6 @@ def watchlist_add():
         ticker = data['ticker']
         res = Watchlist.query.filter_by(
             ticker=ticker, user_id=data["user_id"]).first()
-        data = res[0].to_dict()
-        print["Here is watchlist Id", data]
-        return {"Successful return": "return string"}
+        db.session.delete(res)
+        db.session.commit()
+        return {"message": f"Removed from watchlist"}

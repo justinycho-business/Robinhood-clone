@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
 import { get1dayData } from '../store/stocks';
-import {getDashboardData} from '../store/dashboard'
+import { getDashboardData } from '../store/dashboard'
 import './styles/Stocks.css';
 
 
@@ -14,9 +14,9 @@ const Stocks = () => {
     const urlString = window.location.href;
 
     const getTicker = (string) => {
-        for(let i = string.length; i >= 0; i--) {
+        for (let i = string.length; i >= 0; i--) {
             const slash = '/'
-            if(string[i] === slash) {
+            if (string[i] === slash) {
                 return string.substring(i + 1)
             }
         }
@@ -29,19 +29,19 @@ const Stocks = () => {
     const priceData = useSelector(state => state?.priceData?.oneDayDataStocks)
     const user = useSelector(state => state.session.user);
     const oneDayGraphData = useSelector(state => state?.priceData?.oneDayDataStocks)
+    const id = useParams();
 
 
     const oneDayGraphDataTrimmed = (data) => {
         const result = []
-        for(let i = 0; i < data.length; i++) {
-            if(data[i].date.startsWith(moment().format('YYYY-MM-DD'))) {
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].date.startsWith(moment().format('YYYY-MM-DD'))) {
                 result.push(data[i])
             }
         }
         return result.reverse()
     }
 
-    const id = useParams();
 
     useEffect(() => {
         (async function fetchData() {
@@ -54,6 +54,40 @@ const Stocks = () => {
 
         dispatch(get1dayData(ticker))
     }, [user, id, dispatch]);
+
+
+    const min = (data) => {
+        let min = Infinity;
+        for (let i = 0; i < data.length; i++) {
+            let lowData = data[i].low
+            if (lowData < min) {
+                min = lowData;
+            };
+        }
+        return parseFloat((min * 0.995).toFixed(2));
+    };
+
+    const max = (data) => {
+        let max = 0;
+        for (let i = 0; i < data.length; i++) {
+            let highData = data[i].high;
+            if (highData > max) {
+                max = highData;
+            };
+        };
+        return parseFloat((max * 1.005).toFixed(2));
+    };
+
+
+    if (!oneDayGraphData) {
+        return (
+            <div class="loader">
+                <div class="inner one"></div>
+                <div class="inner two"></div>
+                <div class="inner three"></div>
+            </div>
+        )
+    }
 
     const addToWatchlist = async (e) => {
         e.preventDefault();
@@ -75,39 +109,6 @@ const Stocks = () => {
         console.log(data)
         // this.setState({ postId: data.id });
     };
-
-    const min = (data) => {
-        let min = Infinity;
-        for(let i = 0; i < data.length; i++) {
-            let lowData = data[i].low
-            if(lowData < min) {
-                min = lowData;
-            };
-        }
-        return parseFloat((min * 0.995).toFixed(2));
-    };
-
-    const max = (data) => {
-        let max = 0;
-        for(let i = 0; i < data.length; i++) {
-            let highData = data[i].high;
-            if(highData > max) {
-                max = highData;
-            };
-        };
-        return parseFloat((max * 1.005).toFixed(2));
-    };
-
-
-    if(!oneDayGraphData) {
-        return (
-            <div class="loader">
-                <div class="inner one"></div>
-                <div class="inner two"></div>
-                <div class="inner three"></div>
-            </div>
-        )
-    }
 
     return (
         <div className='stocks-background'>
@@ -150,11 +151,11 @@ const Stocks = () => {
                         <ResponsiveContainer width="100%" aspect={2}>
                             <LineChart data={oneDayGraphData && oneDayGraphDataTrimmed(oneDayGraphData[0]?.oneDay[0])}>
                                 <Line dataKey="close" stroke="#6afa27"
-                                    strokeWidth={2} dot={false} isAnimationActive={false}/>
+                                    strokeWidth={2} dot={false} isAnimationActive={false} />
                                 <XAxis hide={true} dataKey="date" domain={[`${moment().format('YYYY-MM-DD')} 09:30:00`,
-                                    `${moment().format('YYYY-MM-DD')} 16:00:00`]}/>
+                                `${moment().format('YYYY-MM-DD')} 16:00:00`]} />
                                 <YAxis hide={true} domain={[min(oneDayGraphDataTrimmed(oneDayGraphData[0]?.oneDay[0])),
-                                    max(oneDayGraphDataTrimmed(oneDayGraphData[0]?.oneDay[0]))]}/>
+                                max(oneDayGraphDataTrimmed(oneDayGraphData[0]?.oneDay[0]))]} />
                                 <Tooltip />
                             </LineChart>
                         </ResponsiveContainer>
