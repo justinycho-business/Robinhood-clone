@@ -39,6 +39,13 @@ def watchlist_company(ticker):
     return {"Company_Info": data}
 
 
+@stock_routes.route('/watchlist/setter')
+def watchlist_setter():
+    # res = Watchlist.query.filter_by(
+    #     ticker=ticker, user_id=data["user_id"]).first()
+    return {"Good!"}
+
+
 @stock_routes.route('/watchlist/options', methods=['POST', 'DELETE'])
 def watchlist_add():
     req = request.data.decode("utf-8")
