@@ -50,6 +50,7 @@ def watchlist_setter():
 def watchlist_add():
     req = request.data.decode("utf-8")
     data = ast.literal_eval(req)
+    print("req data:", req, "normal data:", data)
     if data["option"] == "add":
         new_watchlist_item = Watchlist(
             ticker=data['ticker'], user_id=data['user_id'], company_id=data['company_id'])
