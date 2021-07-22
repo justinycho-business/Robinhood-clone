@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify
 from app.models import User, db, Transaction, Watchlist, Company, watchlist
 from flask import request
+import datetime
 import requests
 import ast
 import os
@@ -28,6 +29,14 @@ def stocks(ticker):
             f'https://financialmodelingprep.com/api/v3/historical-chart/5min/{ticker}?apikey={apikey2}')
         jsonData = res.json()
         result.append(jsonData)
+        for data in result[0]:
+            date_time = datetime.datetime.strptime(data['date'], "%Y-%m-%d %H:%M:%S")
+            print(date_time)
+            a_timedelta = date_time - datetime.datetime(1970, 1, 1)
+            print(a_timedelta)
+            seconds = a_timedelta.total_seconds()
+            print(seconds)
+            data['date'] = seconds
         return result
     return {'oneDay': get_stock_data_1D()}
 
