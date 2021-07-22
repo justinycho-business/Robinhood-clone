@@ -43,9 +43,9 @@ def watchlist_company(ticker):
 def watchlist_setter(ticker, id):
     res = Watchlist.query.filter_by(ticker=ticker, user_id=id).all()
     if (res == []):
-        return{"option": "Add to"}
+        return{"option": "Add to Watchlist"}
     else:
-        return {"option": "Remove from"}
+        return {"option": "Remove from Watchlist"}
 
 
 @stock_routes.route('/watchlist/options', methods=['POST', 'DELETE'])

@@ -100,9 +100,14 @@
     /* background-color: rgb(10, 168, 18); */
     color: rgb(184, 62, 88);
 }
-.watchlist-container{
+.watchlist-container-1{
+  margin-top: 30px;;
+  margin-left: 140px;
+  border-radius: 8px;
+}
+.watchlist-container-2{
     margin-top: 30px;;
-    margin-left: 180px;
+    margin-left: 140px;
     border-radius: 8px;
   }
 .form-item{

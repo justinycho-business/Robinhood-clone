@@ -27,7 +27,7 @@ const Stocks = () => {
     const [ticker, setTicker] = useState(getTicker(urlString))
     const [userId, setUserId] = useState(null)
     const [option, setOption] = useState('add')
-    // const [watchlist, setWatchlist] = useState(null)
+    const [container, setContainer] = useState('watchlist-container-2')
     const watchlist = useSelector(state => state?.dashboard)
     const priceData = useSelector(state => state?.priceData?.oneDayDataStocks)
     const user = useSelector(state => state.session.user);
@@ -60,6 +60,11 @@ const Stocks = () => {
             const res = await fetch(`/api/stocks/watchlist/setter/${ticker}/${user.id}`);
             const data = await res.json();
             setOption(data.option)
+            if (option === "Add to Watchlist") {
+                setContainer('watchlist-container-1')
+            } else if (option === "Remove from Watchlist") {
+                setContainer('watchlist-container-2')
+            }
         })();
     }, []);
 
@@ -172,8 +177,8 @@ const Stocks = () => {
                     <button className='time-btn'>5Y</button>
                     <button className='time-btn'>All</button>
                 </div>
-                <div className='watchlist-container'>
-                    <button className='watchlist-btn' onClick={addToWatchlist}>{option} Watch {stockdata?.symbol}</button>
+                <div className={container}>
+                    <button className='watchlist-btn' onClick={addToWatchlist}>{option}</button>
                 </div>
             </div>
         </div>
