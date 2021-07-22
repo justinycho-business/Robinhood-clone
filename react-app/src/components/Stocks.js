@@ -27,8 +27,8 @@ const Stocks = () => {
     const [ticker, setTicker] = useState(getTicker(urlString))
     const [userId, setUserId] = useState(null)
     const [option, setOption] = useState('add')
-    const [watchlist, setWatchlist] = useState(null)
-    // const watchlist = useSelector(state => state?.dashboard?.userData[0]?.portfolio)
+    // const [watchlist, setWatchlist] = useState(null)
+    const watchlist = useSelector(state => state?.dashboard)
     const priceData = useSelector(state => state?.priceData?.oneDayDataStocks)
     const user = useSelector(state => state.session.user);
     const oneDayGraphData = useSelector(state => state?.priceData?.oneDayDataStocks)
@@ -53,6 +53,7 @@ const Stocks = () => {
             dispatch(getDashboardData(user.id))
             dispatch(get1dayData(ticker))
         })();
+        console.log(watchlist)
     }, [user, id, dispatch]);
 
     // useEffect(() => {
