@@ -15,7 +15,6 @@ stock_routes = Blueprint('stocks', __name__)
 @stock_routes.route('/info/<path:ticker>')
 # @login_required
 def stock(ticker):
-    print("ticker reached:", ticker)
     res = requests.get(
         f'https://cloud.iexapis.com/stable/stock/{ticker}/quote?token={apikey}')
     return res.json()
@@ -34,11 +33,8 @@ def stocks(ticker):
         result.append(jsonData)
         for data in result[0]:
             date_time = datetime.datetime.strptime(data['date'], "%Y-%m-%d %H:%M:%S")
-            print(date_time)
             a_timedelta = date_time - datetime.datetime(1970, 1, 1)
-            print(a_timedelta)
             seconds = a_timedelta.total_seconds()
-            print(seconds)
             data['date'] = seconds
         return result
     return {'oneDay': [jsonData]}
@@ -51,11 +47,13 @@ def watchlist_company(ticker):
     return {"Company_Info": data}
 
 
-@stock_routes.route('/watchlist/setter')
-def watchlist_setter():
-    # res = Watchlist.query.filter_by(
-    #     ticker=ticker, user_id=data["user_id"]).first()
-    return {"Good!"}
+@stock_routes.route('/watchlist/setter/<path:ticker>/<int:id>', methods=["GET", "POST"])
+def watchlist_setter(ticker, id):
+    res = Watchlist.query.filter_by(ticker=ticker, user_id=id).all()
+    if (res == []):
+        return{"option": "Add to Watchlist"}
+    elif(res != []):
+        return {"option": "Remove from Watchlist"}
 
 
 @stock_routes.route('/watchlist/options', methods=['POST', 'DELETE'])
@@ -76,6 +74,26 @@ def watchlist_add():
         db.session.delete(res)
         db.session.commit()
         return {"message": f"Removed from watchlist"}
+
+
+@stock_routes.route('sell', methods=['POST'])
+def sell_shares():
+    request_data = request.get_json()
+    id = request_data['id']
+    shares = -1 * (request_data['shares'])
+    sell_ticker = request_data['ticker']
+    sell_company = Company.query.filter_by(ticker = sell_ticker).all()
+    company_id = sell_company[0].to_dict()['id']
+
+    print(company_id, '===============')
+    sell_transaction = Transaction({
+        'user_id': id,
+        'company_id': company_id,
+        'purchase_price': 0,
+        'quantity': shares,
+        'buy_sell': False,
+    })
+
 
 
 @stock_routes.route('/timePeriod', methods=['POST'])

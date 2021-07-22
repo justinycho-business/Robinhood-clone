@@ -6,7 +6,7 @@
     left: 0;
     width:100%;
     height:100%;
-    background-color: black;
+    /* background-color: black; */
 }
 .stocks-info-container{
     display: flex;
@@ -100,9 +100,14 @@
     /* background-color: rgb(10, 168, 18); */
     color: rgb(184, 62, 88);
 }
-.watchlist-container{
-    margin-top: 30px;;
-    margin-left: 180px;
+.add-to{
+  margin-top: 30px;;
+  margin-left: 160px;
+  border-radius: 8px;
+}
+.remove-from{
+    margin-top: 30px;
+    margin-left: 140px;
     border-radius: 8px;
   }
 .form-item{
@@ -212,3 +217,12 @@ margin-left: 40px;
       transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
     }
   }
+
+.sellDiv {
+  position: absolute;
+  left: 270px;
+  width: 250px;
+  height: 400px;
+  outline: 1px solid black;
+  box-shadow: 1px 1px 5px black;
+}
