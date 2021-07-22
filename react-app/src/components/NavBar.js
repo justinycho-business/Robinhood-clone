@@ -10,17 +10,17 @@ const NavBar = () => {
     const user = useSelector(state => state.session.user)
     const removeSignUpFromNavBar = useSelector(state => state.session.user)
     const dispatch = useDispatch()
-    const history = useHistory()
+    // const history = useHistory()
     // const id = useParams()
 
-  useEffect(() => {
-      (async() => {
-          const response = await fetch(`/api/search/info/${id.ticker}`)
-          const responseData = await response.json()
-          setSearch(responseData);
-          dispatch(getDashboardData(ticker.id))
-      })()
-  }, [user, id, dispatch]);
+  // useEffect(() => {
+  //     (async() => {
+  //         const response = await fetch(`/api/search/info/${id.ticker}`)
+  //         const responseData = await response.json()
+  //         setSearch(responseData);
+  //         dispatch(getDashboardData(ticker.id))
+  //     })()
+  // }, [user, id, dispatch]);
 
   //after we find the ticker, what happens when it's selected by user? shows up on dashboard or user gets redirected to page with stock details?
   const searchResult = async(e) => {
