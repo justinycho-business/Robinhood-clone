@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
-import { get1dayData, graphTimePeriodButton } from '../store/stocks';
+import { get1dayData, graphTimePeriodButton, sellSharesButton } from '../store/stocks';
 import { getDashboardData } from '../store/dashboard'
 import ticks from "../data/1dayticks"
 import './styles/Stocks.css';
@@ -12,10 +12,10 @@ import './styles/Stocks.css';
 // console.log(new Date());
 // console.log(new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000)
 // console.log(new Date("2021-07-22 13:50:00").getTime() / 1000);
-console.log((new Date('2021-07-13 09:30:00').getTime() / 1000) - 25200)// 9 30 =  1626168600
-console.log((new Date('2021-07-13 16:00:00').getTime() / 1000) - 25200) // needs to equal 1626969600
-console.log(moment().format('YYYY-MM-DD'))
-console.log(typeof(moment().format('YYYY-MM-DD')));
+// console.log((new Date('2021-07-13 09:30:00').getTime() / 1000) - 25200)// 9 30 =  1626168600
+// console.log((new Date('2021-07-13 16:00:00').getTime() / 1000) - 25200) // needs to equal 1626969600
+// console.log(moment().format('YYYY-MM-DD'))
+// console.log(typeof(moment().format('YYYY-MM-DD')));
 
 
 const Stocks = () => {
@@ -35,6 +35,7 @@ const Stocks = () => {
 
     const [stockdata, setstockdata] = useState(null);
     const [totalStocks, setTotalStocks] = useState(1);
+    const [sellShares, setSellShares] = useState(1);
     const [ticker, setTicker] = useState(getTicker(urlString))
     const [userId, setUserId] = useState(null)
     const [option, setOption] = useState('add')
@@ -43,6 +44,7 @@ const Stocks = () => {
     const priceData = useSelector(state => state?.priceData?.oneDayDataStocks)
     const user = useSelector(state => state.session.user);
     const oneDayGraphData = useSelector(state => state?.priceData?.oneDayDataStocks)
+    const companyInfo = useSelector(state => state?.dashboard?.userData)
     const id = useParams();
     const oneDayGraphDataTrimmed = (data) => {
         const result = []
@@ -105,6 +107,11 @@ const Stocks = () => {
         return parseFloat((max * 1.005).toFixed(2));
     };
 
+    const formatXAxis = (tickItem) => {
+        const milli = tickItem * 1000;
+        return new Date(milli).toString();
+    };
+
 
     if (!oneDayGraphData) {
         return (
@@ -115,7 +122,6 @@ const Stocks = () => {
             </div>
         )
     }
-
 
     const addToWatchlist = async (e) => {
         e.preventDefault();
@@ -132,6 +138,17 @@ const Stocks = () => {
         const data = await post.json();
         console.log(data)
         // this.setState({ postId: data.id });
+    };
+
+    const findCompanyShare = (array) => {
+        const shares = array.filter(ele => {
+            if(ele.ticker === urlTicker) {
+                console.log(ele.quantity)
+                return ele.quantity
+            }
+            return 'No Shares Owned'
+        })
+        return shares
     };
 
     return (
@@ -169,6 +186,32 @@ const Stocks = () => {
                             <h2>${user?.buying_power} buying power available</h2>
                         </div>
                     </div>
+                    <div className='sellDiv'>
+                    <form className='buy-form'>
+                        <label className='form-title'> Sell {stockdata?.symbol} :</label>
+                        <div className='form-shares'>
+                            <label className='form-item'>Shares: </label>
+                            <input className='form-shares-input' placeholder={1}
+                                onChange={(e) => setSellShares(e.target.value)}
+                                value={sellShares}
+                            ></input>
+                        </div>
+                        <div className='form-market-price'>
+                            <label className='form-item'>Market Price :</label>
+                            <h1 className='market-price'>{(stockdata?.latestPrice.toFixed(2))}</h1>
+                        </div>
+                        <div className='est-cost-container'>
+                            <label className='form-item'>Estimated value:</label>
+                            <h1 className='total-price'>${sellShares * (stockdata?.latestPrice.toFixed(2))}</h1>
+                        </div>
+                        <div className='buy-btn-container'>
+                            <button className='buy-btn' onClick={() => dispatch(sellSharesButton({'shares': sellShares, 'id': user.id, 'ticker': urlTicker}))}>Sell</button>
+                        </div>
+                        <div className='buying-power-container'>
+                            {/* <h2>{companyInfo && findCompanyShare(companyInfo[0].portfolio)}</h2> */}
+                        </div>
+                    </form>
+                </div>
                 </div>
                 <div className='company-graph'>
                     <div>
@@ -180,11 +223,9 @@ const Stocks = () => {
                                 dataKey="date"
                                 domain={[
                                     ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200),
-                                     ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
-                                ticks={
-                                    ticks
-                                }
-                                 />
+                                    ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
+                                    tickFormatter={formatXAxis}
+                                />
                                 <YAxis hide={false} domain={[min(oneDayGraphDataTrimmed(oneDayGraphData[0]?.oneDay[0])),
                                 max(oneDayGraphDataTrimmed(oneDayGraphData[0]?.oneDay[0]))]} />
                                 <Tooltip />
