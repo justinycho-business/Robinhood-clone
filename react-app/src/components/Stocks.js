@@ -61,13 +61,12 @@ const Stocks = () => {
             const data = await res.json();
             setOption(data.option)
             console.log(data.option)
-            if (option === "Add to Watchlist") {
+            if (data.option === "Add to Watchlist") {
                 console.log(1)
-                setContainer('watchlist-container-1')
-            } else {
+                setContainer('add-to')
+            } else if (data.option === "Remove from Watchlist") {
                 console.log(2)
-                setContainer('watchlist-container-2')
-                console.log(watchlistContainer)
+                setContainer('remove-from')
             }
         })();
     }, []);
