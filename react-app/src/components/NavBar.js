@@ -31,7 +31,7 @@ const NavBar = () => {
       })()
   }, []);
 
-  //after we find the ticker, what happens when it's selected by user? shows up on dashboard or user gets redirected to page with stock details?
+  //after we find the ticker, user selects it and gets redirected to stocks page
   const searchResult = async(e) => {
       e.preventDefault()
       const data = e.target.value
@@ -59,7 +59,14 @@ const NavBar = () => {
               <div>
                 <div>
                   <ul>
+                    {/* {
+                      //filter method on the data
+                      .filter('ticker I"ll be grabbing' === search).forEach(ticker => {
+                        <li>
 
+                        </li>
+                      })
+                    } */}
                   </ul>
                 </div>
               </div>

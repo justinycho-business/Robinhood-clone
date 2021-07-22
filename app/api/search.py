@@ -11,6 +11,18 @@ search_routes = Blueprint('search', __name__)
 apikey = os.environ.get('API_FIN_PUBLIC')
 apikey2 = os.environ.get('API_2_FIN')
 
+@search_routes.route('/all')
+# @login_required
+def get_tickers():
+    all_tickers = Company.query.filter_by().all()
+    data = all_tickers
+    return {'tickers': {ticker for ticker in data}}
+    # return {'**************': '************'}
+
+
+
+
+
 @search_routes.route('/<path:ticker>')
 def company(ticker):
     res1 = Company.query.filter_by(ticker=ticker).first()
@@ -20,14 +32,6 @@ def company(ticker):
     data2 = res2.to_dict()
     data3 = res3.to_dict()
     return {"Company": data1, "Company": data2, "Company": data3}
-
-@search_routes.route('/all')
-# @login_required
-def get_tickers():
-    all_tickers = Company.query.filter_by().all()
-    data = all_tickers
-    return {'tickers': {ticker for ticker in data}}
-    # return {'**************': '************'}
 
 @search_routes.route('/<int:id>')
 @login_required
