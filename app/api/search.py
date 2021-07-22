@@ -14,10 +14,12 @@ apikey2 = os.environ.get('API_2_FIN')
 @search_routes.route('/all')
 # @login_required
 def get_tickers():
-    all_tickers = Company.query.filter_by().all()
-    data = all_tickers
-    return {'tickers': {ticker for ticker in data}}
-    # return {'**************': '************'}
+    # all_tickers = Company.query.filter_by().all()
+    # data = all_tickers
+    # return {'tickers': {ticker for ticker in data}}
+    return {'**************': '************'}
+
+
 
 
 

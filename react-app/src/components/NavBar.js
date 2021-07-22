@@ -58,16 +58,16 @@ const NavBar = () => {
             <input placeholder="Search" className="search" type="text" value={search} onChange={(e) => setSearch(e.target.value)}></input>
               <div>
                 <div>
-                  <ul>
+                  {/* <ul> */}
                     {/* {
                       //filter method on the data
-                      .filter('ticker I"ll be grabbing' === search).forEach(ticker => {
+                      setSearch.filter('ticker I"ll be grabbing' === search).forEach(ticker => {
                         <li>
-
+                        
                         </li>
                       })
                     } */}
-                  </ul>
+                  {/* </ul> */}
                 </div>
               </div>
           </div>
