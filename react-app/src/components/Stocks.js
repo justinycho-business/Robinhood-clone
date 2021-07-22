@@ -33,6 +33,7 @@ const Stocks = () => {
         }
     }
 
+    const[graphstate, setgraphstate] = useState("1D")
     const [stockdata, setstockdata] = useState(null);
     const [totalStocks, setTotalStocks] = useState(1);
     const [ticker, setTicker] = useState(getTicker(urlString))
@@ -40,13 +41,48 @@ const Stocks = () => {
     const [option, setOption] = useState('add')
     const priceData = useSelector(state => state?.priceData?.oneDayDataStocks)
     const user = useSelector(state => state.session.user);
-    const oneDayGraphData = useSelector(state => state?.priceData?.oneDayDataStocks)
     const id = useParams();
+
+    const oneDayGraphData = useSelector(state => state?.priceData?.oneDayDataStocks)
+    const timePeriodGraphData = useSelector(state => state?.priceData?.timePeriodData)
+
+
     const oneDayGraphDataTrimmed = (data) => {
         const result = []
+        console.log(`${moment().format('YYYY-MM-DD')}`) //2021-07-22
         for (let i = 0; i < data.length; i++) {
-            if (data[i].date > ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200)) {
+            if (data[i].date.startsWith(`${moment().format('YYYY-MM-DD')}`)) {
                 result.push(data[i])
+            }
+        }
+        return result.reverse()
+    }
+
+    console.log(`${moment().subtract(10, 'days').format('YYYY-MM-DD')}`)
+
+    const oneWeekGraphDataTrimmed = (data) => {
+        console.log(`${moment().subtract(10, 'days').calendar()}`)
+        let result;
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].date === `${moment().subtract(7, 'days').format('YYYY-MM-DD')} 10:00:00` ||
+            data[i].date === `${moment().subtract(8, 'days').format('YYYY-MM-DD')} 10:00:00` ||
+            data[i].date === `${moment().subtract(9, 'days').format('YYYY-MM-DD')} 10:00:00` ||
+            data[i].date === `${moment().subtract(10, 'days').format('YYYY-MM-DD')} 10:00:00`) {
+                result = data.slice(0, i)
+            }
+        }
+        return result
+    }
+
+    const oneMonthGraphDataTrimmed = (data) => {
+        // console.log(`${moment().subtract(30, 'days').calendar()}`)
+        let result;
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].date === `${moment().subtract(30, 'days').format('YYYY-MM-DD')}` ||
+            data[i].date === `${moment().subtract(31, 'days').format('YYYY-MM-DD')}` ||
+            data[i].date === `${moment().subtract(32, 'days').format('YYYY-MM-DD')}` ||
+            data[i].date === `${moment().subtract(33, 'days').format('YYYY-MM-DD')}`) {
+                result = data.slice(0, i)
             }
         }
         return result.reverse()
@@ -60,10 +96,12 @@ const Stocks = () => {
             setstockdata(responseData);
             setUserId(user.id)
             dispatch(getDashboardData(user.id))
+            dispatch(get1dayData(ticker))
         })()
 
-        dispatch(get1dayData(ticker))
-    }, [user, id, dispatch]);
+    }, [
+        // user, id, dispatch
+    ]);
 
     const optionSetter = async () => {
 
@@ -162,32 +200,101 @@ const Stocks = () => {
                     </div>
                 </div>
                 <div className='company-graph'>
+
+                    {/* One day graph */}
+                    {oneDayGraphData && oneDayGraphData[0]  && graphstate === "1D" &&
                     <div>
                         <ResponsiveContainer width="100%" aspect={2}>
-                            <LineChart data={oneDayGraphData && oneDayGraphDataTrimmed(oneDayGraphData[0]?.oneDay[0])}>
+                            <LineChart data={oneDayGraphDataTrimmed(oneDayGraphData[0]?.oneDay[0])}>
                                 <Line dataKey="close" stroke="#6afa27"
                                     strokeWidth={2} dot={false} isAnimationActive={false} />
-                                <XAxis hide={false}
+                                <XAxis hide={true}
                                 dataKey="date"
-                                domain={[
-                                    ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200),
-                                     ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
-                                ticks={
-                                    ticks
-                                }
+                                // domain={[
+                                //     ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200),
+                                //      ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
+
                                  />
                                 <YAxis hide={false} domain={[min(oneDayGraphDataTrimmed(oneDayGraphData[0]?.oneDay[0])),
                                 max(oneDayGraphDataTrimmed(oneDayGraphData[0]?.oneDay[0]))]} />
                                 <Tooltip />
                             </LineChart>
                         </ResponsiveContainer>
-                    </div>
-                    <button className='time-btn' onClick={() => timePeriodButton({'string': 'oneDay', 'ticker': urlTicker})}>1D</button>
-                    <button className='time-btn' onClick={() => timePeriodButton({'string': 'oneWeek', 'ticker': urlTicker})}>1W</button>
-                    <button className='time-btn' onClick={() => timePeriodButton({'string': 'oneMonth', 'ticker': urlTicker})}>1M</button>
-                    <button className='time-btn' onClick={() => timePeriodButton({'string': 'threeMonths', 'ticker': urlTicker})}>3M</button>
-                    <button className='time-btn' onClick={() => timePeriodButton({'string': 'oneYear', 'ticker': urlTicker})}>1Y</button>
-                    <button className='time-btn' onClick={() => timePeriodButton({'string': 'fiveYears', 'ticker': urlTicker})}>5Y</button>
+                    </div>}
+
+                    {/* one week graph */}
+                    {timePeriodGraphData && timePeriodGraphData[0]  && graphstate === "1W" &&
+                    <div>
+                        <ResponsiveContainer width="100%" aspect={2}>
+                            <LineChart data={oneWeekGraphDataTrimmed(timePeriodGraphData[0]?.data).reverse()}>
+                                <Line dataKey="close" stroke="#6afa27"
+                                    strokeWidth={2} dot={false} isAnimationActive={false} />
+                                <XAxis hide={true}
+                                dataKey="date"
+                                // domain={[
+                                //     ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200),
+                                //      ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
+
+                                 />
+                                <YAxis hide={false} domain={[min(oneDayGraphDataTrimmed(timePeriodGraphData[0]?.data)),
+                                max(oneDayGraphDataTrimmed(timePeriodGraphData[0]?.data))]} />
+                                <Tooltip />
+                            </LineChart>
+                        </ResponsiveContainer>
+                    </div>}
+
+                    {/* one month graph */}
+                    {timePeriodGraphData && timePeriodGraphData[0]  && graphstate === "1M" &&
+                    <div>
+                        <ResponsiveContainer width="100%" aspect={2}>
+                            <LineChart data={oneMonthGraphDataTrimmed(timePeriodGraphData[0]?.data.historical)}>
+                                <Line dataKey="close" stroke="#6afa27"
+                                    strokeWidth={2} dot={false} isAnimationActive={false} />
+                                <XAxis hide={true}
+                                dataKey="date"
+                                // domain={[
+                                //     ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200),
+                                //      ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
+
+                                 />
+                                <YAxis hide={false} domain={[min(oneDayGraphDataTrimmed(oneDayGraphData[0]?.oneDay[0])),
+                                max(oneDayGraphDataTrimmed(oneDayGraphData[0]?.oneDay[0]))]} />
+                                <Tooltip />
+                            </LineChart>
+                        </ResponsiveContainer>
+                    </div>}
+
+
+                    <button className='time-btn' onClick={() => {
+                        timePeriodButton({'string': 'oneDay', 'ticker': urlTicker})
+                        setgraphstate("1D")
+                        console.log(graphstate);
+                    }}>1D</button>
+                    <button className='time-btn' onClick={() => {
+                        timePeriodButton({'string': 'oneWeek', 'ticker': urlTicker})
+                        setgraphstate("1W")
+                        console.log(graphstate);
+                        }}>1W</button>
+                    <button className='time-btn' onClick={() => {
+                        timePeriodButton({'string': 'oneMonth', 'ticker': urlTicker})
+                        setgraphstate("1M")
+                        console.log(graphstate);
+                }}>1M</button>
+                    <button className='time-btn' onClick={() => {
+                        timePeriodButton({'string': 'threeMonths', 'ticker': urlTicker})
+                        setgraphstate("3M")
+                        console.log(graphstate);
+                }}>3M</button>
+                    <button className='time-btn' onClick={() => {
+                        timePeriodButton({'string': 'oneYear', 'ticker': urlTicker})
+                        setgraphstate("1Y")
+                        console.log(graphstate);
+                }}>1Y</button>
+                    <button className='time-btn' onClick={() => {
+                        timePeriodButton({'string': 'fiveYears', 'ticker': urlTicker})
+                        setgraphstate("5Y")
+                        console.log(graphstate);
+                        }}>5Y</button>
                 </div>
                 <div className='watchlist-container'>
                     <button className='watchlist-btn' onClick={addToWatchlist}>Watch {stockdata?.symbol}</button>
