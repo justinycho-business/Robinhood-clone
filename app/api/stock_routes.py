@@ -44,7 +44,7 @@ def watchlist_setter(ticker, id):
     res = Watchlist.query.filter_by(ticker=ticker, user_id=id).all()
     if (res == []):
         return{"option": "Add to Watchlist"}
-    else:
+    elif(res != []):
         return {"option": "Remove from Watchlist"}
 
 
