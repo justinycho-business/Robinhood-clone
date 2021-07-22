@@ -59,7 +59,7 @@ const Stocks = () => {
         (async function fetchData() {
             const res = await fetch(`/api/stocks/watchlist/setter/${ticker}/${user.id}`);
             const data = await res.json();
-            console.log(data)
+            setOption(data.option)
         })();
     }, []);
 
@@ -173,7 +173,7 @@ const Stocks = () => {
                     <button className='time-btn'>All</button>
                 </div>
                 <div className='watchlist-container'>
-                    <button className='watchlist-btn' onClick={addToWatchlist}>Watch {stockdata?.symbol}</button>
+                    <button className='watchlist-btn' onClick={addToWatchlist}>{option} Watch {stockdata?.symbol}</button>
                 </div>
             </div>
         </div>
