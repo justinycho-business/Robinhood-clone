@@ -27,6 +27,7 @@ const Stocks = () => {
     const [ticker, setTicker] = useState(getTicker(urlString))
     const [userId, setUserId] = useState(null)
     const [option, setOption] = useState('add')
+    const [watchlist, setWatchlist] = useState(null)
     // const watchlist = useSelector(state => state?.dashboard?.userData[0]?.portfolio)
     const priceData = useSelector(state => state?.priceData?.oneDayDataStocks)
     const user = useSelector(state => state.session.user);
@@ -61,6 +62,11 @@ const Stocks = () => {
         dispatch(get1dayData(ticker))
     }, [user, id, dispatch]);
 
+    useEffect(() => {
+        (async function watchlistButton() {
+
+        })();
+    }, [])
 
     const min = (data) => {
         let min = Infinity;
