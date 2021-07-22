@@ -60,12 +60,9 @@ const Stocks = () => {
             const res = await fetch(`/api/stocks/watchlist/setter/${ticker}/${user.id}`);
             const data = await res.json();
             setOption(data.option)
-            console.log(data.option)
             if (data.option === "Add to Watchlist") {
-                console.log(1)
                 setContainer('add-to')
             } else if (data.option === "Remove from Watchlist") {
-                console.log(2)
                 setContainer('remove-from')
             }
         })();
