@@ -27,6 +27,7 @@ const Stocks = () => {
     const [ticker, setTicker] = useState(getTicker(urlString))
     const [userId, setUserId] = useState(null)
     const [option, setOption] = useState('add')
+    // const watchlist = useSelector(state => state?.dashboard?.userData[0]?.portfolio)
     const priceData = useSelector(state => state?.priceData?.oneDayDataStocks)
     const user = useSelector(state => state.session.user);
     const oneDayGraphData = useSelector(state => state?.priceData?.oneDayDataStocks)
@@ -49,15 +50,17 @@ const Stocks = () => {
             setstockdata(responseData);
             setUserId(user.id)
             dispatch(getDashboardData(user.id))
-        })()
-
+            // console.log(watchlist)
+            // watchlist.map((company) => console.log(company))
+            // if (watchlist.includes(id.ticker)) {
+            //     console.log(watchlist)
+            // } else {
+            //     console.log("Try again :(")
+            // }
+        })();
         dispatch(get1dayData(ticker))
     }, [user, id, dispatch]);
 
-    const optionSetter = async () => {
-        
-
-    }
 
     const min = (data) => {
         let min = Infinity;
