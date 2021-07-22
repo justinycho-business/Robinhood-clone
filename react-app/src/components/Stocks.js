@@ -156,9 +156,14 @@ const Stocks = () => {
                             <LineChart data={oneDayGraphData && oneDayGraphDataTrimmed(oneDayGraphData[0]?.oneDay[0])}>
                                 <Line dataKey="close" stroke="#6afa27"
                                     strokeWidth={2} dot={false} isAnimationActive={false} />
-                                <XAxis hide={true} dataKey="date" domain={[`${moment().format('YYYY-MM-DD')} 09:30:00`,
-                                `${moment().format('YYYY-MM-DD')} 16:00:00`]} />
-                                <YAxis hide={true} domain={[min(oneDayGraphDataTrimmed(oneDayGraphData[0]?.oneDay[0])),
+                                <XAxis
+                                hide={false}
+                                dataKey="date"
+                                domain={[`${moment().format('YYYY-MM-DD')} 09:30:00`,
+                                `${moment().format('YYYY-MM-DD')} 16:00:00`]}
+
+                                 />
+                                <YAxis hide={false} domain={[min(oneDayGraphDataTrimmed(oneDayGraphData[0]?.oneDay[0])),
                                 max(oneDayGraphDataTrimmed(oneDayGraphData[0]?.oneDay[0]))]} />
                                 <Tooltip />
                             </LineChart>

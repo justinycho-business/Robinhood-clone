@@ -13,10 +13,10 @@ import './styles/Dashboard.css'
 function Dashboard() {
     const dispatch = useDispatch()
     const user = useSelector(state => state.session.user)
-    const watchlist = useSelector(state => state?.dashboard?.userData)
+    let watchlist = useSelector(state => state?.dashboard?.userData)
     const watchlistData = useSelector(state => state?.dashboard?.userData)
-    const lilgraphs = useSelector(state => state)
-
+    const lilgraphs = useSelector(state => state?.dashboard?.lilgraphs)
+    console.log(watchlist);
     const [portfolioValue, setPortolioValue] = useState("")
 
     // function to check if user is logged in then returns the user ID
@@ -37,19 +37,35 @@ function Dashboard() {
     }
 
     useEffect(() => {
-        (async function() {
-            await dispatch(getDashboardData(user?.id))
-            const get_watchlist_graphs1= () => {
-                let result = []
-                if (watchlist) {
-                for(let i = 0;i < watchlist[0]?.watchlist.length; i++) {
-                    console.log(watchlist[0]?.watchlist[i].ticker)
-                    result.push(watchlist[0]?.watchlist[i].ticker)
-                }}
-                return result
+        // (async function() {
+        //     await dispatch(getDashboardData(user?.id))
+        //     await dispatch(getlilgraphs(["FB"]))
+        //     // await dispatch(getlilgraphs(tickerarray(watchlist ? watchlist[0]?.watchlist: [])))
+        //     // dispatch(getlilgraphs(get_watchlist_graphs1()))
+        // })()
+        dispatch(getDashboardData(user?.id))
+        dispatch(getlilgraphs(["FB"]))
+        const get_watchlist_graphs1= () => {
+            let result = []
+            console.log(watchlist);
+            for(let i = 0;i < watchlist[0]?.watchlist.length; i++) {
+                console.log(watchlist[0]?.watchlist[i].ticker)
+                result.push(watchlist[0]?.watchlist[i].ticker)
             }
-            await dispatch(getlilgraphs(get_watchlist_graphs1()))
-        })()
+            return result
+        }
+        setTimeout(function(){
+            dispatch(getlilgraphs(get_watchlist_graphs1()))
+        }, 5000);
+
+        // const tickerarray = (array) => {
+        //     if (array === []) {
+        //         return []
+        //     }
+        //     return array.filter(ele => {
+        //         return ele.ticker
+        //     })
+        // }
         console.log('inside use effect =============================')
         // let lightswitch = true;
         // // while(lightswitch) {
@@ -70,10 +86,8 @@ function Dashboard() {
         // }
     }, [])
 
-        //     lightswitch = false
-        //     console.log(lightswitch);
-        //     }
         // if (watchlist && watchlist[0]) {
+        //     dispatch(getlilgraphs(["FB"]))
         //     const get_watchlist_graphs1= () => {
         //         let result = []
         //         for(let i = 0;i < watchlist[0]?.watchlist.length; i++) {
@@ -82,7 +96,8 @@ function Dashboard() {
         //         }
         //         return result
         //     }
-        //     dispatch(getlilgraphs(get_watchlist_graphs1()))
+        //     if(!lilgraphs && !lilgraphs[0]){
+        //     dispatch(getlilgraphs(get_watchlist_graphs1()))}
         // }
 
         // if (watchlist && watchlist[0]) {
@@ -168,8 +183,17 @@ function Dashboard() {
         return parseFloat((max * 1.005).toFixed(2));
     };
 
+    if (!watchlist) {
+        return (
+            <div class="loader">
+                <div class="inner one"></div>
+                <div class="inner two"></div>
+                <div class="inner three"></div>
+            </div>
+        )
+    }
 
-    return (
+    return (<>{watchlist[0] &&
         <div class='wrapper'>
             <div className='portfolioDiv'>
                 <h1>Dashboard</h1>
@@ -266,7 +290,7 @@ function Dashboard() {
                 </ul>
             </div>
         </div>
-    )
+                    }</>)
 }
 
 export default Dashboard;
