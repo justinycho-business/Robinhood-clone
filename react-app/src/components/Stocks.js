@@ -51,22 +51,20 @@ const Stocks = () => {
             setstockdata(responseData);
             setUserId(user.id)
             dispatch(getDashboardData(user.id))
-            // console.log(watchlist)
-            // watchlist.map((company) => console.log(company))
-            // if (watchlist.includes(id.ticker)) {
-            //     console.log(watchlist)
-            // } else {
-            //     console.log("Try again :(")
-            // }
+            dispatch(get1dayData(ticker))
         })();
-        dispatch(get1dayData(ticker))
     }, [user, id, dispatch]);
 
-    useEffect(() => {
-        (async function watchlistButton() {
-
-        })();
-    }, [])
+    // useEffect(() => {
+    //     (async function watchlistButton() {
+    //         watchlist.map((company) => console.log(company))
+    //         if (watchlist.includes(id.ticker)) {
+    //             console.log(watchlist)
+    //         } else {
+    //             console.log("Try again :(")
+    //         }
+    //     })();
+    // }, [])
 
     const min = (data) => {
         let min = Infinity;
