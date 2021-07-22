@@ -22,6 +22,9 @@ def stock(ticker):
 
 @stock_routes.route('/<ticker>')
 def stocks(ticker):
+    res = requests.get(
+            f'https://financialmodelingprep.com/api/v3/historical-chart/5min/{ticker}?apikey={apikey2}')
+    jsonData = res.json()
     def get_stock_data_1D():
         result = []
         res = requests.get(
@@ -34,7 +37,7 @@ def stocks(ticker):
             seconds = a_timedelta.total_seconds()
             data['date'] = seconds
         return result
-    return {'oneDay': get_stock_data_1D()}
+    return {'oneDay': [jsonData]}
 
 
 @stock_routes.route('/watchlist/<path:ticker>')

@@ -153,10 +153,11 @@ margin-left: 40px;
     margin-left: 12px;
 }
 .time-btn{
-    background: none;
+    background: lightgray;
 	color: inherit;
-	border: none;
-	padding: 0;
+	border: solid 1px black;
+	padding: 2px;
+  margin-right: 2px;
 	font: inherit;
 	cursor: pointer;
 	outline: inherit;
@@ -172,6 +173,7 @@ margin-left: 40px;
     height: 64px;
     border-radius: 50%;
     perspective: 800px;
+    background-color: black;
   }.inner {
     position: absolute;
     box-sizing: border-box;
