@@ -11,15 +11,7 @@ search_routes = Blueprint('search', __name__)
 apikey = os.environ.get('API_FIN_PUBLIC')
 apikey2 = os.environ.get('API_2_FIN')
 
-#routes
-#grab/return ticker
-
-# @search_routes.route('/info/<path:ticker>')
-# def search(ticker):
-#     res=requests.get(f'https://financialmodelingprep.com/api/v3/quote-short/{ticker}?apikey={apikey2}')
-#     return {'************', ticker}
-
-@search_routes.route('/dashboard/<path:ticker>')
+@search_routes.route('/<path:ticker>')
 def company(ticker):
     res1 = Company.query.filter_by(ticker=ticker).first()
     res2 = Company.query.filter_by(id=id).first()
@@ -27,14 +19,15 @@ def company(ticker):
     data1 = res1.to_dict()
     data2 = res2.to_dict()
     data3 = res3.to_dict()
-    return {"Company": data1, "Company": data2, "Company": data3, }
+    return {"Company": data1, "Company": data2, "Company": data3}
 
-@search_routes.route('/')
-@login_required
-def tickers():
-    tickers = Company.query.all()
-    return {'tickers': [tickers.to_dict() for ticker in tickers]}
-
+@search_routes.route('/all')
+# @login_required
+def get_tickers():
+    all_tickers = Company.query.filter_by().all()
+    data = all_tickers
+    return {'tickers': {ticker for ticker in data}}
+    # return {'**************': '************'}
 
 @search_routes.route('/<int:id>')
 @login_required
@@ -47,7 +40,7 @@ def get_ticker():
     tickers = Company.query.all()
     ticker_array = [ticker.to_dict() for ticker in tickers]
     for ticker in ticker_array:
-        res = requests.get(f'https://financialmodelingprep.com/api/v3/quote-short/{ticker}?apikey={apikey2}')
+        res = requests.get(f'')
         jsonData = res.json()
         result.append(jsonData)
     return result

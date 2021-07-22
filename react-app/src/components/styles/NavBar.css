@@ -98,19 +98,33 @@ nav{
     right:100px;
 }
 
-.welcome_message {
-    position: absolute;
-    right: 1250px;
+.welcome_message_container {
+
 }
 
-.search_container {
+.welcome_message_inner_container {
+
+}
+
+.welcome_message {
+    /* position: absolute;
+    right: 1250px; */
+}
+
+.search_outer_container {
     display: flex;
-    align-items: flex-end;
+}
+
+.search_inner_container {
+    display: flex;
+    justify-content: end;
 }
 
 .search {
-    position: absolute;
-    right: 740px;
+    /* position: absolute;
+    right: 740px; */
+    margin-right: 580px;
+    margin-bottom: 15px;
 }
 
 .logout_btn {

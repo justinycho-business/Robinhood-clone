@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useHistory } from 'react';
-import { NavLink, useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { NavLink, useParams, useHistory } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 import { useDispatch, useSelector } from 'react-redux'
 import { getDashboardData } from '../store/dashboard';
@@ -9,8 +9,8 @@ const NavBar = () => {
     const [search, setSearch] = useState('')
     const user = useSelector(state => state.session.user)
     const removeSignUpFromNavBar = useSelector(state => state.session.user)
-    const dispatch = useDispatch()
-    // const history = useHistory()
+    // const dispatch = useDispatch()
+    const history = useHistory()
     // const id = useParams()
 
   // useEffect(() => {
@@ -22,14 +22,20 @@ const NavBar = () => {
   //     })()
   // }, [user, id, dispatch]);
 
+  useEffect(() => {
+      (async() => {
+          const response = await fetch(`/api/search/all`)
+          const responseData = await response.json()
+          console.log(responseData);
+          // setSearch(responseData);
+      })()
+  }, []);
+
   //after we find the ticker, what happens when it's selected by user? shows up on dashboard or user gets redirected to page with stock details?
   const searchResult = async(e) => {
       e.preventDefault()
-      const response = await fetch(`/api/search/dashboard/)`)
-      const responseData = await response.json()
-      const company = responseData.Company.id
-
-      console.log(company)
+      const data = e.target.value
+      history.push(`/stocks/${data}`)
   }
 
   if (removeSignUpFromNavBar) {
@@ -42,12 +48,22 @@ const NavBar = () => {
             </div>
           </NavLink>
         </div>
-        <div className="welcome_message">
-          <p>Welcome {user.username}</p>
+        <div className = "welcome_message_container">
+          <div className="welcome_message_inner_container">
+            <div className = "welcome_message">Welcome {user.username}</div>
+          </div>
         </div>
-        <div className="search_container">
-          <label htmlFor="search"></label>
-          <input placeholder="Search" className="search" type="text" value={search} onChange={(e) => setSearch(e.target.value)}></input>
+        <div className="search_outer_container">
+          <div className = "search_inner_container">
+            <input placeholder="Search" className="search" type="text" value={search} onChange={(e) => setSearch(e.target.value)}></input>
+              <div>
+                <div>
+                  <ul>
+
+                  </ul>
+                </div>
+              </div>
+          </div>
         </div>
         {/* <div>
           <NavLink to='/users' exact={true} activeClassName='active'>
