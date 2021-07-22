@@ -49,23 +49,20 @@ const Stocks = () => {
             const response = await fetch(`/api/stocks/info/${id.ticker}`);
             const responseData = await response.json();
             setstockdata(responseData);
-            setUserId(user.id)
-            dispatch(getDashboardData(user.id))
-            dispatch(get1dayData(ticker))
         })();
-        console.log(watchlist)
-    }, [user, id, dispatch]);
+        setUserId(user.id);
+        dispatch(getDashboardData(user.id));
+        dispatch(get1dayData(ticker));
+    }, [user, id, dispatch, get1dayData]);
 
-    // useEffect(() => {
-    //     (async function watchlistButton() {
-    //         watchlist.map((company) => console.log(company))
-    //         if (watchlist.includes(id.ticker)) {
-    //             console.log(watchlist)
-    //         } else {
-    //             console.log("Try again :(")
-    //         }
-    //     })();
-    // }, [])
+    useEffect(() => {
+        if (watchlist !== undefined) {
+            const res = watchlist?.userData[0]?.portfolio
+            res.forEach((company) => console.log(company))
+            
+            console.log(res)
+        }
+    }, [watchlist, getDashboardData]);
 
     const min = (data) => {
         let min = Infinity;
