@@ -15,6 +15,7 @@ function Dashboard() {
     const user = useSelector(state => state.session.user)
     const watchlist = useSelector(state => state?.dashboard?.userData)
     const watchlistData = useSelector(state => state?.dashboard?.userData)
+    const lilgraphs = useSelector(state => state)
 
     const [portfolioValue, setPortolioValue] = useState("")
 
@@ -36,36 +37,114 @@ function Dashboard() {
     }
 
     useEffect(() => {
-        dispatch(getDashboardData(user?.id))
+        (async function() {
+            await dispatch(getDashboardData(user?.id))
+            const get_watchlist_graphs1= () => {
+                let result = []
+                if (watchlist) {
+                for(let i = 0;i < watchlist[0]?.watchlist.length; i++) {
+                    console.log(watchlist[0]?.watchlist[i].ticker)
+                    result.push(watchlist[0]?.watchlist[i].ticker)
+                }}
+                return result
+            }
+            await dispatch(getlilgraphs(get_watchlist_graphs1()))
+        })()
         console.log('inside use effect =============================')
+        // let lightswitch = true;
+        // // while(lightswitch) {
+        //     // if (watchlist) {
+        //         const get_watchlist_graphs1= () => {
+        //             let result = []
+        //             for(let i = 0;i < watchlist[0]?.watchlist.length; i++) {
+        //                 console.log(watchlist[0]?.watchlist[i].ticker)
+        //                 result.push(watchlist[0]?.watchlist[i].ticker)
+        //             }
+        //             return result
+        //         }
+        //         dispatch(getlilgraphs(get_watchlist_graphs1()))
+        //         lightswitch = false
+        //     }  else {
+        //         lightswitch= false
+        //     }
+        // }
+    }, [])
 
+        //     lightswitch = false
+        //     console.log(lightswitch);
+        //     }
+        // if (watchlist && watchlist[0]) {
+        //     const get_watchlist_graphs1= () => {
+        //         let result = []
+        //         for(let i = 0;i < watchlist[0]?.watchlist.length; i++) {
+        //             console.log(watchlist[0]?.watchlist[i].ticker)
+        //             result.push(watchlist[0]?.watchlist[i].ticker)
+        //         }
+        //         return result
+        //     }
+        //     dispatch(getlilgraphs(get_watchlist_graphs1()))
+        // }
+
+        // if (watchlist && watchlist[0]) {
+        //     const get_watchlist_graphs= () => {
+        //         let result = []
+        //         for(let i = 0;i < watchlist[0]?.watchlist.length; i++) {
+        //             console.log(watchlist[0]?.watchlist[i].ticker)
+        //             dispatch(get1dayData(watchlist[0]?.watchlist[i].ticker))
+        //             // result.push(watchlist[0]?.watchlist[i].ticker)
+        //         }
+        //         return
+        //     }
+        //     get_watchlist_graphs()
+        // }
         // dispatch(get1dayData())
-    }, [dispatch])
+    // }, [])
 
-    if (watchlist) {
-        const get_watchlist_graphs1= () => {
-            let result = []
-            for(let i = 0;i < watchlist[0]?.watchlist.length; i++) {
-                console.log(watchlist[0]?.watchlist[i].ticker)
-                result.push(watchlist[0]?.watchlist[i].ticker)
-            }
-            return result
-        }
-        dispatch(getlilgraphs(get_watchlist_graphs1()))
-    }
+    // let lightswitch = true;
 
-    if (watchlist) {
-        const get_watchlist_graphs= () => {
-            let result = []
-            for(let i = 0;i < watchlist[0]?.watchlist.length; i++) {
-                console.log(watchlist[0]?.watchlist[i].ticker)
-                dispatch(get1dayData(watchlist[0]?.watchlist[i].ticker))
-                // result.push(watchlist[0]?.watchlist[i].ticker)
-            }
-            return
-        }
-        get_watchlist_graphs()
-    }
+    // while(lightswitch) {
+    //     if (watchlist) {
+    //         const get_watchlist_graphs1= () => {
+    //             let result = []
+    //             for(let i = 0;i < watchlist[0]?.watchlist.length; i++) {
+    //                 console.log(watchlist[0]?.watchlist[i].ticker)
+    //                 result.push(watchlist[0]?.watchlist[i].ticker)
+    //             }
+    //             return result
+    //         }
+    //         dispatch(getlilgraphs(get_watchlist_graphs1()))
+    //         lightswitch = false
+    //     }
+    // }
+
+    // if (watchlist) {
+    //     const get_watchlist_graphs= () => {
+    //         let result = []
+    //         for(let i = 0;i < watchlist[0]?.watchlist.length; i++) {
+    //             console.log(watchlist[0]?.watchlist[i].ticker)
+    //             dispatch(get1dayData(watchlist[0]?.watchlist[i].ticker))
+    //             // result.push(watchlist[0]?.watchlist[i].ticker)
+    //         }
+    //         return
+    //     }
+    //     get_watchlist_graphs()
+    // }
+    // lightswitch = false
+    // }
+
+        // useEffect(()=> {
+        //     if (watchlist) {
+        //     const get_watchlist_graphs1= () => {
+        //         let result = []
+        //         for(let i = 0;i < watchlist[0]?.watchlist.length; i++) {
+        //             console.log(watchlist[0]?.watchlist[i].ticker)
+        //             result.push(watchlist[0]?.watchlist[i].ticker)
+        //         }
+        //         return result
+        //     }
+        //     dispatch(getlilgraphs(get_watchlist_graphs1()))
+        //     }
+        // }, [])
 
 
     const min = (data) => {

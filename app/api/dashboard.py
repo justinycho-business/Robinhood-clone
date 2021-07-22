@@ -21,7 +21,7 @@ apikey2 = os.environ.get('API_2_FIN')
 #     # Need to get the user ID from the request
 #     user = User.query.filter(User.id)
 
-@dashboard_routes.route('/lilgraphs', methods=['GET','POST'])
+@dashboard_routes.route('/lilgraphs', methods=['GET', "POST"])
 @login_required
 def lilgraphs():
     request_data = request.get_json()
@@ -31,7 +31,16 @@ def lilgraphs():
     request_data = request.get_json()
     tickerlist = request_data['tickerlist']
 
-    print(request_data, "----------------------------------")
+
+    def get_watchlist():
+        result = {}
+        for ticker in tickerlist:
+            res = requests.get(f'https://financialmodelingprep.com/api/v3/historical-chart/5min/{ticker}?apikey={apikey2}')
+            jsonData = res.json()
+            result[ticker] = jsonData
+        return result
+
+    return get_watchlist()
 
 @dashboard_routes.route('/<int:id>')
 @login_required
