@@ -1,15 +1,42 @@
-
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { NavLink, useParams, useHistory } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { getDashboardData } from '../store/dashboard';
 import './styles/NavBar.css';
 
-
 const NavBar = () => {
-  const [search, setSearch] = useState('')
-  const user = useSelector(state => state.session.user)
-  const removeSignUpFromNavBar = useSelector(state => state.session.user)
+    const [search, setSearch] = useState('')
+    const user = useSelector(state => state.session.user)
+    const removeSignUpFromNavBar = useSelector(state => state.session.user)
+    // const dispatch = useDispatch()
+    const history = useHistory()
+    // const id = useParams()
+
+  // useEffect(() => {
+  //     (async() => {
+  //         const response = await fetch(`/api/search/info/${id.ticker}`)
+  //         const responseData = await response.json()
+  //         setSearch(responseData);
+  //         dispatch(getDashboardData(ticker.id))
+  //     })()
+  // }, [user, id, dispatch]);
+
+  useEffect(() => {
+      (async() => {
+          const response = await fetch(`/api/search/all`)
+          const responseData = await response.json()
+          console.log(responseData);
+          setSearch(responseData);
+      })()
+  }, []);
+
+  //after we find the ticker, user selects it and gets redirected to stocks page
+  const searchResult = async(e) => {
+      e.preventDefault()
+      const data = e.target.value
+      history.push(`/stocks/${data}`)
+  }
 
   if (removeSignUpFromNavBar) {
     return (
@@ -21,12 +48,29 @@ const NavBar = () => {
             </div>
           </NavLink>
         </div>
-        <div className="welcome_message">
-          <p>Welcome {user.username}</p>
+        <div className = "welcome_message_container">
+          <div className="welcome_message_inner_container">
+            <div className = "welcome_message">Welcome {user.username}</div>
+          </div>
         </div>
-        <div className="search_container">
-          <label htmlFor="search"></label>
-          <input placeholder="Search" className="search" type="text" value={search} onChange={(e) => setSearch(e.target.value)}></input>
+        <div className="search_outer_container">
+          <div className = "search_inner_container">
+            <input placeholder="Search" className="search" type="text" value={search} onChange={(e) => setSearch(e.target.value)}></input>
+              <div>
+                <div>
+                  {/* <ul> */}
+                    {/* {
+                      //filter method on the data
+                      setSearch.filter('ticker I"ll be grabbing' === search).forEach(ticker => {
+                        <li>
+
+                        </li>
+                      })
+                    } */}
+                  {/* </ul> */}
+                </div>
+              </div>
+          </div>
         </div>
         {/* <div>
           <NavLink to='/users' exact={true} activeClassName='active'>
