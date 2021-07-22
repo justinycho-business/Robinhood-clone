@@ -109,7 +109,7 @@ const Stocks = () => {
         // user, id, dispatch, get1dayData
     ]);
 
-   
+
 
     useEffect(() => {
         (async function fetchData() {
@@ -157,12 +157,14 @@ const Stocks = () => {
 
 
     if (!oneDayGraphData) {
-        return (
+        return (<>
             <div class="loader">
                 <div class="inner one"></div>
                 <div class="inner two"></div>
                 <div class="inner three"></div>
             </div>
+            {/* // credit to: " https://codepen.io/martinvd " */}
+            </>
         )
     }
 
