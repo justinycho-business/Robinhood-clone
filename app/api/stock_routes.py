@@ -39,13 +39,12 @@ def watchlist_company(ticker):
     return {"Company_Info": data}
 
 
-@stock_routes.route('/watchlist/setter', methods=["GET", "POST"])
-def watchlist_setter():
-    res = request.data
-    print(res)
-    # res = Watchlist.query.filter_by(
-    #     ticker=ticker, user_id=data["user_id"]).first()
-    return {"Good!": res}
+@stock_routes.route('/watchlist/setter/<path:ticker>/<int:id>', methods=["GET", "POST"])
+def watchlist_setter(ticker, id):
+    res = Watchlist.query.filter_by(ticker=ticker, user_id=id).all()
+    data = res[0].to_dict()
+    print(data)
+    return {"Hey heres your ticker!": data}
 
 
 @stock_routes.route('/watchlist/options', methods=['POST', 'DELETE'])

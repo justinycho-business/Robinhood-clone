@@ -56,13 +56,12 @@ const Stocks = () => {
     }, [user, id, dispatch, get1dayData]);
 
     useEffect(() => {
-        if (watchlist !== undefined) {
-            const res = watchlist?.userData[0]?.portfolio
-            res.forEach((company) => console.log(company))
-            
-            console.log(res)
-        }
-    }, [watchlist, getDashboardData]);
+        (async function fetchData() {
+            const res = await fetch(`/api/stocks/watchlist/setter/${ticker}/${user.id}`);
+            const data = await res.json();
+            console.log(data)
+        })();
+    }, []);
 
     const min = (data) => {
         let min = Infinity;
