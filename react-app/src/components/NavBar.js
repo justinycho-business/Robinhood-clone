@@ -27,7 +27,7 @@ const NavBar = () => {
           const response = await fetch(`/api/search/all`)
           const responseData = await response.json()
           console.log(responseData);
-          // setSearch(responseData);
+          setSearch(responseData);
       })()
   }, []);
 
@@ -63,7 +63,7 @@ const NavBar = () => {
                       //filter method on the data
                       setSearch.filter('ticker I"ll be grabbing' === search).forEach(ticker => {
                         <li>
-                        
+
                         </li>
                       })
                     } */}
