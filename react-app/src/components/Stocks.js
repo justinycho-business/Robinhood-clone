@@ -38,6 +38,8 @@ const Stocks = () => {
     const [ticker, setTicker] = useState(getTicker(urlString))
     const [userId, setUserId] = useState(null)
     const [option, setOption] = useState('add')
+    const [watchlistContainer, setContainer] = useState('')
+    const watchlist = useSelector(state => state?.dashboard)
     const priceData = useSelector(state => state?.priceData?.oneDayDataStocks)
     const user = useSelector(state => state.session.user);
     const oneDayGraphData = useSelector(state => state?.priceData?.oneDayDataStocks)
@@ -58,17 +60,24 @@ const Stocks = () => {
             const response = await fetch(`/api/stocks/info/${id.ticker}`);
             const responseData = await response.json();
             setstockdata(responseData);
-            setUserId(user.id)
-            dispatch(getDashboardData(user.id))
-        })()
+        })();
+        setUserId(user.id);
+        dispatch(getDashboardData(user.id));
+        dispatch(get1dayData(ticker));
+    }, [user, id, dispatch, get1dayData]);
 
-        dispatch(get1dayData(ticker))
-    }, [user, id, dispatch]);
-
-    const optionSetter = async () => {
-
-    }
-
+    useEffect(() => {
+        (async function fetchData() {
+            const res = await fetch(`/api/stocks/watchlist/setter/${ticker}/${user.id}`);
+            const data = await res.json();
+            setOption(data.option)
+            if (data.option === "Add to Watchlist") {
+                setContainer('add-to')
+            } else if (data.option === "Remove from Watchlist") {
+                setContainer('remove-from')
+            }
+        })();
+    }, []);
 
     const timePeriodButton = (payload_obj) => {
         dispatch(graphTimePeriodButton(payload_obj))
@@ -189,8 +198,8 @@ const Stocks = () => {
                     <button className='time-btn' onClick={() => timePeriodButton({'string': 'oneYear', 'ticker': urlTicker})}>1Y</button>
                     <button className='time-btn' onClick={() => timePeriodButton({'string': 'fiveYears', 'ticker': urlTicker})}>5Y</button>
                 </div>
-                <div className='watchlist-container'>
-                    <button className='watchlist-btn' onClick={addToWatchlist}>Watch {stockdata?.symbol}</button>
+                <div className={watchlistContainer}>
+                    <button className='watchlist-btn' onClick={addToWatchlist}>{option}</button>
                 </div>
             </div>
         </div>

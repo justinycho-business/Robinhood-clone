@@ -48,11 +48,13 @@ def watchlist_company(ticker):
     return {"Company_Info": data}
 
 
-@stock_routes.route('/watchlist/setter')
-def watchlist_setter():
-    # res = Watchlist.query.filter_by(
-    #     ticker=ticker, user_id=data["user_id"]).first()
-    return {"Good!"}
+@stock_routes.route('/watchlist/setter/<path:ticker>/<int:id>', methods=["GET", "POST"])
+def watchlist_setter(ticker, id):
+    res = Watchlist.query.filter_by(ticker=ticker, user_id=id).all()
+    if (res == []):
+        return{"option": "Add to Watchlist"}
+    elif(res != []):
+        return {"option": "Remove from Watchlist"}
 
 
 @stock_routes.route('/watchlist/options', methods=['POST', 'DELETE'])
