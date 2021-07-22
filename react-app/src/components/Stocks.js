@@ -54,14 +54,10 @@ const Stocks = () => {
         dispatch(get1dayData(ticker))
     }, [user, id, dispatch]);
 
-    useEffect(() => {
-        (async function fetchData() {
-            const response = await fetch(`/api/stocks/watchlist/setter`);
-            const responseData = await response.json();
-            console.log(responseData)
-        })()
+    const optionSetter = async () => {
+        
 
-    }, [])
+    }
 
     const min = (data) => {
         let min = Infinity;
