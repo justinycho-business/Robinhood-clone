@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify
 from app.models import User, db, Transaction, Watchlist, Company, watchlist
 from flask import request
+import datetime
 import requests
 import ast
 import os
@@ -28,8 +29,16 @@ def stocks(ticker):
             f'https://financialmodelingprep.com/api/v3/historical-chart/5min/{ticker}?apikey={apikey2}')
         jsonData = res.json()
         result.append(jsonData)
+        for data in result[0]:
+            date_time = datetime.datetime.strptime(data['date'], "%Y-%m-%d %H:%M:%S")
+            print(date_time)
+            a_timedelta = date_time - datetime.datetime(1970, 1, 1)
+            print(a_timedelta)
+            seconds = a_timedelta.total_seconds()
+            print(seconds)
+            data['date'] = seconds
         return result
-    return {'oneDay': get_stock_data_1D(), 'oneWeek': 0, 'oneMonth': 0, 'threeMonths': 0, 'oneYear': 0, 'fiveYears': 0}
+    return {'oneDay': get_stock_data_1D()}
 
 
 @stock_routes.route('/watchlist/<path:ticker>')
@@ -66,3 +75,37 @@ def watchlist_add():
         db.session.delete(res)
         db.session.commit()
         return {"message": f"Removed from watchlist"}
+
+
+@stock_routes.route('/timePeriod', methods=['POST'])
+def get_graph_data_on_click():
+    request_data = request.get_json()
+    graph_button_string = request_data['string']
+    ticker = request_data['ticker']
+
+    if graph_button_string == 'oneDay':
+        res = requests.get(f'https://financialmodelingprep.com/api/v3/historical-chart/5min/{ticker}?apikey={apikey2}')
+        jsonData = res.json()
+        return {'data':jsonData}
+    elif graph_button_string == 'oneWeek':
+        res = requests.get(f'https://financialmodelingprep.com/api/v3/historical-chart/1hour/{ticker}?apikey={apikey2}')
+        jsonData = res.json()
+        return {'data':jsonData}
+    elif graph_button_string == 'oneMonth':
+        res = requests.get(f'https://financialmodelingprep.com/api/v3/historical-price-full/{ticker}?apikey={apikey2}')
+        jsonData = res.json()
+        return {'data':jsonData}
+    elif graph_button_string == 'threeMonths':
+        res = requests.get(f'https://financialmodelingprep.com/api/v3/historical-price-full/{ticker}?apikey={apikey2}')
+        jsonData = res.json()
+        return {'data':jsonData}
+    elif graph_button_string == 'oneYear':
+        res = requests.get(f'https://financialmodelingprep.com/api/v3/historical-price-full/{ticker}?apikey={apikey2}')
+        jsonData = res.json()
+        return {'data':jsonData}
+    elif graph_button_string == 'fiveYears':
+        res = requests.get(f'https://financialmodelingprep.com/api/v3/historical-price-full/{ticker}?apikey={apikey2}')
+        jsonData = res.json()
+        return {'data':jsonData}
+    else:
+        return {'error': 'Data not available'}
