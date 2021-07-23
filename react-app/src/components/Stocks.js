@@ -43,6 +43,7 @@ const Stocks = () => {
     const [buySell, setBuySell] = useState('buy')
     const [watchlistContainer, setContainer] = useState('')
     const [optionText, setOptionText] = useState('')
+    const [buyingPower, setBuyingPower] = useState(0)
     const watchlist = useSelector(state => state?.dashboard)
     const priceData = useSelector(state => state?.priceData?.oneDayDataStocks)
     const user = useSelector(state => state.session.user);
@@ -290,10 +291,6 @@ const Stocks = () => {
         }
     }
 
-    const buySelect = (e) => {
-        e.preventDefault();
-        console.log(1)
-    }
 
     return (
         <div className='stocks-background'>
@@ -364,6 +361,9 @@ const Stocks = () => {
                                     {/* <h2>{companyInfo && findCompanyShare(companyInfo[0].portfolio)}</h2> */}
                                 </div>
                             </form>
+                            <div className='buying-power-container'>
+                                <h2>${buyingPower} buying power available</h2>
+                            </div>
                         </div>
                     )
 
