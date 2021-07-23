@@ -67,7 +67,7 @@ const NavBar = () => {
                     {
                       //filter method on the data grabbed from our useEffect
                       companyTickerData.filter((e) => e.ticker.startsWith(search)).forEach(ticker => {
-                        <li onClick={(e) => searchResult(ticker)} value={ticker}>
+                        <li onClick={(e) => searchResult(e.ticker)} value={ticker}>
                             {ticker}
                         </li>
                       })
@@ -76,7 +76,8 @@ const NavBar = () => {
                 </div>
               </div>
           </div>
-        </div>}
+        </div>
+        }
         {/* <div>
           <NavLink to='/users' exact={true} activeClassName='active'>
             Users
