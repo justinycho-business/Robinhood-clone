@@ -6,21 +6,38 @@ nav{
     width: 100%;
     height: 64px;
     background-color: #E34819; */
-
-    -webkit-align-items: center;
+    /* -webkit-align-items: center;
     -webkit-box-align: center;
-    -ms-flex-align: center;
+    -ms-flex-align: center; */
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     justify-content: space-between;
     align-items: center;
     box-shadow: 0px 1px 4px 0px rgb(0 0 0 / 20%);
-    display: -webkit-box;
+    /* display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
-    display: flex;
+    display: flex; */
     height: 64px;
     padding: 0 30px;
+    margin-top: 0px;
+}
+.firstbox{
+    grid-column: 1;
 }
 
+.secondbox{
+    grid-column: 2;
+}
+
+.thirdbox{
+    grid-column: 3;
+    width: 50vw;
+}
+
+.fourthbox{
+    grid-column: 4;
+}
 .signup{
     /* display: block;
     border-radius: 10px;
@@ -98,18 +115,16 @@ nav{
     right:100px;
 }
 
-.welcome_message_container {
+/* .welcome_message_container {
 
 }
 
 .welcome_message_inner_container {
 
-}
+} */
 
-.welcome_message {
-    /* position: absolute;
-    right: 1250px; */
-}
+
+
 
 .search_outer_container {
     display: flex;
@@ -140,3 +155,27 @@ nav{
     font-size: 17px;
     margin-left: 930px;
 }
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content {
+    display:flex;
+    flex-direction: column;
+    position: relative;
+    background-color: #f6f6f6;
+    min-width: 230px;
+    border: 1px solid #ddd;
+    z-index: 1;
+  }
+
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }

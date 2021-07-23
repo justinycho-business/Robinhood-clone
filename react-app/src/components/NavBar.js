@@ -44,25 +44,41 @@ if (removeSignUpFromNavBar) {
   return (
   <>{companyTickerData &&
     <nav>
-      <div>
+      <div className="firstbox">
         <NavLink to='/' exact={true} activeClassName='active' className='home'>
           <div className="feather_icon">
             <i className="fas fa-feather"></i>
           </div>
         </NavLink>
       </div>
-      <div className = "welcome_message_container">
+      <div className="secondbox"
+      className = "welcome_message_container"
+      >
         <div className="welcome_message_inner_container">
           <div className = "welcome_message">Welcome {user.username}</div>
         </div>
       </div>
       {/* {companyTickerData && */}
-      <div className="search_outer_container">
-        <div className = "search_inner_container">
+      <div className="thirdbox"
+      // className="search_outer_container"
+      >
+        {/* <div className = "search_inner_container"> */}
           <input placeholder="Search" className="search" type="text" value={search} onChange={(e) => setSearch(e.target.value)}></input>
             <div>
               <div>
-                <ul>
+              <div class="dropdown">
+                <div id="myDropdown" class="dropdown-content">
+                {
+                    //filter method on the data grabbed from our useEffect
+                    companyTickerData.filter((e) => e.ticker.startsWith(search.toUpperCase())).map(dicOfCompany => (
+                      <a href={`/stocks/${dicOfCompany.ticker}`}>
+                          {dicOfCompany.ticker}
+                      </a>
+                    ))
+                  }
+                </div>
+                </div>
+                {/* <ul>
                   {
                     //filter method on the data grabbed from our useEffect
                     companyTickerData.filter((e) => e.ticker.startsWith(search.toUpperCase())).map(dicOfCompany => (
@@ -71,10 +87,10 @@ if (removeSignUpFromNavBar) {
                       </li>
                     ))
                   }
-                </ul>
+                </ul> */}
               </div>
             </div>
-        </div>
+        {/* </div> */}
       </div>
        {/* } */}
       {/* <div>
@@ -82,7 +98,8 @@ if (removeSignUpFromNavBar) {
           Users
         </NavLink>
       </div> */}
-      <div className="nav_icons">
+      <div className="fourthbox"
+      className="nav_icons">
         <div>
           <NavLink to={`/dashboard/${user.id}`} exact={true} activeClassName='active' className='dashboard'>
             Dashboard
@@ -98,7 +115,7 @@ if (removeSignUpFromNavBar) {
 } else {
   return (
     <nav>
-      <div>
+      <div className="firstbox">
         <NavLink to='/' exact={true} activeClassName='active' className='home'>
           <div className="feather_icon">
             Mr.Hood <i class="fas fa-feather"></i>
@@ -115,10 +132,10 @@ if (removeSignUpFromNavBar) {
         Users
         </NavLink>
       </div> */}
-      <div>
+      <div className="secondbox">
         <LogoutButton />
       </div>
-      <div>
+      <div className="thirdbox">
         <NavLink to='/sign-up' exact={true} activeClassName='active' className='signup'>
           Sign Up
         </NavLink>
