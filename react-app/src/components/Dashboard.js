@@ -92,12 +92,15 @@ function Dashboard() {
     };
 
     if (!watchlist) {
-        return (
-        <div class="loader">
-            <div class="inner one"></div>
-            <div class="inner two"></div>
-            <div class="inner three"></div>
-        </div>
+        return (<>
+            <div class="loader">
+                <div class="inner one"></div>
+                <div class="inner two"></div>
+                <div class="inner three"></div>
+
+            </div>
+            </>
+            // credit to: " https://codepen.io/martinvd "
         );
     }
 

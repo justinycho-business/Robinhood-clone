@@ -1,6 +1,7 @@
 // Define action types
 const ONE_DAY_STOCK_DATA = 'stocks/ONE_DAY_STOCK_DATA';
 const TIME_PERIOD_BUTTON = 'stocks/TIME_PERIOD_BUTTON';
+const SELL_SHARES = 'stocks/SELL_SHARES';
 
 
 // Action Creators
@@ -13,6 +14,12 @@ const timePeriodButton = (timePeriodData) => ({
     type: TIME_PERIOD_BUTTON,
     payload: timePeriodData
 })
+
+const sellShares = (soldConformation) => ({
+    type: SELL_SHARES,
+    payload: soldConformation
+})
+
 
 
 // Define Thunks
@@ -31,7 +38,6 @@ export const graphTimePeriodButton = (payload_obj) => async(dispatch) => {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(payload_obj)
     });
-    console.log('insdie of the thunk ====================')
 
     if(response.ok) {
         const updatedGraphData = await response.json()
@@ -39,6 +45,18 @@ export const graphTimePeriodButton = (payload_obj) => async(dispatch) => {
     }
 }
 
+export const sellSharesButton = (payload_obj) => async(dispatch) => {
+    const response = await fetch('/api/stocks/sell', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload_obj)
+    });
+
+    if(response.ok) {
+        const confirmation = await response.json()
+        dispatch(sellShares(confirmation))
+    }
+}
 
 // Define initial state
 const initialState = {}
@@ -51,6 +69,8 @@ export default function stockReducer(state = initialState, action) {
             return {...state, oneDayDataStocks: [action.payload] }
         case TIME_PERIOD_BUTTON:
             return {...state, timePeriodData: [action.payload]}
+        case SELL_SHARES:
+            return {...state, sellConfirmation: [action.payload]}
         default:
             return state;
     };

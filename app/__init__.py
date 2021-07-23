@@ -10,6 +10,7 @@ from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.dashboard import dashboard_routes
 from .api.stock_routes import stock_routes
+from .api.search import search_routes
 
 from .seeds import seed_commands
 
@@ -35,6 +36,7 @@ app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(dashboard_routes, url_prefix='/api/dashboard')
 app.register_blueprint(stock_routes, url_prefix='/api/stocks')
+app.register_blueprint(search_routes, url_prefix='/api/search')
 
 db.init_app(app)
 Migrate(app, db)
