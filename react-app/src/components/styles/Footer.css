@@ -1,6 +1,7 @@
 .footer_container {
   position: absolute;
-  bottom: 0px;
+  /* bottom: -480px; */
+  margin-bottom: 0px;
   width:100%;
 }
 
