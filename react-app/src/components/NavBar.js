@@ -2,34 +2,33 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, useParams, useHistory } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 import { useDispatch, useSelector } from 'react-redux'
-import { getDashboardData } from '../store/dashboard';
 import './styles/NavBar.css';
 
 const NavBar = () => {
-    const [search, setSearch] = useState('')
+    const [search, setSearch] = useState('-')
+    const [companyTickerData, setCompanyTickerData] = useState(undefined)
     const user = useSelector(state => state.session.user)
     const removeSignUpFromNavBar = useSelector(state => state.session.user)
     // const dispatch = useDispatch()
     const history = useHistory()
     // const id = useParams()
 
-  // useEffect(() => {
-  //     (async() => {
-  //         const response = await fetch(`/api/search/info/${id.ticker}`)
-  //         const responseData = await response.json()
-  //         setSearch(responseData);
-  //         dispatch(getDashboardData(ticker.id))
-  //     })()
-  // }, [user, id, dispatch]);
+  // let companyTickerData;
 
   useEffect(() => {
       (async() => {
           const response = await fetch(`/api/search/all`)
           const responseData = await response.json()
-          console.log(responseData);
-          setSearch(responseData);
+          // companyTickerData = responseData.tickers
+          setCompanyTickerData(responseData.tickers)
+          // console.log(searchData)
+          console.log(companyTickerData)
       })()
   }, []);
+
+  // useEffect(() => {
+
+  // }, [companyTickerData])
 
   //after we find the ticker, user selects it and gets redirected to stocks page
   const searchResult = async(e) => {
@@ -38,8 +37,11 @@ const NavBar = () => {
       history.push(`/stocks/${data}`)
   }
 
+console.log(companyTickerData)
+
   if (removeSignUpFromNavBar) {
     return (
+    <>{companyTickerData &&
       <nav>
         <div>
           <NavLink to='/' exact={true} activeClassName='active' className='home'>
@@ -53,25 +55,27 @@ const NavBar = () => {
             <div className = "welcome_message">Welcome {user.username}</div>
           </div>
         </div>
+        {/* {companyTickerData && */}
         <div className="search_outer_container">
           <div className = "search_inner_container">
             <input placeholder="Search" className="search" type="text" value={search} onChange={(e) => setSearch(e.target.value)}></input>
               <div>
                 <div>
-                  {/* <ul> */}
-                    {/* {
-                      //filter method on the data
-                      setSearch.filter('ticker I"ll be grabbing' === search).forEach(ticker => {
-                        <li>
-
+                  <ul>
+                    {
+                      //filter method on the data grabbed from our useEffect
+                      companyTickerData.filter((e) => e.ticker.startsWith(search.toUpperCase())).map(dicOfCompany => (
+                        <li onClick={() => searchResult(dicOfCompany.ticker)}>
+                            {dicOfCompany.ticker}
                         </li>
-                      })
-                    } */}
-                  {/* </ul> */}
+                      ))
+                    }
+                  </ul>
                 </div>
               </div>
           </div>
         </div>
+         {/* } */}
         {/* <div>
           <NavLink to='/users' exact={true} activeClassName='active'>
             Users
@@ -87,7 +91,8 @@ const NavBar = () => {
             <LogoutButton />
           </div>
         </div>
-      </nav>
+      </nav>}
+      </>
     )
   } else {
     return (
