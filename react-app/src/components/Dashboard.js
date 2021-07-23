@@ -22,6 +22,7 @@ function Dashboard() {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.session.user);
     let watchlist = useSelector((state) => state?.dashboard?.userData);
+    let userData = useSelector((state) => state?.dashboard?.userData);
     const watchlistData = useSelector((state) => state?.dashboard?.userData);
     const lilgraphs = useSelector((state) => state?.dashboard?.lilgraphs);
 
@@ -34,12 +35,11 @@ function Dashboard() {
     });
 
     // function to handle the addFunds on click form
-    const handleSubmit = (event) => {
+    const addFundsSubmit = (event) => {
         event.preventDefault();
-
         const payload = {
-        userId: loggedInUser,
-        portfolioValue,
+            userId: user.id,
+            'amount': portfolioValue,
         };
         return dispatch(addFundsToPortfolio(payload));
     };
@@ -53,8 +53,7 @@ function Dashboard() {
         let result = [];
         console.log(watchlist);
         for (let i = 0; i < watchlist[0]?.watchlist.length; i++) {
-            console.log(watchlist[0]?.watchlist[i].ticker);
-            result.push(watchlist[0]?.watchlist[i].ticker);
+            result.push(watchlist?.watchlist[i].ticker);
         }
         return result;
         };
@@ -103,9 +102,10 @@ function Dashboard() {
         );
     }
 
+
     return (
         <>
-        {watchlist[0] && (
+        {watchlist && (
             <div class="wrapper">
             <div className="portfolioDiv">
                 <h1>Dashboard</h1>
@@ -143,84 +143,81 @@ function Dashboard() {
             <div className="addFundsDiv">
                 <h3>Buying Power</h3>
                 <h3>Add the available cash Monday {user.username}</h3>
-                <form action="/api/dashboard/addFunds" method="post">
-                <input
-                    type="text"
-                    placeholder="Amount of funds to add"
-                    name="portfolioValue"
-                    value={portfolioValue}
-                    onChange={(e) => setPortolioValue(e.target.value)}
-                    required
-                />
-                <button type="submit" onClick={() => handleSubmit}>
-                    Submit Funds
-                </button>
+                <form onSubmit={addFundsSubmit}>
+                    <input
+                        type="text"
+                        placeholder="Amount of funds to add"
+                        name="portfolioValue"
+                        value={portfolioValue}
+                        onChange={(e) => setPortolioValue(e.target.value)}
+                        required
+                    />
+                    <button type="submit">
+                        Submit Funds
+                    </button>
                 </form>
             </div>
             <div className='porfolioListDiv'>
                 <h1>Portfolio</h1>
                 <ul className='portfolioUl'>
-                    <li className='porfolioLi'>
-                        <div className='ticker'>AAPL</div>
-                        <div className='shares'>70 Shares</div>
-                        <div className='lilGraph'>
-                            <ResponsiveContainer width="100%" aspect={2}>
-                                <LineChart data={intradayData}>
-                                    <Line dataKey="close" stroke="#6afa27"
-                                        strokeWidth={2} dot={false} isAnimationActive={false}/>
-                                <XAxis hide={true} dataKey="date" />
-                                <YAxis hide={true} domain={[min(intradayData), max(intradayData)]}/>
-                                </LineChart>
-                            </ResponsiveContainer>
-                        </div>
-                        <div className='price'>Price</div>
-                        <div className='percent'>Percent Change</div>
-                    </li>
+                    {userData &&
+                        userData?.portfolio.map((companyArray) => {
+                        <li className='porfolioLi'>
+                            <div className='ticker'>{companyArray.company_details.ticker}</div>
+                            <div className='shares'>{companyArray.company_details.quantity}</div>
+                            <div className='lilGraph'>
+                                <ResponsiveContainer width="100%" aspect={2}>
+                                    <LineChart data={intradayData}>
+                                        <Line dataKey="close" stroke="#6afa27"
+                                            strokeWidth={2} dot={false} isAnimationActive={false}/>
+                                    <XAxis hide={true} dataKey="date" />
+                                    <YAxis hide={true} domain={[min(intradayData), max(intradayData)]}/>
+                                    </LineChart>
+                                </ResponsiveContainer>
+                            </div>
+                            <div className='price'>Price</div>
+                            <div className='percent'>Percent Change</div>
+                        </li>
+                    })}
                 </ul>
             </div>
             <div className="watchlistDiv">
                 <h1>Watchlist</h1>
                 <ul className="watchlistUl">
-                {watchlistData &&
-                    watchlistData[0]?.watchlistAPICallData.map((company) => (
-                    <li className="watchlistLi" key={company.id}>
-                        <div className="ticker">
-                        <p>{company[0].symbol}</p>
-                        </div>
-                        <div className="lilGraph">
-                        <ResponsiveContainer width="100%" aspect={2}>
-                            <LineChart data={intradayData}>
-                            <Line
-                                dataKey="close"
-                                stroke="#6afa27"
-                                strokeWidth={2}
-                                dot={false}
-                                isAnimationActive={false}
-                            />
-                            <XAxis hide={true} dataKey="date" />
-                            <YAxis
-                                hide={true}
-                                domain={[min(intradayData), max(intradayData)]}
-                            />
-                            </LineChart>
-                        </ResponsiveContainer>
-                        </div>
-                        <div className="price">
-                        <p>${company[0].price}</p>
-                        </div>
-                        {/* <p className='percent'>{company.ticker}</p> */}
-                    </li>
-                    ))}
-                <li className="watchlistLi">
-                    <p className="ticker">AAPL</p>
-                    <p className="lilGraph">Small Graph</p>
-                    <p className="price">Price</p>
-                    <p className="percent">Percent Change</p>
-                </li>
-                </ul>
-            </div>
-            </div>
-        )}
+                    {watchlistData &&
+                        watchlistData?.watchlistAPICallData.map((company) => (
+                        <li className="watchlistLi" key={company.id}>
+                            <div className="ticker">
+                            <p>{company[0].symbol}</p>
+                            </div>
+                            <div className="lilGraph">
+                            <ResponsiveContainer width="100%" aspect={2}>
+                                <LineChart data={intradayData}>
+                                <Line
+                                    dataKey="close"
+                                    stroke="#6afa27"
+                                    strokeWidth={2}
+                                    dot={false}
+                                    isAnimationActive={false}
+                                />
+                                <XAxis hide={true} dataKey="date" />
+                                <YAxis
+                                    hide={true}
+                                    domain={[min(intradayData), max(intradayData)]}
+                                />
+                                </LineChart>
+                            </ResponsiveContainer>
+                            </div>
+                            <div className="price">
+                            <p>${company[0].price}</p>
+                            </div>
+                            {/* <p className='percent'>{company.ticker}</p> */}
+                        </li>
+                        ))}
+                    </ul>
+                </div>
+                </div>
+            )}
         </>
     );
 }

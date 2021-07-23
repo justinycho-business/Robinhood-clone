@@ -1,6 +1,5 @@
 from flask import Blueprint, json, jsonify, request
 from app.models import User, db, Transaction, Watchlist, Company, watchlist
-from app.forms.addFunds_form import AddFunds
 from flask_login import login_required
 from sqlalchemy.sql import func
 import requests
@@ -13,13 +12,22 @@ apikey = os.environ.get('API_FIN_PUBLIC')
 apikey2 = os.environ.get('API_2_FIN')
 
 
-# @dashboard_routes.route("/addFunds", methods="POST")
-# @login_required
-# def addFunds():
-#     form = AddFunds()
-#     amount = form.amount.data
-#     # Need to get the user ID from the request
-#     user = User.query.filter(User.id)
+@dashboard_routes.route("/addFunds", methods=["POST"])
+@login_required
+def addFunds():
+    request_payload = request.get_json()
+    id = request_payload['userId']
+    funds_to_add_as_string = request_payload['amount']
+    funds_to_add = float(funds_to_add_as_string)
+
+    user = User.query.get(id)
+    current_buying_power_decimal = user.buying_power
+    current_buying_power = float(current_buying_power_decimal)
+
+    add_buying_power = user.buying_power = current_buying_power + funds_to_add
+    db.session.commit()
+    return {'confirmation': 'Funds Added'}
+
 
 @dashboard_routes.route('/lilgraphs', methods=['GET', "POST"])
 @login_required
@@ -49,14 +57,14 @@ def dashboard_data(id):
     transactionData = Transaction.query.filter_by(user_id = id).all()
     portfolioData = Transaction.query.with_entities(func.sum(Transaction.quantity), Transaction.company_id).filter_by(user_id = id).group_by(Transaction.company_id).all()
 
-
     def tuplelist_to_dict(list0):
         result = []
         for tuple0 in list0:
             company_data = Company.query.filter_by(id = tuple0[1]).first()
-            company_ticker = company_data.to_dict()
-            result.append({"company_id": tuple0[1], "quantity": tuple0[0], 'company_data': company_ticker})
-        # print(result, '====================line 59======================================')
+            company_details = company_data.to_dict()
+            company_details['quantity'] = tuple0[0]
+
+            result.append({'company_details': company_details})
         return result
 
     watchlist_array = [watchlist.to_dict() for watchlist in watchlistData]
@@ -68,7 +76,6 @@ def dashboard_data(id):
             res = requests.get(f'https://financialmodelingprep.com/api/v3/quote-short/{ticker}?apikey={apikey2}')
             jsonData = res.json()
             result.append(jsonData)
-        # print(result, '====================line 71======================================')
         return result
 
 
@@ -79,15 +86,8 @@ def dashboard_data(id):
             res = requests.get(f'https://financialmodelingprep.com/api/v3/historical-chart/5min/{ticker}?apikey={apikey2}')
             jsonData = res.json()
             result[ticker] = jsonData
-        # print(result, '====================line 82======================================')
         return result
 
-    # print({'watchlist': [watchlist.to_dict() for watchlist in watchlistData],
-    #         'portfolio': tuplelist_to_dict(portfolioData),
-    #         'watchlistAPICallData': get_watchlist(),
-    #         'transactions': [transaction.to_dict() for transaction in transactionData],
-    #         'watchlistOneDayData': get_watchlist_data(),
-    #         }, '=========================================================================================')
     return {'watchlist': [watchlist.to_dict() for watchlist in watchlistData],
             'portfolio': tuplelist_to_dict(portfolioData),
             'watchlistAPICallData': get_watchlist(),
@@ -96,6 +96,7 @@ def dashboard_data(id):
             }
 
 
+# This will be the route for the porfolio button
 @dashboard_routes.route('/timePeriod', methods=['POST'])
 @login_required
 def get_graph_data_on_click():
