@@ -351,7 +351,7 @@ const Stocks = () => {
                                     <h1 className='market-price'>{(stockdata?.latestPrice.toFixed(2))}</h1>
                                 </div>
                                 <div className='est-cost-container'>
-                                    <label className='form-item'>Estimated value:</label>
+                                    <label className='form-item'>Estimated Value:</label>
                                     <h1 className='total-price'>${sellShares * (stockdata?.latestPrice.toFixed(2))}</h1>
                                 </div>
                                 <div className='buy-btn-container'>
@@ -362,11 +362,10 @@ const Stocks = () => {
                                 </div>
                             </form>
                             <div className='buying-power-container'>
-                                <h2>${buyingPower} buying power available</h2>
+                                <h2>${user.buying_power} buying power available</h2>
                             </div>
                         </div>
                     )
-
                     }
 
 
