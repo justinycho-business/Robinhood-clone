@@ -47,13 +47,13 @@ export const getDashboardData = (id) => async (dispatch) => {
     const response = await fetch(`/api/dashboard/${id}`)
 
     if(response.ok) {
-        const watchlistData = await response.json();
-        dispatch(dashboardData(watchlistData));
+        const dashboardUserData = await response.json();
+        dispatch(dashboardData(dashboardUserData));
     }
 }
 
 export const addFundsToPortfolio = (payload) => async (dispatch) => {
-    const response = await fetch('/api/dashboard/addFunds/', {
+    const response = await fetch('/api/dashboard/addFunds', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(payload)
@@ -86,9 +86,9 @@ const initialState = {}
 export default function dashboardReducer(state = initialState, action) {
     switch (action.type) {
         case ADD_FUNDS:
-            return {...state, amount: [action.payload] }
+            return {...state, amount: action.payload }
         case DASHBOARD_DATA:
-            return {...state, userData: [action.payload]}
+            return {...state, userData: action.payload}
         case GET_LIL_GRAPHS:
             return {...state, lilgraphs: [action.payload]}
         case TIME_PERIOD_BUTTON:
