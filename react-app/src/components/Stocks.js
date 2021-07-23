@@ -28,12 +28,13 @@ const Stocks = () => {
     const [userId, setUserId] = useState(null)
     const [option, setOption] = useState('add')
     const [watchlistContainer, setContainer] = useState('')
-    const [watchlistButton, setWatchlistButton] = useState(null)
+    const [optionText, setOptionText] = useState('')
     const watchlist = useSelector(state => state?.dashboard)
     const priceData = useSelector(state => state?.priceData?.oneDayDataStocks)
     const user = useSelector(state => state.session.user);
     const oneDayGraphData = useSelector(state => state?.priceData?.oneDayDataStocks)
     const id = useParams();
+    let watchlistButton;
 
     const oneDayGraphDataTrimmed = (data) => {
         const result = []
@@ -60,6 +61,7 @@ const Stocks = () => {
         const post = await fetch('/api/stocks/watchlist/options', requestOptions);
         const data = await post.json();
         setOption("remove")
+        setOptionText("Remove from Watchlist")
         console.log(data)
     };
 
@@ -77,6 +79,7 @@ const Stocks = () => {
         const post = await fetch('/api/stocks/watchlist/options', requestOptions);
         const data = await post.json();
         setOption("add")
+        setOptionText("Add to Watchlist")
         console.log(data)
     };
 
@@ -95,11 +98,14 @@ const Stocks = () => {
         (async function fetchData() {
             const res = await fetch(`/api/stocks/watchlist/setter/${ticker}/${user.id}`);
             const data = await res.json();
-            setOption(data.option)
             if (data.option === "Add to Watchlist") {
+                setOption("add")
                 setContainer('add-to')
+                setOptionText("Add to Watchlist")
             } else if (data.option === "Remove from Watchlist") {
+                setOption("remove")
                 setContainer('remove-from')
+                setOptionText("Remove from Watchlist")
             }
         })();
     }, []);
@@ -197,15 +203,15 @@ const Stocks = () => {
                     <button className='time-btn'>All</button>
                 </div>
                 {
-                    option === "add" &&
-                    <div className={"add-to"}>
-                        <button className='watchlist-btn' onClick={addToWatchlist}>{option}</button>
-                    </div>
-                }
-                {option === "remove" &&
-                    <div className={"remove-from"}>
-                        <button className='watchlist-btn' onClick={removeFromWatchlist}>{option}</button>
-                    </div>
+                    option === "remove" ? (
+                        <div className={"remove-from"}>
+                            <button className='watchlist-btn' onClick={removeFromWatchlist}>{optionText}</button>
+                        </div>
+                    ) : (
+                        <div className={"add-to"}>
+                            <button className='watchlist-btn' onClick={addToWatchlist}>{optionText}</button>
+                        </div>
+                    )
                 }
             </div>
         </div>
