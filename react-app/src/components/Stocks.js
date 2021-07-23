@@ -253,7 +253,7 @@ const Stocks = () => {
                 <div className='side-bar-content'>
                     <div className='actions-container'>
                         <form className='buy-form'>
-                            <label className='form-title'> Buy {stockdata?.symbol} :</label>
+                            <label className='form-title'> {buySell} {stockdata?.symbol} :</label>
                             <div className='form-shares'>
                                 <label className='form-item'>Shares: </label>
                                 <input className='form-shares-input' placeholder={1}

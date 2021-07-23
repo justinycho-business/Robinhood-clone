@@ -89,10 +89,21 @@ def buy_shares():
     ticker = req['ticker']
 
     if(buy_sell == "buy"):
-        user = User.query.filter_by(id=user_id).all()
-        company = Company.query.filter_by(ticker=ticker).first()
-        data = company.to_dict()
-        return{"message": data}
+        user = User.query.filter_by(id=user_id).first()
+        print("HERE IS THE DATA YOU ARE LOOKING FOR", user.buying_power)
+        buying_power = user.buying_power
+        new_buying_power = float(buying_power) - float(stock_price)
+        user.buying_power = new_buying_power
+        buy_stock = Transaction(
+            user_id=user_id,
+            company_id=company_id,
+            purchase_price=stock_price,
+            quantity=stocks,
+            buy_sell=True
+        )
+        db.session.add(buy_stock)
+        db.session.commit()
+        return{"message": "Success"}
     else:
         return {"message": "Didnt work!"}
 
