@@ -7,6 +7,7 @@ import './styles/NavBar.css';
 
 const NavBar = () => {
     const [search, setSearch] = useState('')
+    // const [searchData, setSearchData] = useState([])
     const user = useSelector(state => state.session.user)
     const removeSignUpFromNavBar = useSelector(state => state.session.user)
     // const dispatch = useDispatch()
@@ -21,13 +22,16 @@ const NavBar = () => {
   //         dispatch(getDashboardData(ticker.id))
   //     })()
   // }, [user, id, dispatch]);
+  let companyTickerData;
 
   useEffect(() => {
       (async() => {
           const response = await fetch(`/api/search/all`)
           const responseData = await response.json()
-          console.log(responseData)
-          setSearch(responseData);
+          companyTickerData = responseData.tickers
+          // setSearchData(responseData.tickers)
+          // console.log(searchData)
+          console.log(companyTickerData)
       })()
   }, []);
 
@@ -53,25 +57,26 @@ const NavBar = () => {
             <div className = "welcome_message">Welcome {user.username}</div>
           </div>
         </div>
+        {companyTickerData &&
         <div className="search_outer_container">
           <div className = "search_inner_container">
             <input placeholder="Search" className="search" type="text" value={search} onChange={(e) => setSearch(e.target.value)}></input>
               <div>
                 <div>
-                  {/* <ul> */}
-                    {/* {
-                      //filter method on the data
-                      setSearch.filter('ticker I"ll be grabbing' === search).forEach(ticker => {
-                        <li>
-
+                  <ul>
+                    {
+                      //filter method on the data grabbed from our useEffect
+                      companyTickerData.filter((e) => e.ticker.startsWith(search)).forEach(ticker => {
+                        <li onClick={(e) => searchResult(ticker)} value={ticker}>
+                            {ticker}
                         </li>
                       })
-                    } */}
-                  {/* </ul> */}
+                    }
+                  </ul>
                 </div>
               </div>
           </div>
-        </div>
+        </div>}
         {/* <div>
           <NavLink to='/users' exact={true} activeClassName='active'>
             Users
