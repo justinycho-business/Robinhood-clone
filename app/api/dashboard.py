@@ -56,8 +56,8 @@ def dashboard_data(id):
             company_data = Company.query.filter_by(id = tuple0[1]).first()
             company_ticker = company_data.to_dict()
             result.append({"company_id": tuple0[1], "quantity": tuple0[0], 'company_data': company_ticker})
+        # print(result, '====================line 59======================================')
         return result
-
 
     watchlist_array = [watchlist.to_dict() for watchlist in watchlistData]
 
@@ -68,6 +68,7 @@ def dashboard_data(id):
             res = requests.get(f'https://financialmodelingprep.com/api/v3/quote-short/{ticker}?apikey={apikey2}')
             jsonData = res.json()
             result.append(jsonData)
+        # print(result, '====================line 71======================================')
         return result
 
 
@@ -78,8 +79,15 @@ def dashboard_data(id):
             res = requests.get(f'https://financialmodelingprep.com/api/v3/historical-chart/5min/{ticker}?apikey={apikey2}')
             jsonData = res.json()
             result[ticker] = jsonData
+        # print(result, '====================line 82======================================')
         return result
 
+    # print({'watchlist': [watchlist.to_dict() for watchlist in watchlistData],
+    #         'portfolio': tuplelist_to_dict(portfolioData),
+    #         'watchlistAPICallData': get_watchlist(),
+    #         'transactions': [transaction.to_dict() for transaction in transactionData],
+    #         'watchlistOneDayData': get_watchlist_data(),
+    #         }, '=========================================================================================')
     return {'watchlist': [watchlist.to_dict() for watchlist in watchlistData],
             'portfolio': tuplelist_to_dict(portfolioData),
             'watchlistAPICallData': get_watchlist(),

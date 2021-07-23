@@ -165,6 +165,12 @@ const Stocks = () => {
         dispatch(graphTimePeriodButton(payload_obj))
     }
 
+
+    const sellButtonFunc = (event) => {
+        event.preventDefault()
+        dispatch(sellSharesButton({'shares': sellShares, 'id': user.id, 'ticker': urlTicker}))
+    }
+
     const min = (data) => {
         let min = Infinity;
         for (let i = 0; i < data.length; i++) {
@@ -253,7 +259,7 @@ const Stocks = () => {
                         </div>
                     </div>
                     <div className='sellDiv'>
-                    <form className='buy-form'>
+                    <form className='buy-form' onSubmit={sellButtonFunc}>
                         <label className='form-title'> Sell {stockdata?.symbol} :</label>
                         <div className='form-shares'>
                             <label className='form-item'>Shares: </label>
@@ -271,7 +277,7 @@ const Stocks = () => {
                             <h1 className='total-price'>${sellShares * (stockdata?.latestPrice.toFixed(2))}</h1>
                         </div>
                         <div className='buy-btn-container'>
-                            <button className='buy-btn' onClick={() => dispatch(sellSharesButton({'shares': sellShares, 'id': user.id, 'ticker': urlTicker}))}>Sell</button>
+                            <button className='buy-btn'>Sell</button>
                         </div>
                         <div className='buying-power-container'>
                             {/* <h2>{companyInfo && findCompanyShare(companyInfo[0].portfolio)}</h2> */}
