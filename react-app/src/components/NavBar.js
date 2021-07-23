@@ -3,6 +3,7 @@ import { NavLink, useParams, useHistory } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 import { useDispatch, useSelector } from 'react-redux'
 import { getDashboardData } from '../store/dashboard';
+import { SearchBar } from 'react-native-elements';
 import './styles/NavBar.css';
 
 const NavBar = () => {
