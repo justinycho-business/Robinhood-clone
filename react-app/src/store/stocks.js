@@ -15,9 +15,9 @@ const timePeriodButton = (timePeriodData) => ({
     payload: timePeriodData
 })
 
-const sellShares = (soldConformation) => ({
+const sellShares = (soldConfirmation) => ({
     type: SELL_SHARES,
-    payload: soldConformation
+    payload: soldConfirmation
 })
 
 
@@ -54,7 +54,8 @@ export const sellSharesButton = (payload_obj) => async(dispatch) => {
 
     if(response.ok) {
         const confirmation = await response.json()
-        dispatch(sellShares(confirmation))
+        dispatch(sellShares(confirmation.confirmation))
+        console.log(confirmation.confirmation, '=============================')
     }
 }
 
@@ -70,7 +71,7 @@ export default function stockReducer(state = initialState, action) {
         case TIME_PERIOD_BUTTON:
             return {...state, timePeriodData: [action.payload]}
         case SELL_SHARES:
-            return {...state, sellConfirmation: [action.payload]}
+            return {...state, sellConfirmation: action.payload}
         default:
             return state;
     };
