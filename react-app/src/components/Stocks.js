@@ -226,10 +226,11 @@ const Stocks = () => {
             const responseData = await response.json();
             const company_id = responseData.Company_Info.id
             const stocks = totalStocks
+            const stock_price = stockdata?.latestPrice
             const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ buySell, company_id, user_id, ticker, stocks })
+                body: JSON.stringify({ buySell, company_id, user_id, ticker, stocks, stock_price })
             };
             const post = await fetch('/api/stocks/buy', requestOptions);
             const data = await post.json();

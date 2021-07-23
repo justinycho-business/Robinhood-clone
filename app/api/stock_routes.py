@@ -85,11 +85,16 @@ def buy_shares():
     buy_sell = req["buySell"]
     company_id = req["company_id"]
     stocks = req["stocks"]
+    stock_price = req["stock_price"]
     ticker = req['ticker']
-    # shares = -1 * (req['shares'])
-    # sell_company = Company.query.filter_by(ticker=sell_ticker).all()
-    # company_id = sell_company[0].to_dict()['id']
-    return{"message": ticker}
+
+    if(buy_sell == "buy"):
+        user = User.query.filter_by(id=user_id).all()
+        company = Company.query.filter_by(ticker=ticker).first()
+        data = company.to_dict()
+        return{"message": data}
+    else:
+        return {"message": "Didnt work!"}
 
 
 @stock_routes.route('sell', methods=['POST'])
