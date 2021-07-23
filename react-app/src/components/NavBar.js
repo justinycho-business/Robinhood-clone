@@ -3,6 +3,7 @@ import { NavLink, useParams, useHistory } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 import { useDispatch, useSelector } from 'react-redux'
 import { getDashboardData } from '../store/dashboard';
+// import { SearchBar } from 'react-native-elements';
 import './styles/NavBar.css';
 
 const NavBar = () => {
@@ -59,11 +60,13 @@ if (removeSignUpFromNavBar) {
         </div>
       </div>
       {/* {companyTickerData && */}
+
       <div className="thirdbox"
       // className="search_outer_container"
       >
         {/* <div className = "search_inner_container"> */}
           <input placeholder="Search" className="search" type="text" value={search} onChange={(e) => setSearch(e.target.value)}></input>
+
             <div>
               <div>
               <div class="dropdown">
