@@ -58,7 +58,6 @@ function Dashboard() {
         }
         return result;
         };
-        console.log(watchlist)
         if(watchlist){
         dispatch(getlilgraphs(get_watchlist_graphs1()));
         }
@@ -158,30 +157,25 @@ function Dashboard() {
                 </button>
                 </form>
             </div>
-            <div className="watchlistDiv">
+            <div className='porfolioListDiv'>
                 <h1>Portfolio</h1>
-                <ul className="watchlistUl">
-                <li className="watchlistLi">
-                    <p className="ticker">AAPL</p>
-                    <p className="shares">70 Shares</p>
-                    <p className="lilGraph">Small Graph</p>
-                    <p className="price">Price</p>
-                    <p className="percent">Percent Change</p>
-                </li>
-                <li className="watchlistLi">
-                    <p className="ticker">BA</p>
-                    <p className="shares">70 Shares</p>
-                    <p className="lilGraph">Small Graph</p>
-                    <p className="price">$438.34</p>
-                    <p className="percent">-4.11%</p>
-                </li>
-                <li className="watchlistLi">
-                    <p className="ticker">TSLA</p>
-                    <p className="shares">70 Shares</p>
-                    <p className="lilGraph">Small Graph</p>
-                    <p className="price">$652.09</p>
-                    <p className="percent">2.38%</p>
-                </li>
+                <ul className='portfolioUl'>
+                    <li className='porfolioLi'>
+                        <div className='ticker'>AAPL</div>
+                        <div className='shares'>70 Shares</div>
+                        <div className='lilGraph'>
+                            <ResponsiveContainer width="100%" aspect={2}>
+                                <LineChart data={intradayData}>
+                                    <Line dataKey="close" stroke="#6afa27"
+                                        strokeWidth={2} dot={false} isAnimationActive={false}/>
+                                <XAxis hide={true} dataKey="date" />
+                                <YAxis hide={true} domain={[min(intradayData), max(intradayData)]}/>
+                                </LineChart>
+                            </ResponsiveContainer>
+                        </div>
+                        <div className='price'>Price</div>
+                        <div className='percent'>Percent Change</div>
+                    </li>
                 </ul>
             </div>
             <div className="watchlistDiv">

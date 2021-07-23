@@ -1,6 +1,7 @@
-from flask import Blueprint, jsonify
-from app.models import User, db, Transaction, Watchlist, Company, user, watchlist
-from flask import request
+from app.api.search import ticker
+from flask import Blueprint, jsonify, request
+from app.models import User, db, Transaction, Watchlist, Company, watchlist
+from sqlalchemy import update
 import datetime
 import requests
 import ast
@@ -62,7 +63,7 @@ def watchlist_setter(ticker, id):
 def watchlist_add():
     req = request.data.decode("utf-8")
     data = ast.literal_eval(req)
-    print("req data:", req, "normal data:", data)
+    # print("req data:", req, "normal data:", data, ticker=data['ticker'], '=======================================')
     if data["option"] == "add":
         new_watchlist_item = Watchlist(
             ticker=data['ticker'], user_id=data['user_id'], company_id=data['company_id'])
@@ -107,24 +108,52 @@ def buy_shares():
     else:
         return {"message": "Didnt work!"}
 
+@stock_routes.route('/sell', methods=['POST'])
 
-@stock_routes.route('sell', methods=['POST'])
 def sell_shares():
     request_data = request.get_json()
-    id = request_data['id']
-    shares = -1 * (request_data['shares'])
     sell_ticker = request_data['ticker']
-    sell_company = Company.query.filter_by(ticker=sell_ticker).all()
-    company_id = sell_company[0].to_dict()['id']
+    id = request_data['id']
+    shares_posative = int(request_data['shares'])
+    shares = -1 * shares_posative
 
-    print(company_id, '===============')
-    sell_transaction = Transaction({
+    price_fetch = requests.get(f'https://financialmodelingprep.com/api/v3/historical-chart/1min/{sell_ticker}?apikey={apikey2}')
+    jsonData = price_fetch.json()
+    sell_price = jsonData[0]['close']
+    total_amount_sold = sell_price * shares_posative
+
+    sell_company_id_by_ticker = Company.query.filter_by(ticker = sell_ticker).all()
+    company_id = sell_company_id_by_ticker[0].to_dict()['id']
+
+    sell_transaction = Transaction(
+        user_id = id,
+        company_id = company_id,
+        purchase_price = sell_price,
+        quantity = shares,
+        buy_sell = False,
+    )
+    db.session.add(sell_transaction)
+    db.session.commit()
+
+    # query the user to updated the buying power
+    users_table = User.query.get(id)
+    # access the buying power of the user
+    current_buying_power = users_table.buying_power
+    # turn both the buying power and total amount sold into same data types
+    new_buying_power = float(current_buying_power) + float(total_amount_sold)
+    # update the buying power column in the database and commit it
+    update_buying_power = users_table.buying_power = new_buying_power
+    db.session.commit()
+
+    return {"confirmation": {
+        'message': 'Sell Order Confirmed',
         'user_id': id,
         'company_id': company_id,
         'purchase_price': 0,
         'quantity': shares,
         'buy_sell': False,
-    })
+        'total_sold': total_amount_sold
+    }}
 
 
 @stock_routes.route('/timePeriod', methods=['POST'])
@@ -137,31 +166,44 @@ def get_graph_data_on_click():
         res = requests.get(
             f'https://financialmodelingprep.com/api/v3/historical-chart/5min/{ticker}?apikey={apikey2}')
         jsonData = res.json()
-        return {'data': jsonData}
+
+        return {
+            # 'data':jsonData,
+            'oneDay':jsonData}
     elif graph_button_string == 'oneWeek':
         res = requests.get(
             f'https://financialmodelingprep.com/api/v3/historical-chart/1hour/{ticker}?apikey={apikey2}')
         jsonData = res.json()
-        return {'data': jsonData}
+        return {
+            # 'data':jsonData,
+            'oneWeek': jsonData}
     elif graph_button_string == 'oneMonth':
         res = requests.get(
             f'https://financialmodelingprep.com/api/v3/historical-price-full/{ticker}?apikey={apikey2}')
         jsonData = res.json()
-        return {'data': jsonData}
+        return {
+            # 'data':jsonData,
+            'oneMonth': jsonData}
     elif graph_button_string == 'threeMonths':
         res = requests.get(
             f'https://financialmodelingprep.com/api/v3/historical-price-full/{ticker}?apikey={apikey2}')
         jsonData = res.json()
-        return {'data': jsonData}
+        return {
+            # 'data':jsonData,
+            'threeMonths': jsonData}
     elif graph_button_string == 'oneYear':
         res = requests.get(
             f'https://financialmodelingprep.com/api/v3/historical-price-full/{ticker}?apikey={apikey2}')
         jsonData = res.json()
-        return {'data': jsonData}
+        return {
+            # 'data':jsonData,
+            'oneYear': jsonData}
     elif graph_button_string == 'fiveYears':
         res = requests.get(
             f'https://financialmodelingprep.com/api/v3/historical-price-full/{ticker}?apikey={apikey2}')
         jsonData = res.json()
-        return {'data': jsonData}
+        return {
+            # 'data':jsonData,
+            'fiveYears': jsonData}
     else:
         return {'error': 'Data not available'}

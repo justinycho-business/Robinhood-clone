@@ -16,7 +16,7 @@ apikey2 = os.environ.get('API_2_FIN')
 def get_tickers():
     all_tickers = Company.query.all()
     data = all_tickers
-    print(all_tickers)
+
     return {'tickers': [ticker.to_dict() for ticker in data]}
     # return {'**************': '************'}
 
