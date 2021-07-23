@@ -135,26 +135,38 @@ def get_graph_data_on_click():
     if graph_button_string == 'oneDay':
         res = requests.get(f'https://financialmodelingprep.com/api/v3/historical-chart/5min/{ticker}?apikey={apikey2}')
         jsonData = res.json()
-        return {'data':jsonData}
+        return {
+            # 'data':jsonData,
+            'oneDay':jsonData}
     elif graph_button_string == 'oneWeek':
         res = requests.get(f'https://financialmodelingprep.com/api/v3/historical-chart/1hour/{ticker}?apikey={apikey2}')
         jsonData = res.json()
-        return {'data':jsonData}
+        return {
+            # 'data':jsonData,
+            'oneWeek': jsonData}
     elif graph_button_string == 'oneMonth':
         res = requests.get(f'https://financialmodelingprep.com/api/v3/historical-price-full/{ticker}?apikey={apikey2}')
         jsonData = res.json()
-        return {'data':jsonData}
+        return {
+            # 'data':jsonData,
+            'oneMonth': jsonData}
     elif graph_button_string == 'threeMonths':
         res = requests.get(f'https://financialmodelingprep.com/api/v3/historical-price-full/{ticker}?apikey={apikey2}')
         jsonData = res.json()
-        return {'data':jsonData}
+        return {
+            # 'data':jsonData,
+            'threeMonths': jsonData}
     elif graph_button_string == 'oneYear':
         res = requests.get(f'https://financialmodelingprep.com/api/v3/historical-price-full/{ticker}?apikey={apikey2}')
         jsonData = res.json()
-        return {'data':jsonData}
+        return {
+            # 'data':jsonData,
+            'oneYear': jsonData}
     elif graph_button_string == 'fiveYears':
         res = requests.get(f'https://financialmodelingprep.com/api/v3/historical-price-full/{ticker}?apikey={apikey2}')
         jsonData = res.json()
-        return {'data':jsonData}
+        return {
+            # 'data':jsonData,
+            'fiveYears': jsonData}
     else:
         return {'error': 'Data not available'}
