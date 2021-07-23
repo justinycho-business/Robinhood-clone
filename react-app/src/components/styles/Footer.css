@@ -12,7 +12,9 @@
   flex-direction: row;
   width: 100%;
   height: 64px;
-  background-color: black
+  background-color: black;
+  margin-bottom: 0px;
+  margin-top: 1000px;
 }
 
 .about_us {
