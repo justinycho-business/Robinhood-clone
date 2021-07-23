@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-from app.models import User, db, Transaction, Watchlist, Company, watchlist
+from app.models import User, db, Transaction, Watchlist, Company
 from flask import request
 import datetime
 import requests
@@ -82,13 +82,13 @@ def sell_shares():
     id = request_data['id']
     shares = -1 * (request_data['shares'])
     sell_ticker = request_data['ticker']
-    sell_company = Company.query.filter_by(ticker = sell_ticker).all()
+    sell_company = Company.query.filter_by(ticker = sell_ticker).first()
     company_id = sell_company[0].to_dict()['id']
 
-    print(company_id, '===============')
+    print(shares, '========================================')
     sell_transaction = Transaction({
         'user_id': id,
-        'company_id': company_id,
+        'company_id': 0,
         'purchase_price': 0,
         'quantity': shares,
         'buy_sell': False,

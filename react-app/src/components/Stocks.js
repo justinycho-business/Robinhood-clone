@@ -8,15 +8,6 @@ import { getDashboardData } from '../store/dashboard'
 import ticks from "../data/1dayticks"
 import './styles/Stocks.css';
 
-// console.log(ticks);
-// console.log(new Date());
-// console.log(new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000)
-// console.log(new Date("2021-07-22 13:50:00").getTime() / 1000);
-// console.log((new Date('2021-07-13 09:30:00').getTime() / 1000) - 25200)// 9 30 =  1626168600
-// console.log((new Date('2021-07-13 16:00:00').getTime() / 1000) - 25200) // needs to equal 1626969600
-// console.log(moment().format('YYYY-MM-DD'))
-// console.log(typeof(moment().format('YYYY-MM-DD')));
-
 
 const Stocks = () => {
     const dispatch = useDispatch()
@@ -47,15 +38,14 @@ const Stocks = () => {
 
     const oneDayGraphData = useSelector(state => state?.priceData?.oneDayDataStocks)
     const companyInfo = useSelector(state => state?.dashboard?.userData)
+    const timePeriodGraphData = useSelector(state => state?.priceData?.timePeriodData)
 
     const id = useParams();
 
-    const timePeriodGraphData = useSelector(state => state?.priceData?.timePeriodData)
 
 
     const oneDayGraphDataTrimmed = (data) => {
         const result = []
-        console.log(`${moment().format('YYYY-MM-DD')}`) //2021-07-22
         for (let i = 0; i < data.length; i++) {
             if (data[i].date.startsWith(`${moment().format('YYYY-MM-DD')}`)) {
                 result.push(data[i])
@@ -64,10 +54,8 @@ const Stocks = () => {
         return result.reverse()
     }
 
-    console.log(`${moment().subtract(10, 'days').format('YYYY-MM-DD')}`)
 
     const oneWeekGraphDataTrimmed = (data) => {
-        console.log(`${moment().subtract(10, 'days').calendar()}`)
         let result;
         for (let i = 0; i < data.length; i++) {
             if (data[i].date === `${moment().subtract(7, 'days').format('YYYY-MM-DD')} 10:00:00` ||
@@ -81,7 +69,6 @@ const Stocks = () => {
     }
 
     const oneMonthGraphDataTrimmed = (data) => {
-        // console.log(`${moment().subtract(30, 'days').calendar()}`)
         let result;
         for (let i = 0; i < data.length; i++) {
             if (data[i].date === `${moment().subtract(30, 'days').format('YYYY-MM-DD')}` ||
@@ -109,7 +96,6 @@ const Stocks = () => {
         // user, id, dispatch, get1dayData
     ]);
 
-   
 
     useEffect(() => {
         (async function fetchData() {
@@ -179,7 +165,6 @@ const Stocks = () => {
         };
         const post = await fetch('/api/stocks/watchlist/options', requestOptions);
         const data = await post.json();
-        console.log(data)
         // this.setState({ postId: data.id });
     };
 
@@ -248,7 +233,8 @@ const Stocks = () => {
                             <h1 className='total-price'>${sellShares * (stockdata?.latestPrice.toFixed(2))}</h1>
                         </div>
                         <div className='buy-btn-container'>
-                            <button className='buy-btn' onClick={() => dispatch(sellSharesButton({'shares': sellShares, 'id': user.id, 'ticker': urlTicker}))}>Sell</button>
+                            <button className='buy-btn' onClick={console.log('button click')}>Sell</button>
+                                {/* // dispatch(sellSharesButton({'shares': sellShares, 'id': user.id, 'ticker': urlTicker}))}}>Sell</button> */}
                         </div>
                         <div className='buying-power-container'>
                             {/* <h2>{companyInfo && findCompanyShare(companyInfo[0].portfolio)}</h2> */}
@@ -271,7 +257,7 @@ const Stocks = () => {
                                 //     ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200),
                                 //      ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
                                 // tickFormatter={formatXAxis}
-                                 />
+                                />
                                 <YAxis hide={false} domain={[min(oneDayGraphDataTrimmed(oneDayGraphData[0]?.oneDay[0])),
                                 max(oneDayGraphDataTrimmed(oneDayGraphData[0]?.oneDay[0]))]} />
                                 <Tooltip />
@@ -292,7 +278,7 @@ const Stocks = () => {
                                 //     ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200),
                                 //      ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
 
-                                 />
+                                />
                                 <YAxis hide={false} domain={[min(oneDayGraphDataTrimmed(timePeriodGraphData[0]?.data)),
                                 max(oneDayGraphDataTrimmed(timePeriodGraphData[0]?.data))]} />
                                 <Tooltip />
@@ -313,15 +299,13 @@ const Stocks = () => {
                                 //     ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200),
                                 //      ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
 
-                                 />
+                                />
                                 <YAxis hide={false} domain={[min(oneDayGraphDataTrimmed(oneDayGraphData[0]?.oneDay[0])),
                                 max(oneDayGraphDataTrimmed(oneDayGraphData[0]?.oneDay[0]))]} />
                                 <Tooltip />
                             </LineChart>
                         </ResponsiveContainer>
                     </div>}
-
-
                     <button className='time-btn' onClick={() => {
                         timePeriodButton({'string': 'oneDay', 'ticker': urlTicker})
                         setgraphstate("1D")
