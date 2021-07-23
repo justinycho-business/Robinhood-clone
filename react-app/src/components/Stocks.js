@@ -41,17 +41,15 @@ const Stocks = () => {
     const [userId, setUserId] = useState(null)
     const [option, setOption] = useState('add')
     const [watchlistContainer, setContainer] = useState('')
+    const [optionText, setOptionText] = useState('')
     const watchlist = useSelector(state => state?.dashboard)
     const priceData = useSelector(state => state?.priceData?.oneDayDataStocks)
     const user = useSelector(state => state.session.user);
-
     const oneDayGraphData = useSelector(state => state?.priceData?.oneDayDataStocks)
     const companyInfo = useSelector(state => state?.dashboard?.userData)
-
     const id = useParams();
-
+    let watchlistButton;
     const timePeriodGraphData = useSelector(state => state?.priceData?.timePeriodData)
-
 
     const oneDayGraphDataTrimmed = (data) => {
         const result = []
@@ -95,6 +93,42 @@ const Stocks = () => {
     }
 
 
+    const addToWatchlist = async (e) => {
+        e.preventDefault()
+        const response = await fetch(`/api/stocks/watchlist/${id.ticker}`);
+        const responseData = await response.json();
+        const company_id = responseData.Company_Info.id
+        const user_id = user.id
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ option, company_id, user_id, ticker, })
+        };
+        const post = await fetch('/api/stocks/watchlist/options', requestOptions);
+        const data = await post.json();
+        setOption("remove")
+        setOptionText("Remove from Watchlist")
+        console.log(data)
+    };
+
+    const removeFromWatchlist = async (e) => {
+        e.preventDefault()
+        const response = await fetch(`/api/stocks/watchlist/${id.ticker}`);
+        const responseData = await response.json();
+        const company_id = responseData.Company_Info.id
+        const user_id = user.id
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ option, company_id, user_id, ticker, })
+        };
+        const post = await fetch('/api/stocks/watchlist/options', requestOptions);
+        const data = await post.json();
+        setOption("add")
+        setOptionText("Add to Watchlist")
+        console.log(data)
+    };
+
     useEffect(() => {
         (async function fetchData() {
             const response = await fetch(`/api/stocks/info/${id.ticker}`);
@@ -115,11 +149,14 @@ const Stocks = () => {
         (async function fetchData() {
             const res = await fetch(`/api/stocks/watchlist/setter/${ticker}/${user.id}`);
             const data = await res.json();
-            setOption(data.option)
             if (data.option === "Add to Watchlist") {
+                setOption("add")
                 setContainer('add-to')
+                setOptionText("Add to Watchlist")
             } else if (data.option === "Remove from Watchlist") {
+                setOption("remove")
                 setContainer('remove-from')
+                setOptionText("Remove from Watchlist")
             }
         })();
     }, []);
@@ -168,22 +205,6 @@ const Stocks = () => {
         )
     }
 
-    const addToWatchlist = async (e) => {
-        e.preventDefault();
-        const response = await fetch(`/api/stocks/watchlist/${id.ticker}`);
-        const responseData = await response.json();
-        const company_id = responseData.Company_Info.id
-        const user_id = user.id
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ option, company_id, user_id, ticker, })
-        };
-        const post = await fetch('/api/stocks/watchlist/options', requestOptions);
-        const data = await post.json();
-        console.log(data)
-        // this.setState({ postId: data.id });
-    };
 
     const findCompanyShare = (array) => {
         const shares = array.filter(ele => {
@@ -355,9 +376,17 @@ const Stocks = () => {
                         console.log(graphstate);
                         }}>5Y</button>
                 </div>
-                <div className={watchlistContainer}>
-                    <button className='watchlist-btn' onClick={addToWatchlist}>{option}</button>
-                </div>
+                {
+                    option === "remove" ? (
+                        <div className={"remove-from"}>
+                            <button className='watchlist-btn' onClick={removeFromWatchlist}>{optionText}</button>
+                        </div>
+                    ) : (
+                        <div className={"add-to"}>
+                            <button className='watchlist-btn' onClick={addToWatchlist}>{optionText}</button>
+                        </div>
+                    )
+                }
             </div>
         </div>
     )
