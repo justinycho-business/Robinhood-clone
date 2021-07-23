@@ -99,9 +99,9 @@ const Stocks = () => {
         let result;
         for (let i = 0; i < data.length; i++) {
             if (data[i].date === `${moment().subtract(90, 'days').format('YYYY-MM-DD')}` ||
-            data[i].date === `${moment().subtract(91, 'days').format('YYYY-MM-DD')}` ||
-            data[i].date === `${moment().subtract(92, 'days').format('YYYY-MM-DD')}` ||
-            data[i].date === `${moment().subtract(93, 'days').format('YYYY-MM-DD')}`) {
+                data[i].date === `${moment().subtract(91, 'days').format('YYYY-MM-DD')}` ||
+                data[i].date === `${moment().subtract(92, 'days').format('YYYY-MM-DD')}` ||
+                data[i].date === `${moment().subtract(93, 'days').format('YYYY-MM-DD')}`) {
                 result = data.slice(0, i)
             }
         }
@@ -113,9 +113,9 @@ const Stocks = () => {
         let result;
         for (let i = 0; i < data.length; i++) {
             if (data[i].date === `${moment().subtract(365, 'days').format('YYYY-MM-DD')}` ||
-            data[i].date === `${moment().subtract(366, 'days').format('YYYY-MM-DD')}` ||
-            data[i].date === `${moment().subtract(367, 'days').format('YYYY-MM-DD')}` ||
-            data[i].date === `${moment().subtract(368, 'days').format('YYYY-MM-DD')}`) {
+                data[i].date === `${moment().subtract(366, 'days').format('YYYY-MM-DD')}` ||
+                data[i].date === `${moment().subtract(367, 'days').format('YYYY-MM-DD')}` ||
+                data[i].date === `${moment().subtract(368, 'days').format('YYYY-MM-DD')}`) {
                 result = data.slice(0, i)
             }
         }
@@ -127,9 +127,9 @@ const Stocks = () => {
         let result;
         for (let i = 0; i < data.length; i++) {
             if (data[i].date === `${moment().subtract(1822, 'days').format('YYYY-MM-DD')}` ||
-            data[i].date === `${moment().subtract(1823, 'days').format('YYYY-MM-DD')}` ||
-            data[i].date === `${moment().subtract(1824, 'days').format('YYYY-MM-DD')}` ||
-            data[i].date === `${moment().subtract(1825, 'days').format('YYYY-MM-DD')}`) {
+                data[i].date === `${moment().subtract(1823, 'days').format('YYYY-MM-DD')}` ||
+                data[i].date === `${moment().subtract(1824, 'days').format('YYYY-MM-DD')}` ||
+                data[i].date === `${moment().subtract(1825, 'days').format('YYYY-MM-DD')}`) {
                 result = data.slice(0, i)
             }
         }
@@ -211,7 +211,7 @@ const Stocks = () => {
 
     const sellButtonFunc = (event) => {
         event.preventDefault()
-        dispatch(sellSharesButton({'shares': sellShares, 'id': user.id, 'ticker': urlTicker}))
+        dispatch(sellSharesButton({ 'shares': sellShares, 'id': user.id, 'ticker': urlTicker }))
     }
 
     const min = (data) => {
@@ -290,6 +290,11 @@ const Stocks = () => {
         }
     }
 
+    const buySelect = (e) => {
+        e.preventDefault();
+        console.log(1)
+    }
+
     return (
         <div className='stocks-background'>
             <div className='stocks-info-container'>
@@ -299,58 +304,72 @@ const Stocks = () => {
                     <h2 className='stock-change'> $ {(stockdata?.change.toFixed(2))} ({(stockdata?.changePercent.toFixed(2))}%) Change Today</h2>
                 </div>
                 <div className='side-bar-content'>
-                    <div className='actions-container'>
-                        <form className='buy-form'>
-                            <label className='form-title'> {buySell} {stockdata?.symbol} :</label>
-                            <div className='form-shares'>
-                                <label className='form-item'>Shares: </label>
-                                <input className='form-shares-input' placeholder={1}
-                                    onChange={(e) => setTotalStocks(e.target.value)}
-                                    value={totalStocks}
-                                ></input>
+                    {buySell === "buy" ? (
+                        <div className='actions-container'>
+                            <form className='buy-form'>
+                                <select onClick={(e) => setBuySell(e.target.value)}>
+                                    <option value={"buy"} > Buy {stockdata?.symbol}</option>
+                                    <option value={"sell"}  > Sell {stockdata?.symbol}</option>
+                                    {/* <label className='form-title'> {buySell} {stockdata?.symbol} :</label> */}
+                                </select>
+                                <div className='form-shares'>
+                                    <label className='form-item'>Shares: </label>
+                                    <input className='form-shares-input' placeholder={1}
+                                        onChange={(e) => setTotalStocks(e.target.value)}
+                                        value={totalStocks}
+                                    ></input>
+                                </div>
+                                <div className='form-market-price'>
+                                    <label className='form-item'>Market Price :</label>
+                                    <h1 className='market-price'>{(stockdata?.latestPrice.toFixed(2))}</h1>
+                                </div>
+                                <div className='est-cost-container'>
+                                    <label className='form-item'>Estimated Cost:</label>
+                                    <h1 className='total-price'>${totalStocks * (stockdata?.latestPrice.toFixed(2))}</h1>
+                                </div>
+                                <div className='buy-btn-container'>
+                                    <button className='buy-btn' onClick={buyStock}>Buy</button>
+                                </div>
+                            </form>
+                            <div className='buying-power-container'>
+                                <h2>${user?.buying_power} buying power available</h2>
                             </div>
-                            <div className='form-market-price'>
-                                <label className='form-item'>Market Price :</label>
-                                <h1 className='market-price'>{(stockdata?.latestPrice.toFixed(2))}</h1>
-                            </div>
-                            <div className='est-cost-container'>
-                                <label className='form-item'>Estimated Cost:</label>
-                                <h1 className='total-price'>${totalStocks * (stockdata?.latestPrice.toFixed(2))}</h1>
-                            </div>
-                            <div className='buy-btn-container'>
-                                <button className='buy-btn' onClick={buyStock}>Buy</button>
-                            </div>
-                        </form>
-                        <div className='buying-power-container'>
-                            <h2>${user?.buying_power} buying power available</h2>
                         </div>
-                    </div>
-                    <div className='sellDiv'>
-                    <form className='buy-form' onSubmit={sellButtonFunc}>
-                        <label className='form-title'> Sell {stockdata?.symbol} :</label>
-                        <div className='form-shares'>
-                            <label className='form-item'>Shares: </label>
-                            <input className='form-shares-input' placeholder={1}
-                                onChange={(e) => setSellShares(e.target.value)}
-                                value={sellShares}
-                            ></input>
+                    ) : (
+                        <div className='actions-container'>
+                            <form className='buy-form' onSubmit={sellButtonFunc}>
+                                <select onClick={(e) => setBuySell(e.target.value)}>
+                                    <option value={"buy"} > Buy {stockdata?.symbol}</option>
+                                    <option value={"sell"}  > Sell {stockdata?.symbol}</option>
+                                </select>
+                                <div className='form-shares'>
+                                    <label className='form-item'>Shares: </label>
+                                    <input className='form-shares-input' placeholder={1}
+                                        onChange={(e) => setSellShares(e.target.value)}
+                                        value={sellShares}
+                                    ></input>
+                                </div>
+                                <div className='form-market-price'>
+                                    <label className='form-item'>Market Price :</label>
+                                    <h1 className='market-price'>{(stockdata?.latestPrice.toFixed(2))}</h1>
+                                </div>
+                                <div className='est-cost-container'>
+                                    <label className='form-item'>Estimated value:</label>
+                                    <h1 className='total-price'>${sellShares * (stockdata?.latestPrice.toFixed(2))}</h1>
+                                </div>
+                                <div className='buy-btn-container'>
+                                    <button className='buy-btn'>Sell</button>
+                                </div>
+                                <div className='buying-power-container'>
+                                    {/* <h2>{companyInfo && findCompanyShare(companyInfo[0].portfolio)}</h2> */}
+                                </div>
+                            </form>
                         </div>
-                        <div className='form-market-price'>
-                            <label className='form-item'>Market Price :</label>
-                            <h1 className='market-price'>{(stockdata?.latestPrice.toFixed(2))}</h1>
-                        </div>
-                        <div className='est-cost-container'>
-                            <label className='form-item'>Estimated value:</label>
-                            <h1 className='total-price'>${sellShares * (stockdata?.latestPrice.toFixed(2))}</h1>
-                        </div>
-                        <div className='buy-btn-container'>
-                            <button className='buy-btn'>Sell</button>
-                        </div>
-                        <div className='buying-power-container'>
-                            {/* <h2>{companyInfo && findCompanyShare(companyInfo[0].portfolio)}</h2> */}
-                        </div>
-                    </form>
-                </div>
+                    )
+
+                    }
+
+
                 </div>
                 <div className='company-graph'>
 
@@ -376,110 +395,110 @@ const Stocks = () => {
                         </div>}
 
                     {/* one week graph */}
-                    {timePeriodGraphData && timePeriodGraphData[0]  && timePeriodGraphData[0].oneWeek && graphstate === "1W" &&
-                    <div>
-                        <ResponsiveContainer width="100%" aspect={2}>
-                            <LineChart data={oneWeekGraphDataTrimmed(timePeriodGraphData[0]?.oneWeek).reverse()}>
-                                <Line dataKey="close" stroke="#6afa27"
-                                    strokeWidth={2} dot={false} isAnimationActive={false} />
-                                <XAxis hide={true}
-                                dataKey="date"
-                                // domain={[
-                                //     ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200),
-                                //      ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
+                    {timePeriodGraphData && timePeriodGraphData[0] && timePeriodGraphData[0].oneWeek && graphstate === "1W" &&
+                        <div>
+                            <ResponsiveContainer width="100%" aspect={2}>
+                                <LineChart data={oneWeekGraphDataTrimmed(timePeriodGraphData[0]?.oneWeek).reverse()}>
+                                    <Line dataKey="close" stroke="#6afa27"
+                                        strokeWidth={2} dot={false} isAnimationActive={false} />
+                                    <XAxis hide={true}
+                                        dataKey="date"
+                                    // domain={[
+                                    //     ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200),
+                                    //      ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
 
-                                 />
-                                <YAxis hide={false} domain={[min(oneWeekGraphDataTrimmed(timePeriodGraphData[0]?.oneWeek)),
-                                max(oneWeekGraphDataTrimmed(timePeriodGraphData[0]?.oneWeek))]} />
-                                <Tooltip />
-                            </LineChart>
-                        </ResponsiveContainer>
-                    </div>}
+                                    />
+                                    <YAxis hide={false} domain={[min(oneWeekGraphDataTrimmed(timePeriodGraphData[0]?.oneWeek)),
+                                    max(oneWeekGraphDataTrimmed(timePeriodGraphData[0]?.oneWeek))]} />
+                                    <Tooltip />
+                                </LineChart>
+                            </ResponsiveContainer>
+                        </div>}
 
                     {/* one month graph */}
-                    {timePeriodGraphData && timePeriodGraphData[0]  && timePeriodGraphData[0].oneMonth && graphstate === "1M" &&
-                    <div>
-                        <ResponsiveContainer width="100%" aspect={2}>
-                            <LineChart data={oneMonthGraphDataTrimmed(timePeriodGraphData[0]?.oneMonth.historical).reverse()}>
-                                <Line dataKey="close" stroke="#6afa27"
-                                    strokeWidth={2} dot={false} isAnimationActive={false} />
-                                <XAxis hide={true}
-                                dataKey="date"
-                                // domain={[
-                                //     ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200),
-                                //      ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
+                    {timePeriodGraphData && timePeriodGraphData[0] && timePeriodGraphData[0].oneMonth && graphstate === "1M" &&
+                        <div>
+                            <ResponsiveContainer width="100%" aspect={2}>
+                                <LineChart data={oneMonthGraphDataTrimmed(timePeriodGraphData[0]?.oneMonth.historical).reverse()}>
+                                    <Line dataKey="close" stroke="#6afa27"
+                                        strokeWidth={2} dot={false} isAnimationActive={false} />
+                                    <XAxis hide={true}
+                                        dataKey="date"
+                                    // domain={[
+                                    //     ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200),
+                                    //      ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
 
-                                 />
-                                <YAxis hide={false} domain={[min(oneMonthGraphDataTrimmed(timePeriodGraphData[0]?.oneMonth.historical)),
-                                max(oneMonthGraphDataTrimmed(timePeriodGraphData[0]?.oneMonth.historical))]} />
-                                <Tooltip />
-                            </LineChart>
-                        </ResponsiveContainer>
-                    </div>}
+                                    />
+                                    <YAxis hide={false} domain={[min(oneMonthGraphDataTrimmed(timePeriodGraphData[0]?.oneMonth.historical)),
+                                    max(oneMonthGraphDataTrimmed(timePeriodGraphData[0]?.oneMonth.historical))]} />
+                                    <Tooltip />
+                                </LineChart>
+                            </ResponsiveContainer>
+                        </div>}
 
                     {/* three month graph */}
-                    {timePeriodGraphData && timePeriodGraphData[0]  && timePeriodGraphData[0].threeMonths && graphstate === "3M" &&
-                    <div>
-                        <ResponsiveContainer width="100%" aspect={2}>
-                            <LineChart data={threeMonthGraphDataTrimmed(timePeriodGraphData[0]?.threeMonths.historical).reverse()}>
-                                <Line dataKey="close" stroke="#6afa27"
-                                    strokeWidth={2} dot={false} isAnimationActive={false} />
-                                <XAxis hide={true}
-                                dataKey="date"
-                                // domain={[
-                                //     ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200),
-                                //      ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
+                    {timePeriodGraphData && timePeriodGraphData[0] && timePeriodGraphData[0].threeMonths && graphstate === "3M" &&
+                        <div>
+                            <ResponsiveContainer width="100%" aspect={2}>
+                                <LineChart data={threeMonthGraphDataTrimmed(timePeriodGraphData[0]?.threeMonths.historical).reverse()}>
+                                    <Line dataKey="close" stroke="#6afa27"
+                                        strokeWidth={2} dot={false} isAnimationActive={false} />
+                                    <XAxis hide={true}
+                                        dataKey="date"
+                                    // domain={[
+                                    //     ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200),
+                                    //      ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
 
-                                 />
-                                <YAxis hide={false} domain={[min(threeMonthGraphDataTrimmed(timePeriodGraphData[0]?.threeMonths.historical)),
-                                max(threeMonthGraphDataTrimmed(timePeriodGraphData[0]?.threeMonths.historical))]} />
-                                <Tooltip />
-                            </LineChart>
-                        </ResponsiveContainer>
-                    </div>}
+                                    />
+                                    <YAxis hide={false} domain={[min(threeMonthGraphDataTrimmed(timePeriodGraphData[0]?.threeMonths.historical)),
+                                    max(threeMonthGraphDataTrimmed(timePeriodGraphData[0]?.threeMonths.historical))]} />
+                                    <Tooltip />
+                                </LineChart>
+                            </ResponsiveContainer>
+                        </div>}
 
                     {/* oneYearGraphDataTrimmed */}
-                     {/* one year graph */}
-                     {timePeriodGraphData && timePeriodGraphData[0]  && timePeriodGraphData[0].oneYear && graphstate === "1Y" &&
-                    <div>
-                        <ResponsiveContainer width="100%" aspect={2}>
-                            <LineChart data={oneYearGraphDataTrimmed(timePeriodGraphData[0]?.oneYear.historical).reverse()}>
-                                <Line dataKey="close" stroke="#6afa27"
-                                    strokeWidth={2} dot={false} isAnimationActive={false} />
-                                <XAxis hide={true}
-                                dataKey="date"
-                                // domain={[
-                                //     ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200),
-                                //      ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
+                    {/* one year graph */}
+                    {timePeriodGraphData && timePeriodGraphData[0] && timePeriodGraphData[0].oneYear && graphstate === "1Y" &&
+                        <div>
+                            <ResponsiveContainer width="100%" aspect={2}>
+                                <LineChart data={oneYearGraphDataTrimmed(timePeriodGraphData[0]?.oneYear.historical).reverse()}>
+                                    <Line dataKey="close" stroke="#6afa27"
+                                        strokeWidth={2} dot={false} isAnimationActive={false} />
+                                    <XAxis hide={true}
+                                        dataKey="date"
+                                    // domain={[
+                                    //     ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200),
+                                    //      ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
 
-                                 />
-                                <YAxis hide={false} domain={[min(oneYearGraphDataTrimmed(timePeriodGraphData[0]?.oneYear.historical)),
-                                max(oneYearGraphDataTrimmed(timePeriodGraphData[0]?.oneYear.historical))]} />
-                                <Tooltip />
-                            </LineChart>
-                        </ResponsiveContainer>
-                    </div>}
+                                    />
+                                    <YAxis hide={false} domain={[min(oneYearGraphDataTrimmed(timePeriodGraphData[0]?.oneYear.historical)),
+                                    max(oneYearGraphDataTrimmed(timePeriodGraphData[0]?.oneYear.historical))]} />
+                                    <Tooltip />
+                                </LineChart>
+                            </ResponsiveContainer>
+                        </div>}
                     {/* fiveYearGraphDataTrimmed */}
                     {/* one year graph */}
-                    {timePeriodGraphData && timePeriodGraphData[0]  && timePeriodGraphData[0].fiveYears && graphstate === "5Y" &&
-                    <div>
-                        <ResponsiveContainer width="100%" aspect={2}>
-                            <LineChart data={fiveYearGraphDataTrimmed(timePeriodGraphData[0]?.fiveYears.historical).reverse()}>
-                                <Line dataKey="close" stroke="#6afa27"
-                                    strokeWidth={2} dot={false} isAnimationActive={false} />
-                                <XAxis hide={true}
-                                dataKey="date"
-                                // domain={[
-                                //     ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200),
-                                //      ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
+                    {timePeriodGraphData && timePeriodGraphData[0] && timePeriodGraphData[0].fiveYears && graphstate === "5Y" &&
+                        <div>
+                            <ResponsiveContainer width="100%" aspect={2}>
+                                <LineChart data={fiveYearGraphDataTrimmed(timePeriodGraphData[0]?.fiveYears.historical).reverse()}>
+                                    <Line dataKey="close" stroke="#6afa27"
+                                        strokeWidth={2} dot={false} isAnimationActive={false} />
+                                    <XAxis hide={true}
+                                        dataKey="date"
+                                    // domain={[
+                                    //     ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200),
+                                    //      ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
 
-                                 />
-                                <YAxis hide={false} domain={[min(fiveYearGraphDataTrimmed(timePeriodGraphData[0]?.fiveYears.historical)),
-                                max(fiveYearGraphDataTrimmed(timePeriodGraphData[0]?.fiveYears.historical))]} />
-                                <Tooltip />
-                            </LineChart>
-                        </ResponsiveContainer>
-                    </div>}
+                                    />
+                                    <YAxis hide={false} domain={[min(fiveYearGraphDataTrimmed(timePeriodGraphData[0]?.fiveYears.historical)),
+                                    max(fiveYearGraphDataTrimmed(timePeriodGraphData[0]?.fiveYears.historical))]} />
+                                    <Tooltip />
+                                </LineChart>
+                            </ResponsiveContainer>
+                        </div>}
 
                     <button className='time-btn' onClick={() => {
                         timePeriodButton({ 'string': 'oneDay', 'ticker': urlTicker })
