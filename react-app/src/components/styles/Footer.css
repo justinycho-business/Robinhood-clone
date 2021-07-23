@@ -1,3 +1,9 @@
+.footer_container {
+  position: absolute;
+  bottom: 0px;
+  width:100%;
+}
+
 .footer {
   display: flex;
   justify-content: space-evenly;
