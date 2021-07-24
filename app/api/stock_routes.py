@@ -93,7 +93,8 @@ def buy_shares():
         user = User.query.filter_by(id=user_id).first()
         print("HERE IS THE DATA YOU ARE LOOKING FOR", user.buying_power)
         buying_power = user.buying_power
-        new_buying_power = float(buying_power) - float(stock_price)
+        total_stocks = stock_price * int(stocks)
+        new_buying_power = float(buying_power) - (float(total_stocks))
         user.buying_power = new_buying_power
         buy_stock = Transaction(
             user_id=user_id,
@@ -104,12 +105,12 @@ def buy_shares():
         )
         db.session.add(buy_stock)
         db.session.commit()
-        return{"message": "Success"}
+        return{"Success": new_buying_power}
     else:
         return {"message": "Didnt work!"}
 
-@stock_routes.route('/sell', methods=['POST'])
 
+@stock_routes.route('/sell', methods=['POST'])
 def sell_shares():
     request_data = request.get_json()
     sell_ticker = request_data['ticker']
@@ -117,20 +118,22 @@ def sell_shares():
     shares_posative = int(request_data['shares'])
     shares = -1 * shares_posative
 
-    price_fetch = requests.get(f'https://financialmodelingprep.com/api/v3/historical-chart/1min/{sell_ticker}?apikey={apikey2}')
+    price_fetch = requests.get(
+        f'https://financialmodelingprep.com/api/v3/historical-chart/1min/{sell_ticker}?apikey={apikey2}')
     jsonData = price_fetch.json()
     sell_price = jsonData[0]['close']
     total_amount_sold = sell_price * shares_posative
 
-    sell_company_id_by_ticker = Company.query.filter_by(ticker = sell_ticker).all()
+    sell_company_id_by_ticker = Company.query.filter_by(
+        ticker=sell_ticker).all()
     company_id = sell_company_id_by_ticker[0].to_dict()['id']
 
     sell_transaction = Transaction(
-        user_id = id,
-        company_id = company_id,
-        purchase_price = sell_price,
-        quantity = shares,
-        buy_sell = False,
+        user_id=id,
+        company_id=company_id,
+        purchase_price=sell_price,
+        quantity=shares,
+        buy_sell=False,
     )
     db.session.add(sell_transaction)
     db.session.commit()
@@ -152,7 +155,8 @@ def sell_shares():
         'purchase_price': 0,
         'quantity': shares,
         'buy_sell': False,
-        'total_sold': total_amount_sold
+        'total_sold': total_amount_sold,
+        'new_buying_power': new_buying_power
     }}
 
 
@@ -169,7 +173,7 @@ def get_graph_data_on_click():
 
         return {
             # 'data':jsonData,
-            'oneDay':jsonData}
+            'oneDay': jsonData}
     elif graph_button_string == 'oneWeek':
         res = requests.get(
             f'https://financialmodelingprep.com/api/v3/historical-chart/1hour/{ticker}?apikey={apikey2}')

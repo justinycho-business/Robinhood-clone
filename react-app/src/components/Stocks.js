@@ -179,12 +179,14 @@ const Stocks = () => {
             const responseData = await response.json();
             setstockdata(responseData);
             setUserId(user.id)
+            setBuyingPower(user.buying_power)
             dispatch(getDashboardData(user.id))
             dispatch(get1dayData(ticker))
         })()
 
     }, [
-        // user, id, dispatch, get1dayData
+        setBuyingPower, buyingPower
+        // user, id, dispatch, get1dayData 
     ]);
 
 
@@ -213,6 +215,9 @@ const Stocks = () => {
     const sellButtonFunc = (event) => {
         event.preventDefault()
         dispatch(sellSharesButton({ 'shares': sellShares, 'id': user.id, 'ticker': urlTicker }))
+        setBuyingPower(user.buyingPower)
+        console.log(buyingPower)
+        console.log(event)
     }
 
     const min = (data) => {
@@ -283,7 +288,9 @@ const Stocks = () => {
             };
             const post = await fetch('/api/stocks/buy', requestOptions);
             const data = await post.json();
-            console.log("yay enough buying power", data)
+            console.log("yay enough buying power", data.Success.toFixed(2))
+            setBuyingPower(data.Success.toFixed(2))
+
             return ["yay enough buying power", data]
         } else {
             console.log("Oh no not working just yet :(")
@@ -329,7 +336,7 @@ const Stocks = () => {
                                 </div>
                             </form>
                             <div className='buying-power-container'>
-                                <h2>${user?.buying_power} buying power available</h2>
+                                <h2>${buyingPower} buying power available</h2>
                             </div>
                         </div>
                     ) : (
@@ -362,7 +369,7 @@ const Stocks = () => {
                                 </div>
                             </form>
                             <div className='buying-power-container'>
-                                <h2>${user.buying_power} buying power available</h2>
+                                <h2>${user?.buying_power} buying power available</h2>
                             </div>
                         </div>
                     )
