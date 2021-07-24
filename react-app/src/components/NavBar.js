@@ -60,13 +60,11 @@ if (removeSignUpFromNavBar) {
         </div>
       </div>
       {/* {companyTickerData && */}
-
       <div className="thirdbox"
       // className="search_outer_container"
       >
         {/* <div className = "search_inner_container"> */}
           <input placeholder="Search" className="search" type="text" value={search} onChange={(e) => setSearch(e.target.value)}></input>
-
             <div>
               <div>
               <div class="dropdown">
@@ -149,6 +147,7 @@ if (removeSignUpFromNavBar) {
 }
 
 export default NavBar;
+
 // const NavBar = () => {
 //     const [search, setSearch] = useState('')
 //     const user = useSelector(state => state.session.user)
