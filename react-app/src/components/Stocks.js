@@ -44,8 +44,7 @@ const Stocks = () => {
     const [watchlistContainer, setContainer] = useState('')
     const [optionText, setOptionText] = useState('')
     const [buyingPower, setBuyingPower] = useState(0)
-    const [confirmation, setComfirmation] = useState('')
-    const dashboard = useSelector(state => state?.dashboard)
+    const watchlist = useSelector(state => state?.dashboard)
     const priceData = useSelector(state => state?.priceData?.oneDayDataStocks)
     const user = useSelector(state => state.session.user);
     const oneDayGraphData = useSelector(state => state?.priceData?.oneDayDataStocks)
@@ -185,7 +184,10 @@ const Stocks = () => {
             dispatch(get1dayData(ticker))
         })()
 
-    }, [setBuyingPower, buyingPower]);
+    }, [
+        setBuyingPower
+        // user, id, dispatch, get1dayData 
+    ]);
 
 
 
@@ -213,9 +215,6 @@ const Stocks = () => {
     const sellButtonFunc = (event) => {
         event.preventDefault()
         dispatch(sellSharesButton({ 'shares': sellShares, 'id': user.id, 'ticker': urlTicker }))
-        setBuyingPower(dashboard?.priceData?.sellConfirmation?.new_buying_power)
-        console.log(buyingPower)
-        console.log(event)
     }
 
     const min = (data) => {
@@ -288,7 +287,6 @@ const Stocks = () => {
             const data = await post.json();
             console.log("yay enough buying power", data.Success.toFixed(2))
             setBuyingPower(data.Success.toFixed(2))
-
             return ["yay enough buying power", data]
         } else {
             console.log("Oh no not working just yet :(")
@@ -546,11 +544,6 @@ const Stocks = () => {
                         </div>
                     )
                 }
-                <ul>
-                    <li>
-
-                    </li>
-                </ul>
             </div>
         </div>
     )
