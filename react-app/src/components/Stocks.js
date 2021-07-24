@@ -152,7 +152,6 @@ const Stocks = () => {
         const data = await post.json();
         setOption("remove")
         setOptionText("Remove from Watchlist")
-        console.log(data)
     };
 
     const removeFromWatchlist = async (e) => {
@@ -170,7 +169,6 @@ const Stocks = () => {
         const data = await post.json();
         setOption("add")
         setOptionText("Add to Watchlist")
-        console.log(data)
     };
 
     useEffect(() => {
@@ -242,7 +240,7 @@ const Stocks = () => {
     };
 
 
-    if (!oneDayGraphData) {
+    if (!oneDayGraphData  || !companyInfo) {
         return (<>
             <div class="loader">
                 <div class="inner one"></div>
@@ -256,14 +254,19 @@ const Stocks = () => {
 
 
     const findCompanyShare = (array) => {
-        const shares = array.filter(ele => {
-            if (ele.ticker === urlTicker) {
-                console.log(ele.quantity)
-                return ele.quantity
+        let sellButtonArray = []
+        const shares = array.forEach((porfolioArray) => {
+            if (porfolioArray.company_details.ticker === urlTicker) {
+                console.log(porfolioArray.company_details.quantity, '============259==============')
+                const result = porfolioArray.company_details.quantity
+                sellButtonArray.push(`${result} Shares Owened`)
+            } else {
+                console.log(sellButtonArray, 'No true values')
+                sellButtonArray.push('No Shares Owened')
             }
-            return 'No Shares Owned'
         })
-        return shares
+        console.log(sellButtonArray, '=========================')
+        return sellButtonArray
     };
 
     const buyStock = async (e) => {
@@ -298,6 +301,7 @@ const Stocks = () => {
                 <div className='stock-details'>
                     <h2 className='stock-title'>{stockdata?.companyName}</h2>
                     <h2 className='stock-price'>${(stockdata?.latestPrice.toFixed(2))}</h2>
+                    {/* make dollar change and percent change the value of state and set state on button push for time period */}
                     <h2 className='stock-change'> $ {(stockdata?.change.toFixed(2))} ({(stockdata?.changePercent.toFixed(2))}%) Change Today</h2>
                 </div>
                 <div className='side-bar-content'>
@@ -357,18 +361,16 @@ const Stocks = () => {
                                 <div className='buy-btn-container'>
                                     <button className='buy-btn'>Sell</button>
                                 </div>
-                                <div className='buying-power-container'>
-                                    {/* <h2>{companyInfo && findCompanyShare(companyInfo[0].portfolio)}</h2> */}
-                                </div>
                             </form>
                             <div className='buying-power-container'>
-                                <h2>${buyingPower} buying power available</h2>
+                                <h2>{companyInfo && findCompanyShare(companyInfo.portfolio)[0]}</h2>
                             </div>
+                            {/* <div className='buying-power-container'>
+                                <h2>${buyingPower} buying power available</h2>
+                            </div> */}
                         </div>
                     )
                     }
-
-
                 </div>
                 <div className='company-graph'>
 
@@ -392,7 +394,6 @@ const Stocks = () => {
                                 </LineChart>
                             </ResponsiveContainer>
                         </div>}
-
                     {/* one week graph */}
                     {timePeriodGraphData && timePeriodGraphData[0] && timePeriodGraphData[0].oneWeek && graphstate === "1W" &&
                         <div>
@@ -405,7 +406,6 @@ const Stocks = () => {
                                     // domain={[
                                     //     ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200),
                                     //      ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
-
                                     />
                                     <YAxis hide={false} domain={[min(oneWeekGraphDataTrimmed(timePeriodGraphData[0]?.oneWeek)),
                                     max(oneWeekGraphDataTrimmed(timePeriodGraphData[0]?.oneWeek))]} />
@@ -413,7 +413,6 @@ const Stocks = () => {
                                 </LineChart>
                             </ResponsiveContainer>
                         </div>}
-
                     {/* one month graph */}
                     {timePeriodGraphData && timePeriodGraphData[0] && timePeriodGraphData[0].oneMonth && graphstate === "1M" &&
                         <div>
@@ -426,7 +425,6 @@ const Stocks = () => {
                                     // domain={[
                                     //     ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200),
                                     //      ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
-
                                     />
                                     <YAxis hide={false} domain={[min(oneMonthGraphDataTrimmed(timePeriodGraphData[0]?.oneMonth.historical)),
                                     max(oneMonthGraphDataTrimmed(timePeriodGraphData[0]?.oneMonth.historical))]} />
@@ -434,7 +432,6 @@ const Stocks = () => {
                                 </LineChart>
                             </ResponsiveContainer>
                         </div>}
-
                     {/* three month graph */}
                     {timePeriodGraphData && timePeriodGraphData[0] && timePeriodGraphData[0].threeMonths && graphstate === "3M" &&
                         <div>
@@ -447,7 +444,6 @@ const Stocks = () => {
                                     // domain={[
                                     //     ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200),
                                     //      ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
-
                                     />
                                     <YAxis hide={false} domain={[min(threeMonthGraphDataTrimmed(timePeriodGraphData[0]?.threeMonths.historical)),
                                     max(threeMonthGraphDataTrimmed(timePeriodGraphData[0]?.threeMonths.historical))]} />
@@ -455,7 +451,6 @@ const Stocks = () => {
                                 </LineChart>
                             </ResponsiveContainer>
                         </div>}
-
                     {/* oneYearGraphDataTrimmed */}
                     {/* one year graph */}
                     {timePeriodGraphData && timePeriodGraphData[0] && timePeriodGraphData[0].oneYear && graphstate === "1Y" &&
@@ -469,7 +464,6 @@ const Stocks = () => {
                                     // domain={[
                                     //     ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200),
                                     //      ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
-
                                     />
                                     <YAxis hide={false} domain={[min(oneYearGraphDataTrimmed(timePeriodGraphData[0]?.oneYear.historical)),
                                     max(oneYearGraphDataTrimmed(timePeriodGraphData[0]?.oneYear.historical))]} />
@@ -490,7 +484,6 @@ const Stocks = () => {
                                     // domain={[
                                     //     ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200),
                                     //      ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
-
                                     />
                                     <YAxis hide={false} domain={[min(fiveYearGraphDataTrimmed(timePeriodGraphData[0]?.fiveYears.historical)),
                                     max(fiveYearGraphDataTrimmed(timePeriodGraphData[0]?.fiveYears.historical))]} />
@@ -498,7 +491,6 @@ const Stocks = () => {
                                 </LineChart>
                             </ResponsiveContainer>
                         </div>}
-
                     <button className='time-btn' onClick={() => {
                         timePeriodButton({ 'string': 'oneDay', 'ticker': urlTicker })
                         setgraphstate("1D")
