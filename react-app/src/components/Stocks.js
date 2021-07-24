@@ -335,7 +335,7 @@ const Stocks = () => {
                     ) : (
                         <div className='actions-container'>
                             <form className='buy-form' onSubmit={sellButtonFunc}>
-                                <select onClick={(e) => setBuySell(e.target.value)}>
+                                <select className="stock-options" onClick={(e) => setBuySell(e.target.value)}>
                                     <option value={"buy"} > Buy {stockdata?.symbol}</option>
                                     <option value={"sell"}  > Sell {stockdata?.symbol}</option>
                                 </select>
