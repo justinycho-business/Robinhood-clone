@@ -44,7 +44,8 @@ const Stocks = () => {
     const [watchlistContainer, setContainer] = useState('')
     const [optionText, setOptionText] = useState('')
     const [buyingPower, setBuyingPower] = useState(0)
-    const watchlist = useSelector(state => state?.dashboard)
+    const [confirmation, setComfirmation] = useState('')
+    const dashboard = useSelector(state => state?.dashboard)
     const priceData = useSelector(state => state?.priceData?.oneDayDataStocks)
     const user = useSelector(state => state.session.user);
     const oneDayGraphData = useSelector(state => state?.priceData?.oneDayDataStocks)
@@ -184,10 +185,7 @@ const Stocks = () => {
             dispatch(get1dayData(ticker))
         })()
 
-    }, [
-        setBuyingPower, buyingPower
-        // user, id, dispatch, get1dayData 
-    ]);
+    }, [setBuyingPower, buyingPower]);
 
 
 
@@ -215,7 +213,7 @@ const Stocks = () => {
     const sellButtonFunc = (event) => {
         event.preventDefault()
         dispatch(sellSharesButton({ 'shares': sellShares, 'id': user.id, 'ticker': urlTicker }))
-        setBuyingPower(user.buyingPower)
+        setBuyingPower(dashboard?.priceData?.sellConfirmation?.new_buying_power)
         console.log(buyingPower)
         console.log(event)
     }
@@ -548,6 +546,11 @@ const Stocks = () => {
                         </div>
                     )
                 }
+                <ul>
+                    <li>
+
+                    </li>
+                </ul>
             </div>
         </div>
     )
