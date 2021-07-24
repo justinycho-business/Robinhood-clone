@@ -7,7 +7,7 @@ import { getDashboardData } from '../store/dashboard';
 import './styles/NavBar.css';
 
 const NavBar = () => {
-  const [search, setSearch] = useState('-')
+  const [search, setSearch] = useState('Insert Ticker Here')
   const [companyTickerData, setCompanyTickerData] = useState(undefined)
   const user = useSelector(state => state.session.user)
   const removeSignUpFromNavBar = useSelector(state => state.session.user)
@@ -40,6 +40,29 @@ const searchResult = async(e) => {
 }
 
 console.log(companyTickerData)
+
+// // create queue for the data and add initial node
+//    let companyTickerData = new Queue(this.nodes.length);
+//    let explored = new Set();
+//    companyTickerData.enqueue(node);
+// // mark the first node as explored?
+//    add(node);
+// // iterate through data until queue is empty
+//    while (!companyTickerData.isEmpty()) {
+//       let newData = companyTickerData.dequeue();    
+//       console.log(newData);
+// // grabbed this part from a tutorial
+// // 1. in the edges object, we search for nodes this node is directly connected to.
+// // 2. we filter out the nodes that have already been explored.
+// // 3. then we mark each unexplored node as explored and add it to the queue.
+//       this.edges[newData]
+//       .filter(n => !explored.has(n))
+//       .forEach(n => {
+//          explored.add(n);
+//          companyTickerData.enqueue(n);
+//       });
+//    }
+// }
 
 if (removeSignUpFromNavBar) {
   return (
