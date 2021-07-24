@@ -184,10 +184,7 @@ const Stocks = () => {
             dispatch(get1dayData(ticker))
         })()
 
-    }, [
-        setBuyingPower
-        // user, id, dispatch, get1dayData 
-    ]);
+    }, [setBuyingPower]);
 
 
 
@@ -365,7 +362,7 @@ const Stocks = () => {
                                 </div>
                             </form>
                             <div className='buying-power-container'>
-                                <h2>${user?.buying_power} buying power available</h2>
+                                <h2>${buyingPower} buying power available</h2>
                             </div>
                         </div>
                     )
