@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import {addFundsToPortfolio, getDashboardData, getlilgraphs, graphTimePeriodButton} from "../store/dashboard";
-import { get1dayData } from "../store/stocks";
+import {addFundsToPortfolio, getDashboardData, graphTimePeriodButton} from "../store/dashboard";
 import moment from "moment";
 import intradayData from "../data/data";
 import {
     LineChart,
     Line,
-    Area,
     Tooltip,
-    CartesianGrid,
     XAxis,
     YAxis,
     ResponsiveContainer,
@@ -21,10 +17,8 @@ import "./styles/Dashboard.css";
 function Dashboard() {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.session.user);
-    let watchlist = useSelector((state) => state?.dashboard?.userData);
-    let userData = useSelector((state) => state?.dashboard?.userData);
-    const watchlistData = useSelector((state) => state?.dashboard?.userData);
-    const lilgraphs = useSelector((state) => state?.dashboard?.lilgraphs);
+    const userData = useSelector((state) => state?.dashboard?.userData);
+    const lilGraphs = useSelector((state) => state?.dashboard?.userData?.watchlistAPICallData);
 
     const [portfolioValue, setPortolioValue] = useState("");
 
@@ -48,25 +42,10 @@ function Dashboard() {
         dispatch(getDashboardData(user?.id));
     }, []);
 
-    useEffect(() => {
-        const get_watchlist_graphs1 = () => {
-        let result = [];
-        console.log(watchlist);
-        for (let i = 0; i < watchlist[0]?.watchlist.length; i++) {
-            result.push(watchlist?.watchlist[i].ticker);
-        }
-        return result;
-        };
-        if(watchlist){
-        dispatch(getlilgraphs(get_watchlist_graphs1()));
-        }
-    }, [getDashboardData]);
-
 
     const timePeriodButton = (payload_obj) => {
         dispatch(graphTimePeriodButton(payload_obj))
     }
-
 
     const min = (data) => {
         let min = Infinity;
@@ -76,9 +55,13 @@ function Dashboard() {
             min = lowData;
         }
         }
+        console.log(min, '===========max==============')
         return parseFloat((min * 0.995).toFixed(2));
     };
+
     const max = (data) => {
+        const flatten = [...data]
+        console.log(flatten, '=============max data=========================')
         let max = 0;
         for (let i = 0; i < data.length; i++) {
         let highData = data[i].high;
@@ -86,10 +69,27 @@ function Dashboard() {
             max = highData;
         }
         }
+        console.log(max, '===========max==============')
         return parseFloat((max * 1.005).toFixed(2));
     };
 
-    if (!watchlist) {
+    const watchlistGraphDataTrimmed = (graphObj) => {
+        const result = []
+        const watchlistTicker = userData.watchlist
+        watchlistTicker.forEach((ele) => {
+            const graphData = graphObj[ele.ticker]
+            for (let i = 0; i < graphData.length; i++) {
+                console.log(graphData[i], '======================graphData[i]============================')
+                if (graphData[i].date.startsWith(`${moment().format('YYYY-MM-DD')}`)) {
+                    result.push(graphData[i])
+                }
+            }
+        })
+        console.log(result.reverse())
+        return result.reverse()
+    }
+
+    if (!userData) {
         return (<>
             <div class="loader">
                 <div class="inner one"></div>
@@ -102,10 +102,9 @@ function Dashboard() {
         );
     }
 
-
     return (
         <>
-        {watchlist && (
+        {userData && (
             <div class="wrapper">
             <div className="portfolioDiv">
                 <h1>Dashboard</h1>
@@ -184,32 +183,32 @@ function Dashboard() {
             <div className="watchlistDiv">
                 <h1>Watchlist</h1>
                 <ul className="watchlistUl">
-                    {watchlistData &&
-                        watchlistData?.watchlistAPICallData.map((company) => (
-                        <li className="watchlistLi" key={company.id}>
+                    {userData &&
+                        userData?.watchlistAPICallData.map((company) => (
+                        <li className="watchlistLi" key={company[0].ticker}>
                             <div className="ticker">
-                            <p>{company[0].symbol}</p>
+                                <p>{company[0].symbol}</p>
                             </div>
                             <div className="lilGraph">
-                            <ResponsiveContainer width="100%" aspect={2}>
-                                <LineChart data={intradayData}>
-                                <Line
-                                    dataKey="close"
-                                    stroke="#6afa27"
-                                    strokeWidth={2}
-                                    dot={false}
-                                    isAnimationActive={false}
-                                />
-                                <XAxis hide={true} dataKey="date" />
-                                <YAxis
-                                    hide={true}
-                                    domain={[min(intradayData), max(intradayData)]}
-                                />
-                                </LineChart>
-                            </ResponsiveContainer>
+                                <ResponsiveContainer width="100%" aspect={2}>
+                                    <LineChart data={watchlistGraphDataTrimmed(userData.watchlistOneDayData)}>
+                                    <Line
+                                        dataKey="close"
+                                        stroke="#6afa27"
+                                        strokeWidth={2}
+                                        dot={false}
+                                        isAnimationActive={false}
+                                    />
+                                    <XAxis hide={true} dataKey="date" />
+                                    <YAxis
+                                        hide={true}
+                                        domain={[min(watchlistGraphDataTrimmed(userData.watchlistOneDayData)), max(watchlistGraphDataTrimmed(userData.watchlistOneDayData))]}
+                                    />
+                                    </LineChart>
+                                </ResponsiveContainer>
                             </div>
                             <div className="price">
-                            <p>${company[0].price}</p>
+                                <p>${company[0].price}</p>
                             </div>
                             {/* <p className='percent'>{company.ticker}</p> */}
                         </li>
