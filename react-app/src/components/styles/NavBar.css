@@ -38,6 +38,7 @@ nav{
     position: relative;
     display: flex;
     min-width: 100px;
+    align-self: flex-start;
 }
 
 .fourthbox{
@@ -162,6 +163,12 @@ nav{
     justify-content: end;
 }
 
+.search_container {
+    display: inline-block;
+    /* margin-inline: 350px; */
+    margin-right: 715px;
+}
+
 .search {
     /* position: absolute;
     right: 740px; */
@@ -198,7 +205,7 @@ nav{
 }
 
 .dropdown {
-    position: relative;
+    position: fixed;
     display: inline-block;
     margin-inline: 80px;
   }
