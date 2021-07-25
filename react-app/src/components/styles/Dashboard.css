@@ -160,8 +160,8 @@
 }
 
 .add-funds-form input:focus {
-    background-color: lightgray;
-    box-shadow: 0px 0px 10px 5px black;
+    /* box-shadow: 0px 0px 10px 5px black; */
+    border-radius: 5px;
 }
 
 .add-funds-form button {

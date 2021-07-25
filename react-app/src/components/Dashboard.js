@@ -142,7 +142,7 @@ function Dashboard() {
             <div className="addFundsDiv">
                 <h3>{`$${user.buying_power} Available for investment`}</h3>
                 <p>Add funds to your account</p>
-                <form onSubmit={addFundsSubmit}>
+                <form className='add-funds-form' onSubmit={addFundsSubmit}>
                     <input className='form-input'
                         type="text"
                         placeholder="Amount of funds to add"
