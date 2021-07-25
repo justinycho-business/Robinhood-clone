@@ -107,29 +107,29 @@ function Dashboard() {
         {userData && (
             <div class="wrapper">
             <div className="portfolioDiv">
-                <h1>Dashboard</h1>
-                <h1>Add Total Portfolio Value Monday {user.username}</h1>
-                <h3>Add a daily percent change {user.username}</h3>
+                <h1>{user.username} Dashboard</h1>
+                {/* <h1>Add Total Portfolio Value Monday {user.username}</h1> */}
+                {/* <h3>Add a daily percent change {user.username}</h3> */}
             </div>
             <div className="graph">
                 <div>
-                <ResponsiveContainer width="100%" aspect={2}>
-                    <LineChart data={intradayData}>
-                    <Line
-                        dataKey="close"
-                        stroke="#6afa27"
-                        strokeWidth={2}
-                        dot={false}
-                        isAnimationActive={false}
-                    />
-                    <XAxis hide={true} dataKey="date" />
-                    <YAxis
-                        hide={true}
-                        domain={[min(intradayData), max(intradayData)]}
-                    />
-                    <Tooltip />
-                    </LineChart>
-                </ResponsiveContainer>
+                    <ResponsiveContainer width="100%" aspect={2}>
+                        <LineChart data={intradayData}>
+                        <Line
+                            dataKey="close"
+                            stroke="#6afa27"
+                            strokeWidth={3}
+                            dot={false}
+                            isAnimationActive={false}
+                        />
+                        <XAxis hide={true} dataKey="date" />
+                        <YAxis
+                            hide={true}
+                            domain={[min(intradayData), max(intradayData)]}
+                        />
+                        <Tooltip />
+                        </LineChart>
+                    </ResponsiveContainer>
                 </div>
                 <button onClick={() => timePeriodButton({'string': 'oneDay', 'id': user.id})}>1D</button>
                 <button onClick={() => timePeriodButton({'string': 'oneWeek', 'id': user.id})}>1W</button>
@@ -140,10 +140,10 @@ function Dashboard() {
                 <button onClick={() => timePeriodButton({'string': 'all', 'id': user.id})}>All</button>
             </div>
             <div className="addFundsDiv">
-                <h3>Buying Power</h3>
-                <h3>Add the available cash Monday {user.username}</h3>
+                <h3>{`$${user.buying_power} Available for investment`}</h3>
+                <p>Add funds to your account</p>
                 <form onSubmit={addFundsSubmit}>
-                    <input
+                    <input className='form-input'
                         type="text"
                         placeholder="Amount of funds to add"
                         name="portfolioValue"
