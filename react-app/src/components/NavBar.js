@@ -24,7 +24,6 @@ useEffect(() => {
         // companyTickerData = responseData.tickers
         setCompanyTickerData(responseData.tickers)
         // console.log(searchData)
-        console.log(companyTickerData)
     })()
 }, []);
 
@@ -38,8 +37,6 @@ const searchResult = async(e) => {
     const data = e.target.value
     history.push(`/stocks/${data}`)
 }
-
-console.log(companyTickerData)
 
 // // create queue for the data and add initial node
 //    let companyTickerData = new Queue(this.nodes.length);
