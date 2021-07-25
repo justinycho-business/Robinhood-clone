@@ -1,12 +1,12 @@
 
-
+/* wrapper for whole page */
 .wrapper {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-auto-rows: minmax(150px, auto);
     grid-template-areas:
-    '. portfolioDiv portfolioDiv porfolioListDiv .'
-    '. graph graph watchlistDiv .'
+    '. portfolioDiv portfolioDiv . .'
+    '. graph graph porfolioListDiv .'
     '. graph graph watchlistDiv .'
     '. addFundsDiv addFundsDiv watchlistDiv .'
     '. . . . .'
@@ -16,9 +16,17 @@
 
 .portfolioDiv {
     grid-area: portfolioDiv;
-    background-color: lightblue;
+    background-color: rgb(211, 147, 182);
+    margin: 0px;
+    padding-left: 10px;
+    position: relative;
+    bottom: 0;
+}
+
+.portfolioDiv h1 {
+    position:absolute;
     margin: 0;
-    padding: 10px;
+    bottom: 0;
 }
 
 .graph {
@@ -119,6 +127,9 @@
     align-items: center;
     text-align: center;
     background-color: white;
+    /* height: 200px;
+    width: 900px; */
+    width: 100px;
 }
 
 .price {
@@ -135,4 +146,48 @@
     margin: 0;
     padding: 3px;
     text-align: center;
+}
+
+.add-funds-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.add-funds-form input {
+    margin-left: 0;
+    width: 40%;
+    height: 5px;
+    padding: 20px 10px;
+    box-shadow: 0px 0px 10px 3px black;
+    box-sizing: border-box;
+}
+
+.add-funds-form input:focus {
+    /* box-shadow: 0px 0px 10px 5px black; */
+    border-radius: 5px;
+}
+
+.add-funds-form button {
+    padding: 15px;
+    width: 40%;
+    margin-top: 8px;
+}
+
+.dashboard-button {
+    border: none;
+    font-weight: bold;
+    background-color: white;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 5px;
+}
+
+.dashboard-button:active {
+    background-color: black;
+}
+
+.dashboard-button:hover {
+    color: #6afa27;
+    background-color: black;
+    border-radius: 3px;
 }

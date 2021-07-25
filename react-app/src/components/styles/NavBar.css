@@ -39,7 +39,6 @@ nav{
     display: flex;
     min-width: 100px;
     align-self: flex-start;
-}
 
 .fourthbox{
     grid-column: 4;

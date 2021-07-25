@@ -289,10 +289,10 @@ const Stocks = () => {
             if (porfolioArray.company_details.ticker === urlTicker) {
                 console.log(porfolioArray.company_details.quantity, '============259==============')
                 const result = porfolioArray.company_details.quantity
-                sellButtonArray.push(`${result} Shares Owened`)
+                sellButtonArray.push(`${result} Shares Owned`)
             } else {
                 console.log(sellButtonArray, 'No true values')
-                sellButtonArray.push('No Shares Owened')
+                sellButtonArray.push('No Shares Owned')
             }
         })
         console.log(sellButtonArray, '=========================')
