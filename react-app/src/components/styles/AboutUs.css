@@ -68,6 +68,7 @@
   margin: 10px;
   border-radius: 50%;
   border: 3px solid #B4A0E5;
+  text-decoration: none;
 }
 
 .person_desc {
@@ -93,4 +94,14 @@
 
 .second_title {
   font-size: 70px;
+}
+
+
+.github_icon_container {
+display: flex;
+}
+
+.github_icon {
+  font-size: 35px;
+  color: black;
 }

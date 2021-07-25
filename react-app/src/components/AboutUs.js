@@ -16,16 +16,24 @@ const AboutUs = () => {
                     <div className="each_person">
                         <img src="/pics/Joshua.png" className="person_pic"></img>
                             <a href="https://github.com/josh-willy91" target="_blank">
-                              Joshua Williams
+                              <div className = "github_icon_ container">
+                                <div className = "github_icon">
+                                  <i class="fab fa-github"></i>
+                              </div>
+                                </div>
                             </a>
                     <div className="person_desc">
-                        <h3>Awesome guy.</h3>
+                        <h3>Dreamt about this moment.</h3>
                     </div>
                     </div>
                     <div className="each_person">
                         <img src="/pics/Gary.png" className="person_pic"></img>
                             <a href="https://github.com/babypwant" target="_blank">
-                              Gary Rios
+                            <div className = "github_icon_ container">
+                                <div className = "github_icon">
+                                  <i class="fab fa-github"></i>
+                              </div>
+                                </div>
                             </a>
                     <div className="person_desc">
                         <h3>Favorite color is green.</h3>
@@ -34,16 +42,24 @@ const AboutUs = () => {
                     <div className="each_person">
                         <img src="/pics/Eb.png" className="person_pic"></img>
                             <a href="https://github.com/ebtayara" target="_blank">
-                              Ebrahim Tayara
+                            <div className = "github_icon_ container">
+                                <div className = "github_icon">
+                                  <i class="fab fa-github"></i>
+                              </div>
+                                </div>
                             </a>
                     <div className="person_desc">
-                        <h3>Sucks at CSS.</h3>
+                        <h3>Doggo has no boundaries.</h3>
                     </div>
                     </div>
                     <div className="each_person">
                         <img src="/pics/Justin.png" className="person_pic"></img>
                             <a href="https://github.com/justinycho-business" target="_blank">
-                              Justin Cho
+                            <div className = "github_icon_ container">
+                                <div className = "github_icon">
+                                  <i class="fab fa-github"></i>
+                              </div>
+                                </div>
                             </a>
                     <div className="person_desc">
                         <h3>Enjoys the finer things in life.</h3>
