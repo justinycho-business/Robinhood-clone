@@ -13,6 +13,7 @@ nav{
     grid-template-columns: 1fr 1fr 1fr 1fr;
     justify-content: space-between;
     align-items: center;
+    align-content: center;
     box-shadow: 0px 1px 4px 0px rgb(0 0 0 / 20%);
     /* display: -webkit-box;
     display: -webkit-flex;
@@ -33,10 +34,12 @@ nav{
 .thirdbox{
     grid-column: 3;
     width: 50vw;
+    margin-right: 283px;
 }
 
 .fourthbox{
     grid-column: 4;
+    margin-right: 300px;
 }
 .signup{
     /* display: block;
@@ -67,19 +70,28 @@ nav{
 }
 
 .login{
-    display: block;
-    border-radius: 10px;
-    background-color: white;
-    padding: 10px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 20px;
+    color: black;
     text-decoration: none;
+    align-items: center;
+    box-sizing: border-box;
+    display: inline-flex;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    white-space: nowrap;
+    padding: 0px 36px;
+    height: 48px;
+    min-width: 144px;
+    border-radius: 24px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .home{
     display: block;
     border-radius: 10px;
-    padding: 10px;
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 20px;
     text-decoration: none;
@@ -90,6 +102,11 @@ nav{
 .feather_icon {
     color: black;
     display: flex;
+    align-items: center;
+}
+
+.feather_icon_container {
+
 }
 
 .fa-feather:before {
@@ -111,20 +128,27 @@ nav{
     color: black;
     font-weight: bold;
     font-size: 17px;
-    position: absolute;
-    right:100px;
 }
 
-/* .welcome_message_container {
+.welcome_message_container {
+
+}
+
+.welcome_message_outer_container {
 
 }
 
 .welcome_message_inner_container {
-
-} */
-
-
-
+    display: block;
+    border-radius: 10px;
+    background-color: white;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 20px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 17px;
+}
 
 .search_outer_container {
     display: flex;
@@ -153,12 +177,13 @@ nav{
     color: black;
     font-weight: bold;
     font-size: 17px;
-    margin-left: 930px;
+    margin-left: 1070px;
 }
 
 .dropdown {
     position: relative;
     display: inline-block;
+    margin-inline: 80px;
   }
 
   /* Dropdown Content (Hidden by Default) */
@@ -182,5 +207,15 @@ nav{
   }
 
   .dropdown-content a:hover {
-      background-color: lightskyblue;
+    background-color: lightskyblue;
+  }
+
+  .second_outer_container {
+    display: flex;
+    flex-direction: row;
+    margin-inline: 1000px;
+  }
+
+  .second_container {
+
   }
