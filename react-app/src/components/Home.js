@@ -9,13 +9,21 @@ const Home = () => {
   return (
     <div className='row-home'>
       <div className='home-column-1'>
-        <div><h1 className="h1-0">Maple Stocks</h1></div>
-        <div><h2 className="h2-0">Your smooth and slick trading platform</h2></div>
+        {/* <div><h1 className="h1-0">Maple Stocks</h1></div> */}
+        <div><h1 className="h1-0">Investing Made Easy</h1></div>
+        <div className="description_1">
+        Investing with peace of mind using the
+        </div>
+        <div className="description_2">
+        tools you need to get the bang out of your buck.
+        </div>
+        <div className="description_3">
+        Sign up now! Gains may vary.
+        </div>
       </div>
       <div class="home-column-2">
 
       </div>
-
     </div >
   );
 };
