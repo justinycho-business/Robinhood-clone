@@ -94,7 +94,7 @@ function Dashboard() {
 
     const oneWeekGraphDataTrimmed = (data) => {
         console.log(`${moment().subtract(10, 'days').calendar()}`)
-        console.log(data);
+
         let result;
         for (let i = 0; i < data.length; i++) {
             if (data[i].date === `${moment().subtract(7, 'days').format('YYYY-MM-DD')} 10:00:00` ||
@@ -123,7 +123,7 @@ function Dashboard() {
 
     const max = (data) => {
         const flatten = [...data]
-        console.log(flatten, '=============max data=========================')
+
         let max = 0;
         for (let i = 0; i < data.length; i++) {
         let highData = data[i].high;
@@ -136,21 +136,7 @@ function Dashboard() {
 
     };
 
-    const watchlistGraphDataTrimmed = (graphObj) => {
-        const result = []
-        const watchlistTicker = userData.watchlist
-        watchlistTicker.forEach((ele) => {
-            const graphData = graphObj[ele.ticker]
-            for (let i = 0; i < graphData.length; i++) {
-                console.log(graphData[i], '======================graphData[i]============================')
-                if (graphData[i].date.startsWith(`${moment().format('YYYY-MM-DD')}`)) {
-                    result.push(graphData[i])
-                }
-            }
-        })
-        console.log(result.reverse())
-        return result.reverse()
-    }
+
 
     if (!userData) {
         return (<>
