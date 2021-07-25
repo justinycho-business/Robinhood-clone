@@ -45,7 +45,7 @@ const Stocks = () => {
     const [optionText, setOptionText] = useState('')
 
     const [buyingPower, setBuyingPower] = useState(0)
-    
+
     const watchlist = useSelector(state => state?.dashboard)
     const priceData = useSelector(state => state?.priceData?.oneDayDataStocks)
     const user = useSelector(state => state.session.user);
@@ -270,7 +270,7 @@ const Stocks = () => {
     };
 
 
-    if (!oneDayGraphData  || !companyInfo) {
+    if (!oneDayGraphData || !companyInfo) {
         return (<>
             <div class="loader">
                 <div class="inner one"></div>
@@ -338,9 +338,9 @@ const Stocks = () => {
                     {buySell === "buy" ? (
                         <div className='actions-container'>
                             <form className='buy-form'>
-                                <select onClick={(e) => setBuySell(e.target.value)}>
-                                    <option value={"buy"} > Buy {stockdata?.symbol}</option>
-                                    <option value={"sell"}  > Sell {stockdata?.symbol}</option>
+                                <select className='option-select' onClick={(e) => setBuySell(e.target.value)}>
+                                    <option className='option-buy' value={"buy"} > Buy {stockdata?.symbol}</option>
+                                    <option className='option-sell' value={"sell"}  > Sell {stockdata?.symbol}</option>
                                     {/* <label className='form-title'> {buySell} {stockdata?.symbol} :</label> */}
                                 </select>
                                 <div className='form-shares'>
@@ -369,7 +369,7 @@ const Stocks = () => {
                     ) : (
                         <div className='actions-container'>
                             <form className='buy-form' onSubmit={sellButtonFunc}>
-                                <select className="stock-options" onClick={(e) => setBuySell(e.target.value)}>
+                                <select className="option-select" onClick={(e) => setBuySell(e.target.value)}>
                                     <option value={"buy"} > Buy {stockdata?.symbol}</option>
                                     <option value={"sell"}  > Sell {stockdata?.symbol}</option>
                                 </select>
