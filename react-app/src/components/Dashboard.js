@@ -25,8 +25,10 @@ function Dashboard() {
     let userData = useSelector((state) => state?.dashboard?.userData);
     const watchlistData = useSelector((state) => state?.dashboard?.userData);
     const lilgraphs = useSelector((state) => state?.dashboard?.lilgraphs);
+    const watchlistcharts = useSelector((state) => state?.dashboard?.userData?.watchlistOneDayData);
 
     const [portfolioValue, setPortolioValue] = useState("");
+    const [watchlistchartinfo, setwatchlistchartinfo] = useState(undefined)
 
     // function to check if user is logged in then returns the user ID
     const loggedInUser = useSelector((state) => {
@@ -46,6 +48,7 @@ function Dashboard() {
 
     useEffect(() => {
         dispatch(getDashboardData(user?.id));
+
     }, []);
 
     useEffect(() => {
@@ -67,6 +70,57 @@ function Dashboard() {
         dispatch(graphTimePeriodButton(payload_obj))
     }
 
+    const oneDayGraphDataTrimmed = (data) => {
+        const result = []
+        // console.log(`${moment().format('YYYY-MM-DD')}`) //2021-07-22
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].date.startsWith(`${moment().format('YYYY-MM-DD')}`)) {
+                result.push(data[i])
+            }
+        }
+        //saturday
+        if (result.length === 0) {
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].date.startsWith(`${moment().subtract(1, 'days').format('YYYY-MM-DD')}`)) {
+                    result.push(data[i])
+                }
+            }
+        }
+        // sunday
+        if (result.length === 0) {
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].date.startsWith(`${moment().subtract(2, 'days').format('YYYY-MM-DD')}`)) {
+                    result.push(data[i])
+                }
+            }
+        }
+
+        //just in case
+        if (result.length === 0) {
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].date.startsWith(`${moment().subtract(3, 'days').format('YYYY-MM-DD')}`)) {
+                    result.push(data[i])
+                }
+            }
+        }
+
+        return result.reverse()
+    }
+
+    const oneWeekGraphDataTrimmed = (data) => {
+        console.log(`${moment().subtract(10, 'days').calendar()}`)
+        console.log(data);
+        let result;
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].date === `${moment().subtract(7, 'days').format('YYYY-MM-DD')} 10:00:00` ||
+                data[i].date === `${moment().subtract(8, 'days').format('YYYY-MM-DD')} 10:00:00` ||
+                data[i].date === `${moment().subtract(9, 'days').format('YYYY-MM-DD')} 10:00:00` ||
+                data[i].date === `${moment().subtract(10, 'days').format('YYYY-MM-DD')} 10:00:00`) {
+                result = data.slice(0, i)
+            }
+        }
+        return result.reverse()
+    }
 
     const min = (data) => {
         let min = Infinity;
@@ -76,8 +130,10 @@ function Dashboard() {
             min = lowData;
         }
         }
-        return parseFloat((min * 0.995).toFixed(2));
+        console.log(parseFloat((min * 1.00).toFixed(2)))
+        return parseFloat((min * 1).toFixed(2));
     };
+
     const max = (data) => {
         let max = 0;
         for (let i = 0; i < data.length; i++) {
@@ -86,7 +142,8 @@ function Dashboard() {
             max = highData;
         }
         }
-        return parseFloat((max * 1.005).toFixed(2));
+        console.log(parseFloat((max * 1.00).toFixed(2)));
+        return parseFloat((max * 1.00).toFixed(2));
     };
 
     if (!watchlist) {
@@ -167,11 +224,15 @@ function Dashboard() {
                             <div className='shares'>{companyArray.company_details.quantity}</div>
                             <div className='lilGraph'>
                                 <ResponsiveContainer width="100%" aspect={2}>
-                                    <LineChart data={intradayData}>
+                                    <LineChart data={watchlistcharts[`${companyArray.company_details.ticker}`]}>
                                         <Line dataKey="close" stroke="#6afa27"
                                             strokeWidth={2} dot={false} isAnimationActive={false}/>
                                     <XAxis hide={true} dataKey="date" />
-                                    <YAxis hide={true} domain={[min(intradayData), max(intradayData)]}/>
+                                    <YAxis
+                                    hide={true}
+                                    // domain={[min(intradayData), max(intradayData)]}
+                                    />
+                                    <Tooltip />
                                     </LineChart>
                                 </ResponsiveContainer>
                             </div>
@@ -192,7 +253,7 @@ function Dashboard() {
                             </div>
                             <div className="lilGraph">
                             <ResponsiveContainer width="100%" aspect={2}>
-                                <LineChart data={intradayData}>
+                                <LineChart data={oneWeekGraphDataTrimmed(watchlistcharts[company[0].symbol])}>
                                 <Line
                                     dataKey="close"
                                     stroke="#6afa27"
@@ -203,9 +264,13 @@ function Dashboard() {
                                 <XAxis hide={true} dataKey="date" />
                                 <YAxis
                                     hide={true}
-                                    domain={[min(intradayData), max(intradayData)]}
+                                    domain={
+                                        [min(oneWeekGraphDataTrimmed(watchlistcharts[company[0].symbol])),
+                                        max(oneWeekGraphDataTrimmed(watchlistcharts[company[0].symbol]))]}
                                 />
+                                <Tooltip/>
                                 </LineChart>
+
                             </ResponsiveContainer>
                             </div>
                             <div className="price">
