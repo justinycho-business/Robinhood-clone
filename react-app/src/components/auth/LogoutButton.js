@@ -17,9 +17,15 @@ const LogoutButton = () => {
   if (LogoutFromNavBar) {
     return <NavLink to='/' onClick={onLogout} className="logout">Logout</NavLink>;
   } else {
-    return <NavLink to='/login' exact={true} activeClassName='active' className='logout_btn'>
-              Please log in
+    return (
+        <div className = "logout_outer_container">
+          <div className = "logout_inner_container">
+          <NavLink to='/login' exact={true} activeClassName='active' className='logout_btn'>
+              Log In
           </NavLink>
+          </div>
+        </div>
+    )
   }
 };
 

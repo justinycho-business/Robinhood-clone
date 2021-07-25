@@ -141,8 +141,10 @@ if (removeSignUpFromNavBar) {
     <nav>
       <div className="firstbox">
         <NavLink to='/' exact={true} activeClassName='active' className='home'>
-          <div className="feather_icon">
-            Mr.Hood <i class="fas fa-feather"></i>
+          <div className = "feather_icon_container">
+            <div className="feather_icon">
+              Mr. Hood <i class="fas fa-feather"></i>
+            </div>
           </div>
         </NavLink>
       </div>

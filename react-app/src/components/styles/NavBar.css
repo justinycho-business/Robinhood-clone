@@ -23,7 +23,8 @@ nav{
     margin-top: 0px;
 }
 .firstbox{
-    grid-column: 1;
+    /* grid-column: 1; */
+    display: flex;
 }
 
 .secondbox{
@@ -81,7 +82,6 @@ nav{
 .home{
     display: block;
     border-radius: 10px;
-    padding: 10px;
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 20px;
     text-decoration: none;
@@ -92,6 +92,11 @@ nav{
 .feather_icon {
     color: black;
     display: flex;
+    align-items: center;
+}
+
+.feather_icon_container {
+
 }
 
 .fa-feather:before {
@@ -158,7 +163,7 @@ nav{
     color: black;
     font-weight: bold;
     font-size: 17px;
-    margin-left: 930px;
+    margin-left: 1070px;
 }
 
 .dropdown {
