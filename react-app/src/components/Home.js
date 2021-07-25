@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './styles/Home.css'
 
 const Home = () => {
@@ -20,9 +20,15 @@ const Home = () => {
         <div className="description_3">
         Sign up now! Gains may vary.
         </div>
+        <div className="sign_up_outer_container">
+          <div className="sign_up_container">
+          <NavLink to='/sign-up' exact={true} activeClassName='active' className='sign_up'>
+          Sign Up
+          </NavLink>
+          </div>
+        </div>
       </div>
       <div class="home-column-2">
-
       </div>
     </div >
   );
