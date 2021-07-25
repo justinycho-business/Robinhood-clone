@@ -93,22 +93,17 @@ if (removeSignUpFromNavBar) {
             <div>
               <div>
               <div class="dropdown">
-                <div id="myDropdown" class="dropdown-content" onChange={companyTickerData.filter(
-                  (e) => e.ticker.startsWith(search.toUpperCase())).map(dicOfCompany => (
-                      <a href={`/stocks/${dicOfCompany.ticker}`}>
-                          {dicOfCompany.ticker}
-                      </a>
-                    ))}>
-                {/* {
+                <div id="myDropdown" class="dropdown-content">
+                {search !== '' &&
                     //filter method on the data grabbed from our useEffect
-                      companyTickerData.filter((e) => e.ticker.startsWith(search.toUpperCase())).map(dicOfCompany => (
+                    companyTickerData.filter((e) => e.ticker.startsWith(search.toUpperCase())).map(dicOfCompany => (
                       <a href={`/stocks/${dicOfCompany.ticker}`}>
                           {dicOfCompany.ticker}
                       </a>
                     ))
-                  } */}
+                  }
                 </div>
-              </div>
+                </div>
                 {/* <ul>
                   {
                     //filter method on the data grabbed from our useEffect
