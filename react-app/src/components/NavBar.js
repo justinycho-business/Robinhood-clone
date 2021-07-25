@@ -7,7 +7,7 @@ import { getDashboardData } from '../store/dashboard';
 import './styles/NavBar.css';
 
 const NavBar = () => {
-  const [search, setSearch] = useState('Insert Ticker Here')
+  const [search, setSearch] = useState('')
   const [companyTickerData, setCompanyTickerData] = useState(undefined)
   const user = useSelector(state => state.session.user)
   const removeSignUpFromNavBar = useSelector(state => state.session.user)
@@ -93,17 +93,22 @@ if (removeSignUpFromNavBar) {
             <div>
               <div>
               <div class="dropdown">
-                <div id="myDropdown" class="dropdown-content">
-                {
+                <div id="myDropdown" class="dropdown-content" onChange={companyTickerData.filter(
+                  (e) => e.ticker.startsWith(search.toUpperCase())).map(dicOfCompany => (
+                      <a href={`/stocks/${dicOfCompany.ticker}`}>
+                          {dicOfCompany.ticker}
+                      </a>
+                    ))}>
+                {/* {
                     //filter method on the data grabbed from our useEffect
-                    companyTickerData.filter((e) => e.ticker.startsWith(search.toUpperCase())).map(dicOfCompany => (
+                      companyTickerData.filter((e) => e.ticker.startsWith(search.toUpperCase())).map(dicOfCompany => (
                       <a href={`/stocks/${dicOfCompany.ticker}`}>
                           {dicOfCompany.ticker}
                       </a>
                     ))
-                  }
+                  } */}
                 </div>
-                </div>
+              </div>
                 {/* <ul>
                   {
                     //filter method on the data grabbed from our useEffect
