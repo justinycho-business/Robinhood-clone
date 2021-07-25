@@ -61,6 +61,32 @@ const Stocks = () => {
                 result.push(data[i])
             }
         }
+        //saturday
+        if (result.length === 0) {
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].date.startsWith(`${moment().subtract(1, 'days').format('YYYY-MM-DD')}`)) {
+                    result.push(data[i])
+                }
+            }
+        }
+        // sunday
+        if (result.length === 0) {
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].date.startsWith(`${moment().subtract(2, 'days').format('YYYY-MM-DD')}`)) {
+                    result.push(data[i])
+                }
+            }
+        }
+
+        //just in case
+        if (result.length === 0) {
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].date.startsWith(`${moment().subtract(3, 'days').format('YYYY-MM-DD')}`)) {
+                    result.push(data[i])
+                }
+            }
+        }
+
         return result.reverse()
     }
 
@@ -199,6 +225,8 @@ const Stocks = () => {
                 setContainer('remove-from')
                 setOptionText("Remove from Watchlist")
             }
+            dispatch(get1dayData(ticker))
+            console.log("line 203==================================");
         })();
     }, []);
 
@@ -375,7 +403,7 @@ const Stocks = () => {
                 <div className='company-graph'>
 
                     {/* One day graph */}
-                    {oneDayGraphData && oneDayGraphData[0] && graphstate === "1D" &&
+                    {oneDayGraphData && oneDayGraphData[0] && oneDayGraphData[0]?.oneDay[0] && graphstate === "1D" &&
                         <div>
                             <ResponsiveContainer width="100%" aspect={2}>
                                 <LineChart data={oneDayGraphDataTrimmed(oneDayGraphData[0]?.oneDay[0])}>
