@@ -145,13 +145,13 @@
     text-align: center;
 }
 
-form {
+.add-funds-form {
     display: flex;
     flex-direction: column;
 }
 
-form input {
-    margin: 0;
+.add-funds-form input {
+    margin-left: 0;
     width: 40%;
     height: 5px;
     padding: 20px 10px;
@@ -159,18 +159,18 @@ form input {
     box-sizing: border-box;
 }
 
-form input:focus {
+.add-funds-form input:focus {
     background-color: lightgray;
     box-shadow: 0px 0px 10px 5px black;
 }
 
-form button {
+.add-funds-form button {
     padding: 15px;
     width: 40%;
     margin-top: 8px;
 }
 
-button {
+.dashboard-button {
     border: none;
     font-weight: bold;
     background-color: white;
@@ -179,11 +179,11 @@ button {
     padding: 5px;
 }
 
-button:active {
+.dashboard-button:active {
     background-color: black;
 }
 
-button:hover {
+.dashboard-button:hover {
     color: #6afa27;
     background-color: black;
     border-radius: 3px;
