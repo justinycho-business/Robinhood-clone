@@ -5,14 +5,21 @@
     width: 100%;
 }
 .home-column-1 {
-    display: block;
+    /* display: block;
     background-color: maroon;
     align-items: center;
     justify-content: center;
     flex-direction: row;
     width: 30%;
-    height: 100%
-    }
+    height: 100% */
+    background-color: rgb(195,245,60);
+    border-bottom-color: rgb(0,0,0);
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    overflow: hidden;
+    position: relative;
+    padding: 70px;
+}
 .home-column-2{
     display: flex;
     flex-direction: row;
@@ -32,8 +39,90 @@
 
 }
 .h1-0{
-    margin-left: 10px;
+    /* margin-left: 10px;
     margin-top: 200px;
-    color: white;
+    color: white; */
+    font-family: "Capsule Sans Display",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size: 52px;
+    font-style: normal;
+    font-weight: 450;
+    line-height: 60px;
+    -webkit-letter-spacing: -1.75px;
+    -moz-letter-spacing: -1.75px;
+    -ms-letter-spacing: -1.75px;
+    letter-spacing: -1.75px;
+    -webkit-text-decoration: unset;
+    text-decoration: unset;
+}
 
+.description_1 {
+    font-family: "Capsule Sans Display",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 36px;
+    -webkit-letter-spacing: -0.24px;
+    -moz-letter-spacing: -0.24px;
+    -ms-letter-spacing: -0.24px;
+    letter-spacing: -0.24px;
+    -webkit-text-decoration: unset;
+    text-decoration: unset;
+}
+
+.description_2 {
+    font-family: "Capsule Sans Display",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 36px;
+    -webkit-letter-spacing: -0.24px;
+    -moz-letter-spacing: -0.24px;
+    -ms-letter-spacing: -0.24px;
+    letter-spacing: -0.24px;
+    -webkit-text-decoration: unset;
+    text-decoration: unset;
+}
+
+.description_3 {
+    font-family: "Capsule Sans Display",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 36px;
+    -webkit-letter-spacing: -0.24px;
+    -moz-letter-spacing: -0.24px;
+    -ms-letter-spacing: -0.24px;
+    letter-spacing: -0.24px;
+    -webkit-text-decoration: unset;
+    text-decoration: unset;
+}
+
+.sign_up {
+    color: white;
+    text-decoration: none;
+    align-items: center;
+    box-sizing: border-box;
+    display: inline-flex;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    white-space: nowrap;
+    padding: 0px 36px;
+    height: 48px;
+    min-width: 144px;
+    border-radius: 24px;
+    cursor: pointer;
+    background-color: black;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.sign_up_outer_container {
+    display: flex;
+}
+
+.sign_up_container {
+    position: relative;
+    margin-top: 50px;
 }

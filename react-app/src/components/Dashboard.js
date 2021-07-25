@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import {addFundsToPortfolio, getDashboardData, getlilgraphs, graphTimePeriodButton} from "../store/dashboard";
-import { get1dayData } from "../store/stocks";
+import {addFundsToPortfolio, getDashboardData, graphTimePeriodButton} from "../store/dashboard";
 import moment from "moment";
 import intradayData from "../data/data";
 import {
     LineChart,
     Line,
-    Area,
     Tooltip,
-    CartesianGrid,
     XAxis,
     YAxis,
     ResponsiveContainer,
@@ -21,11 +17,13 @@ import "./styles/Dashboard.css";
 function Dashboard() {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.session.user);
+
     let watchlist = useSelector((state) => state?.dashboard?.userData);
     let userData = useSelector((state) => state?.dashboard?.userData);
     const watchlistData = useSelector((state) => state?.dashboard?.userData);
     const lilgraphs = useSelector((state) => state?.dashboard?.lilgraphs);
     const watchlistcharts = useSelector((state) => state?.dashboard?.userData?.watchlistOneDayData);
+
 
     const [portfolioValue, setPortolioValue] = useState("");
     const [watchlistchartinfo, setwatchlistchartinfo] = useState(undefined)
@@ -51,24 +49,11 @@ function Dashboard() {
 
     }, []);
 
-    useEffect(() => {
-        const get_watchlist_graphs1 = () => {
-        let result = [];
-        console.log(watchlist);
-        for (let i = 0; i < watchlist[0]?.watchlist.length; i++) {
-            result.push(watchlist?.watchlist[i].ticker);
-        }
-        return result;
-        };
-        if(watchlist){
-        dispatch(getlilgraphs(get_watchlist_graphs1()));
-        }
-    }, [getDashboardData]);
-
 
     const timePeriodButton = (payload_obj) => {
         dispatch(graphTimePeriodButton(payload_obj))
     }
+
 
     const oneDayGraphDataTrimmed = (data) => {
         const result = []
@@ -122,6 +107,7 @@ function Dashboard() {
         return result.reverse()
     }
 
+
     const min = (data) => {
         let min = Infinity;
         for (let i = 0; i < data.length; i++) {
@@ -130,11 +116,14 @@ function Dashboard() {
             min = lowData;
         }
         }
-        console.log(parseFloat((min * 1.00).toFixed(2)))
+
         return parseFloat((min * 1).toFixed(2));
+
     };
 
     const max = (data) => {
+        const flatten = [...data]
+        console.log(flatten, '=============max data=========================')
         let max = 0;
         for (let i = 0; i < data.length; i++) {
         let highData = data[i].high;
@@ -142,11 +131,28 @@ function Dashboard() {
             max = highData;
         }
         }
-        console.log(parseFloat((max * 1.00).toFixed(2)));
+
         return parseFloat((max * 1.00).toFixed(2));
+
     };
 
-    if (!watchlist) {
+    const watchlistGraphDataTrimmed = (graphObj) => {
+        const result = []
+        const watchlistTicker = userData.watchlist
+        watchlistTicker.forEach((ele) => {
+            const graphData = graphObj[ele.ticker]
+            for (let i = 0; i < graphData.length; i++) {
+                console.log(graphData[i], '======================graphData[i]============================')
+                if (graphData[i].date.startsWith(`${moment().format('YYYY-MM-DD')}`)) {
+                    result.push(graphData[i])
+                }
+            }
+        })
+        console.log(result.reverse())
+        return result.reverse()
+    }
+
+    if (!userData) {
         return (<>
             <div class="loader">
                 <div class="inner one"></div>
@@ -159,35 +165,34 @@ function Dashboard() {
         );
     }
 
-
     return (
         <>
-        {watchlist && (
+        {userData && (
             <div class="wrapper">
             <div className="portfolioDiv">
-                <h1>Dashboard</h1>
-                <h1>Add Total Portfolio Value Monday {user.username}</h1>
-                <h3>Add a daily percent change {user.username}</h3>
+                <h1>{user.username} Dashboard</h1>
+                {/* <h1>Add Total Portfolio Value Monday {user.username}</h1> */}
+                {/* <h3>Add a daily percent change {user.username}</h3> */}
             </div>
             <div className="graph">
                 <div>
-                <ResponsiveContainer width="100%" aspect={2}>
-                    <LineChart data={intradayData}>
-                    <Line
-                        dataKey="close"
-                        stroke="#6afa27"
-                        strokeWidth={2}
-                        dot={false}
-                        isAnimationActive={false}
-                    />
-                    <XAxis hide={true} dataKey="date" />
-                    <YAxis
-                        hide={true}
-                        domain={[min(intradayData), max(intradayData)]}
-                    />
-                    <Tooltip />
-                    </LineChart>
-                </ResponsiveContainer>
+                    <ResponsiveContainer width="100%" aspect={2}>
+                        <LineChart data={intradayData}>
+                        <Line
+                            dataKey="close"
+                            stroke="#6afa27"
+                            strokeWidth={3}
+                            dot={false}
+                            isAnimationActive={false}
+                        />
+                        <XAxis hide={true} dataKey="date" />
+                        <YAxis
+                            hide={true}
+                            domain={[min(intradayData), max(intradayData)]}
+                        />
+                        <Tooltip />
+                        </LineChart>
+                    </ResponsiveContainer>
                 </div>
                 <button onClick={() => timePeriodButton({'string': 'oneDay', 'id': user.id})}>1D</button>
                 <button onClick={() => timePeriodButton({'string': 'oneWeek', 'id': user.id})}>1W</button>
@@ -198,10 +203,10 @@ function Dashboard() {
                 <button onClick={() => timePeriodButton({'string': 'all', 'id': user.id})}>All</button>
             </div>
             <div className="addFundsDiv">
-                <h3>Buying Power</h3>
-                <h3>Add the available cash Monday {user.username}</h3>
+                <h3>{`$${user.buying_power} Available for investment`}</h3>
+                <p>Add funds to your account</p>
                 <form onSubmit={addFundsSubmit}>
-                    <input
+                    <input className='form-input'
                         type="text"
                         placeholder="Amount of funds to add"
                         name="portfolioValue"
@@ -245,13 +250,14 @@ function Dashboard() {
             <div className="watchlistDiv">
                 <h1>Watchlist</h1>
                 <ul className="watchlistUl">
-                    {watchlistData &&
-                        watchlistData?.watchlistAPICallData.map((company) => (
-                        <li className="watchlistLi" key={company.id}>
+                    {userData &&
+                        userData?.watchlistAPICallData.map((company) => (
+                        <li className="watchlistLi" key={company[0].ticker}>
                             <div className="ticker">
-                            <p>{company[0].symbol}</p>
+                                <p>{company[0].symbol}</p>
                             </div>
                             <div className="lilGraph">
+
                             <ResponsiveContainer width="100%" aspect={2}>
                                 <LineChart data={oneWeekGraphDataTrimmed(watchlistcharts[company[0].symbol])}>
                                 <Line
@@ -272,9 +278,10 @@ function Dashboard() {
                                 </LineChart>
 
                             </ResponsiveContainer>
+
                             </div>
                             <div className="price">
-                            <p>${company[0].price}</p>
+                                <p>${company[0].price}</p>
                             </div>
                             {/* <p className='percent'>{company.ticker}</p> */}
                         </li>

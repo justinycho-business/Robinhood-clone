@@ -83,8 +83,10 @@ def dashboard_data(id):
         result = {}
         for watchlist_obj in watchlist_array:
             ticker = watchlist_obj['ticker']
+
             # res = requests.get(f'https://financialmodelingprep.com/api/v3/historical-chart/5min/{ticker}?apikey={apikey2}')
             res = requests.get(f'https://financialmodelingprep.com/api/v3/historical-chart/1hour/{ticker}?apikey={apikey2}')
+
             jsonData = res.json()
             result[ticker] = jsonData
         return result

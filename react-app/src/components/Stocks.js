@@ -43,7 +43,9 @@ const Stocks = () => {
     const [buySell, setBuySell] = useState('buy')
     const [watchlistContainer, setContainer] = useState('')
     const [optionText, setOptionText] = useState('')
+
     const [buyingPower, setBuyingPower] = useState(0)
+    
     const watchlist = useSelector(state => state?.dashboard)
     const priceData = useSelector(state => state?.priceData?.oneDayDataStocks)
     const user = useSelector(state => state.session.user);
@@ -287,10 +289,10 @@ const Stocks = () => {
             if (porfolioArray.company_details.ticker === urlTicker) {
                 console.log(porfolioArray.company_details.quantity, '============259==============')
                 const result = porfolioArray.company_details.quantity
-                sellButtonArray.push(`${result} Shares Owened`)
+                sellButtonArray.push(`${result} Shares Owned`)
             } else {
                 console.log(sellButtonArray, 'No true values')
-                sellButtonArray.push('No Shares Owened')
+                sellButtonArray.push('No Shares Owned')
             }
         })
         console.log(sellButtonArray, '=========================')

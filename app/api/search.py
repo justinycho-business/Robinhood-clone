@@ -25,6 +25,10 @@ def get_tickers():
 
 
 
+
+
+
+
 @search_routes.route('/<path:ticker>')
 def company(ticker):
     res1 = Company.query.filter_by(ticker=ticker).first()
