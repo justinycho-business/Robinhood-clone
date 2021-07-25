@@ -13,6 +13,7 @@ nav{
     grid-template-columns: 1fr 1fr 1fr 1fr;
     justify-content: space-between;
     align-items: center;
+    align-content: center;
     box-shadow: 0px 1px 4px 0px rgb(0 0 0 / 20%);
     /* display: -webkit-box;
     display: -webkit-flex;
@@ -23,8 +24,7 @@ nav{
     margin-top: 0px;
 }
 .firstbox{
-    /* grid-column: 1; */
-    display: flex;
+    grid-column: 1;
 }
 
 .secondbox{
@@ -34,7 +34,7 @@ nav{
 .thirdbox{
     grid-column: 3;
     width: 50vw;
-    margin-right: 270px;
+    margin-right: 283px;
 }
 
 .fourthbox{
@@ -70,13 +70,23 @@ nav{
 }
 
 .login{
-    display: block;
-    border-radius: 10px;
-    background-color: white;
-    padding: 10px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 20px;
+    color: black;
     text-decoration: none;
+    align-items: center;
+    box-sizing: border-box;
+    display: inline-flex;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    white-space: nowrap;
+    padding: 0px 36px;
+    height: 48px;
+    min-width: 144px;
+    border-radius: 24px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .home{
@@ -121,6 +131,10 @@ nav{
 }
 
 .welcome_message_container {
+
+}
+
+.welcome_message_outer_container {
 
 }
 
@@ -169,6 +183,7 @@ nav{
 .dropdown {
     position: relative;
     display: inline-block;
+    margin-inline: 80px;
   }
 
   /* Dropdown Content (Hidden by Default) */
@@ -193,4 +208,14 @@ nav{
 
   .dropdown-content a:hover {
       background-color: lightskyblue;
+  }
+
+  .second_outer_container {
+    display: flex;
+    flex-direction: row;
+    margin-inline: 1000px;
+  }
+
+  .second_container {
+
   }

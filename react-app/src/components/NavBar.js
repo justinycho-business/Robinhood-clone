@@ -78,8 +78,10 @@ if (removeSignUpFromNavBar) {
       <div className="secondbox"
       // className = "welcome_message_container"
       >
-        <div className="welcome_message_inner_container">
-          <div className = "welcome_message">Welcome {user.username}</div>
+        <div className="welcome_message_outer_container">
+          <div className="welcome_message_inner_container">
+            <div className = "welcome_message">Welcome {user.username}</div>
+          </div>
         </div>
       </div>
       {/* {companyTickerData && */}
@@ -158,13 +160,17 @@ if (removeSignUpFromNavBar) {
         Users
         </NavLink>
       </div> */}
-      <div className="secondbox">
-        <LogoutButton />
-      </div>
-      <div className="thirdbox">
+      <div className="second_outer_container">
+        <div className="second_container">
+        <NavLink to='/login' exact={true} activeClassName='active' className='login'>
+          Log In
+        </NavLink>
+        </div>
+        <div className="thirdbox">
         <NavLink to='/sign-up' exact={true} activeClassName='active' className='signup'>
           Sign Up
         </NavLink>
+        </div>
       </div>
     </nav>
   )
