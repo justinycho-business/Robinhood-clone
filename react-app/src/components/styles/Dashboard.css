@@ -127,6 +127,9 @@
     align-items: center;
     text-align: center;
     background-color: white;
+    /* height: 200px;
+    width: 900px; */
+    width: 100px;
 }
 
 .price {
