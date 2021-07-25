@@ -33,10 +33,12 @@ nav{
 .thirdbox{
     grid-column: 3;
     width: 50vw;
+    margin-right: 270px;
 }
 
 .fourthbox{
     grid-column: 4;
+    margin-right: 300px;
 }
 .signup{
     /* display: block;
@@ -111,20 +113,23 @@ nav{
     color: black;
     font-weight: bold;
     font-size: 17px;
-    position: absolute;
-    right:100px;
 }
 
-/* .welcome_message_container {
+.welcome_message_container {
 
 }
 
 .welcome_message_inner_container {
-
-} */
-
-
-
+    display: block;
+    border-radius: 10px;
+    background-color: white;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 20px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 17px;
+}
 
 .search_outer_container {
     display: flex;

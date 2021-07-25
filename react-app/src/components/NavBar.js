@@ -76,7 +76,7 @@ if (removeSignUpFromNavBar) {
         </NavLink>
       </div>
       <div className="secondbox"
-      className = "welcome_message_container"
+      // className = "welcome_message_container"
       >
         <div className="welcome_message_inner_container">
           <div className = "welcome_message">Welcome {user.username}</div>
