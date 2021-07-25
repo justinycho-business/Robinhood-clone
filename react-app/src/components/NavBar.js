@@ -89,9 +89,8 @@ if (removeSignUpFromNavBar) {
       // className="search_outer_container"
       >
         {/* <div className = "search_inner_container"> */}
+        <div className="search_container">
           <input placeholder="Search" className="search" type="text" value={search} onChange={(e) => setSearch(e.target.value)}></input>
-            <div>
-              <div>
               <div class="dropdown">
                 <div id="myDropdown" class="dropdown-content">
                 {search !== '' &&
@@ -103,7 +102,8 @@ if (removeSignUpFromNavBar) {
                     ))
                   }
                 </div>
-                </div>
+              </div>
+          </div>
                 {/* <ul>
                   {
                     //filter method on the data grabbed from our useEffect
@@ -114,8 +114,6 @@ if (removeSignUpFromNavBar) {
                     ))
                   }
                 </ul> */}
-              </div>
-            </div>
         {/* </div> */}
       </div>
        {/* } */}
