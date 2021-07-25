@@ -131,13 +131,13 @@ function Dashboard() {
                         </LineChart>
                     </ResponsiveContainer>
                 </div>
-                <button onClick={() => timePeriodButton({'string': 'oneDay', 'id': user.id})}>1D</button>
-                <button onClick={() => timePeriodButton({'string': 'oneWeek', 'id': user.id})}>1W</button>
-                <button onClick={() => timePeriodButton({'string': 'oneMonth', 'id': user.id})}>1M</button>
-                <button onClick={() => timePeriodButton({'string': 'threeMonths', 'id': user.id})}>3M</button>
-                <button onClick={() => timePeriodButton({'string': 'oneYear', 'id': user.id})}>1Y</button>
-                <button onClick={() => timePeriodButton({'string': 'fiveYears', 'id': user.id})}>5Y</button>
-                <button onClick={() => timePeriodButton({'string': 'all', 'id': user.id})}>All</button>
+                <button className='dashboard-button' onClick={() => timePeriodButton({'string': 'oneDay', 'id': user.id})}>1D</button>
+                <button className='dashboard-button' onClick={() => timePeriodButton({'string': 'oneWeek', 'id': user.id})}>1W</button>
+                <button className='dashboard-button' onClick={() => timePeriodButton({'string': 'oneMonth', 'id': user.id})}>1M</button>
+                <button className='dashboard-button' onClick={() => timePeriodButton({'string': 'threeMonths', 'id': user.id})}>3M</button>
+                <button className='dashboard-button' onClick={() => timePeriodButton({'string': 'oneYear', 'id': user.id})}>1Y</button>
+                <button className='dashboard-button' onClick={() => timePeriodButton({'string': 'fiveYears', 'id': user.id})}>5Y</button>
+                <button className='dashboard-button' onClick={() => timePeriodButton({'string': 'all', 'id': user.id})}>All</button>
             </div>
             <div className="addFundsDiv">
                 <h3>{`$${user.buying_power} Available for investment`}</h3>
@@ -151,7 +151,7 @@ function Dashboard() {
                         onChange={(e) => setPortolioValue(e.target.value)}
                         required
                     />
-                    <button type="submit">
+                    <button className='dashboard-button' type="submit">
                         Submit Funds
                     </button>
                 </form>
