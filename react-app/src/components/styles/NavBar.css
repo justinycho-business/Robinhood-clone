@@ -204,10 +204,10 @@ nav{
 }
 
 .dropdown {
-    position: fixed;
+    position: absolute;
     display: inline-block;
     margin-inline: 80px;
-  }
+}
 
   /* Dropdown Content (Hidden by Default) */
   .dropdown-content {
