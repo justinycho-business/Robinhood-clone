@@ -43,6 +43,7 @@ const Stocks = () => {
     const [buySell, setBuySell] = useState('buy')
     const [watchlistContainer, setContainer] = useState('')
     const [optionText, setOptionText] = useState('')
+    const [tradeAlert, setTradeAlert] = useState('d')
 
     const [buyingPower, setBuyingPower] = useState(0)
 
@@ -289,15 +290,26 @@ const Stocks = () => {
             if (porfolioArray.company_details.ticker === urlTicker) {
                 console.log(porfolioArray.company_details.quantity, '============259==============')
                 const result = porfolioArray.company_details.quantity
-                sellButtonArray.push(`${result} Shares Owened`)
+                sellButtonArray.push(`${result} Shares Owned`)
             } else {
                 console.log(sellButtonArray, 'No true values')
-                sellButtonArray.push('No Shares Owened')
+                sellButtonArray.push('No Shares Owned')
             }
         })
         console.log(sellButtonArray, '=========================')
         return sellButtonArray
     };
+
+    const tradeAlertBuy = () => {
+        const el = document.createElement("div");
+        el.className = "trade-alert-buy"
+        el.innerHTML = `You bought ${totalStocks} shares of ${ticker}`;
+        setTimeout(function () {
+            el.parentNode.removeChild(el);
+        }, 9000);
+        document.body.appendChild(el);
+    }
+
 
     const buyStock = async (e) => {
         e.preventDefault();
@@ -317,12 +329,15 @@ const Stocks = () => {
             const data = await post.json();
             console.log("yay enough buying power", data.Success.toFixed(2))
             setBuyingPower(data.Success.toFixed(2))
+            tradeAlertBuy()
             return ["yay enough buying power", data]
         } else {
             console.log("Oh no not working just yet :(")
             return "Oh no not working just yet :("
         }
     }
+
+
 
 
     return (
@@ -564,7 +579,7 @@ const Stocks = () => {
                     )
                 }
             </div>
-        </div>
+        </div >
     )
 }
 

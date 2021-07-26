@@ -238,3 +238,15 @@ margin-left: 40px;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   outline: none;
 }
+
+.trade-alert-buy{
+  position:absolute;
+  top:59%;
+  left:63%;
+  background-color:white;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  -webkit-transition: green 2s ease-out;
+  -moz-transition: green 2s ease-out;
+  -o-transition: green 2s ease-out;
+  transition: green 2s ease-out;
+}
