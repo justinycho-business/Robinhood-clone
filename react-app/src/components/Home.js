@@ -28,9 +28,29 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div class="home-column-2">
-      </div>
-    </div >
+      <div className="home-column-2">
+      <div className="home-column-2-bottom">
+          <h2>Credits:</h2>
+          <ul>
+            <li><a href="https://robinhood.com/">https://robinhood.com/</a> for the inspiration and below gif </li>
+            <li>Data was provided by Financial Modeling Prep (<a href='https://financialmodelingprep.com/developer/docs/'>https://financialmodelingprep.com/developer/docs/</a>)</li>
+            <li>Data was also provided by IEX Cloud (<a href='https://iexcloud.io/docs/api/'>https://iexcloud.io/docs/api/</a>)</li>
+            <li>Loading animation is from: <a href="https://codepen.io/martinvd">https://codepen.io/martinvd</a> </li>
+
+          </ul>
+        </div>
+        <div className="home-column-2-top">
+        </div>
+        {/* <div className="home-column-2-bottom">
+          <h2>Credits:</h2>
+          <ul>
+            <li><a href="https://robinhood.com/">https://robinhood.com/</a> for the inspiration and above gif </li>
+            <li>Data was provided by Financial Modeling Prep (<a href='https://financialmodelingprep.com/developer/docs/'>https://financialmodelingprep.com/developer/docs/</a>)</li>
+            <li>Data was also provided by IEX Cloud (<a href='https://iexcloud.io/docs/api/'>https://iexcloud.io/docs/api/</a>)</li>
+          </ul>
+        </div> */}
+      </div >
+    </div>
   );
 };
 

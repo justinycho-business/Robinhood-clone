@@ -99,7 +99,8 @@ nav{
     min-width: 144px;
     border-radius: 24px;
     cursor: pointer;
-    background-color: rgb(0, 200, 5);
+    /* background-color: rgb(0, 200, 5); */
+    background-color: rgb(16,220,4);
     font-size: 20px;
     font-weight: bold;
 }

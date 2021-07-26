@@ -11,13 +11,27 @@ search_routes = Blueprint('search', __name__)
 apikey = os.environ.get('API_FIN_PUBLIC')
 apikey2 = os.environ.get('API_2_FIN')
 
+print('line14===============================================================')
 @search_routes.route('/all')
 # @login_required
 def get_tickers():
     all_tickers = Company.query.all()
-    data = all_tickers
-    return {'tickers': [ticker.to_dict() for ticker in data]}
-    # return {'**************': '************'}
+    data0 = all_tickers
+    data1 = [ticker.to_dict() for ticker in data0]
+
+
+    def hifiltered(data):
+        result = []
+        for dic in data:
+            if '.' not in dic['ticker']:
+                if '-' not in dic['ticker']:
+            # if(('.' not in dic['ticker']) or ('-' not in dic['ticker'])):
+                    result.append(dic)
+        return result
+
+    print(len(hifiltered(data1)), '-------------------------------------------line 30-----------')
+
+    return {'tickers': hifiltered(data1)}
 
 
 
