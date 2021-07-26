@@ -58,13 +58,18 @@ def dashboard_data(id):
     portfolioData = Transaction.query.with_entities(func.sum(Transaction.quantity), Transaction.company_id).filter_by(user_id = id).group_by(Transaction.company_id).all()
 
     def tuplelist_to_dict(list0):
-        result = []
+        result = {}
         for tuple0 in list0:
             company_data = Company.query.filter_by(id = tuple0[1]).first()
+            comp_ticker = company_data.ticker
             company_details = company_data.to_dict()
             company_details['quantity'] = tuple0[0]
+            res = requests.get(f'https://financialmodelingprep.com/api/v3/historical-chart/1hour/{comp_ticker}?apikey={apikey2}')
+            jsonData = res.json()
+            company_details['weekdata'] = jsonData
+            result[comp_ticker] = company_details
 
-            result.append({'company_details': company_details})
+
         return result
 
     watchlist_array = [watchlist.to_dict() for watchlist in watchlistData]

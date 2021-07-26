@@ -23,7 +23,7 @@ function Dashboard() {
     const watchlistData = useSelector((state) => state?.dashboard?.userData);
     const lilgraphs = useSelector((state) => state?.dashboard?.lilgraphs);
     const watchlistcharts = useSelector((state) => state?.dashboard?.userData?.watchlistOneDayData);
-
+    const portfolio_comps = useSelector((state) => state?.dashboard?.userData?.portfolio);
 
     const [portfolioValue, setPortolioValue] = useState("");
     const [watchlistchartinfo, setwatchlistchartinfo] = useState(undefined)
@@ -33,6 +33,17 @@ function Dashboard() {
         if (!state.session.user) return null;
         return state.session.user.id;
     });
+
+    //make array for portfolio companies
+    const portfolio_to_array = (dict) => {
+        let result = []
+        for (let key in dict) {
+            result.push(dict[key])
+
+        }
+        console.log(result);
+        return result
+    }
 
     // function to handle the addFunds on click form
     const addFundsSubmit = (event) => {
@@ -91,8 +102,6 @@ function Dashboard() {
     }
 
     const oneWeekGraphDataTrimmed = (data) => {
-        console.log(`${moment().subtract(10, 'days').calendar()}`)
-
         let result;
         for (let i = 0; i < data.length; i++) {
             if (data[i].date === `${moment().subtract(7, 'days').format('YYYY-MM-DD')} 10:00:00` ||
@@ -200,14 +209,17 @@ function Dashboard() {
                     <div className='porfolioListDiv'>
                         <h1>Portfolio</h1>
                         <ul className='portfolioUl'>
-                            {userData &&
-                                userData?.portfolio.map((companyArray) => {
-                                <li className='porfolioLi'>
-                                    <div className='ticker'>ticker</div>
-                                    <div className='shares'>quantity</div>
+
+                            {
+                            userData && portfolio_comps &&
+                                 portfolio_to_array(portfolio_comps).map((companyArray) => (
+                                    //  <div> {companyArray.ticker}</div>
+                                <li key={companyArray.id} className='porfolioLi'>
+                                    <div className='ticker'>{companyArray.ticker}</div>
+                                    <div className='shares'>{companyArray.quantity}</div>
                                     <div className='lilGraph'>
                                         <ResponsiveContainer width="100%" aspect={2}>
-                                            <LineChart data={watchlistcharts[`${companyArray.company_details.ticker}`]}>
+                                            <LineChart data={oneWeekGraphDataTrimmed(companyArray.weekdata)}>
                                                 <Line dataKey="close" stroke="#6afa27"
                                                     strokeWidth={2} dot={false} isAnimationActive={false}/>
                                             <XAxis hide={true} dataKey="date" />
@@ -219,10 +231,10 @@ function Dashboard() {
                                             </LineChart>
                                         </ResponsiveContainer>
                                     </div>
-                                    <div className='price'>Price</div>
-                                    <div className='percent'>Percent Change</div>
+                                    <div className='price'>$ {companyArray.weekdata[0].close}</div>
+                                    {/* <div className='percent'>Percent Change</div> */}
                                 </li>
-                            })}
+                                 ))}
                         </ul>
                     </div>
                     <div className="watchlistDiv">
