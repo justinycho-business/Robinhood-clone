@@ -3,6 +3,7 @@
     flex-direction: row;
     height:80vw;
     width: 100%;
+    background-color: rgb(200,252,68);
 }
 .home-column-1 {
     /* display: block;
@@ -12,32 +13,54 @@
     flex-direction: row;
     width: 30%;
     height: 100% */
-    background-color: rgb(195,245,60);
+    /* background-color: rgb(195,245,60); */
+    background-color: black;
     border-bottom-color: rgb(0,0,0);
     border-bottom-style: solid;
     border-bottom-width: 1px;
     overflow: hidden;
-    position: relative;
-    padding: 70px;
+    /* position: relative; */
+    padding: 70px
+    ;
 }
 .home-column-2{
-    display: flex;
+    /* display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
-    width: 70%;
-    height: 100%;
-    background-image: url('../styles/images/stocks_homeimage.jpg');
-    background-size: cover;
+    justify-content: center; */
+    height: 80vw;
+    width: 50%;
+    margin-left: 10vw;
+    background-color: rgb(200,252,68);
+
+
+
+}
+
+.home-column-2-top {
+    background-color: rgb(200,252,68);
+    height: 50%;
+    width: 100%;
+    background-size: contain;
+    background-image: url('../styles/images/credits_to_robinhood.com.gif');
+}
+
+.home-column-2-bottom {
+    background-color: rgb(200,252,68);
+    padding: 5vw 10vw;
+    border-bottom: solid 100% rgb(200,252,68);
+    margin-bottom: 0px;
+    box-sizing: border-box;
+
 
 }
 
 
-.h2-0{
+/* .h2-0{
     margin-left: 10px;
     color: white;
 
-}
+} */
 .h1-0{
     /* margin-left: 10px;
     margin-top: 200px;
@@ -53,6 +76,7 @@
     letter-spacing: -1.75px;
     -webkit-text-decoration: unset;
     text-decoration: unset;
+    color: white;
 }
 
 .description_1 {
@@ -67,6 +91,7 @@
     letter-spacing: -0.24px;
     -webkit-text-decoration: unset;
     text-decoration: unset;
+    color: white;
 }
 
 .description_2 {
@@ -81,6 +106,7 @@
     letter-spacing: -0.24px;
     -webkit-text-decoration: unset;
     text-decoration: unset;
+    color: white;
 }
 
 .description_3 {
@@ -95,10 +121,11 @@
     letter-spacing: -0.24px;
     -webkit-text-decoration: unset;
     text-decoration: unset;
+    color: white;
 }
 
 .sign_up {
-    color: white;
+    color: black;
     text-decoration: none;
     align-items: center;
     box-sizing: border-box;
@@ -113,7 +140,7 @@
     min-width: 144px;
     border-radius: 24px;
     cursor: pointer;
-    background-color: black;
+    background-color: white;
     font-size: 20px;
     font-weight: bold;
 }

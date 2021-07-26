@@ -21,12 +21,16 @@ useEffect(() => {
     (async() => {
         const response = await fetch(`/api/search/all`)
         const responseData = await response.json()
-        // companyTickerData = responseData.tickers
-        // let trimmed_companylist = () => {
-        //   responseData.tickers
-        // }
+        // console.log(responseData.tickers);
         setCompanyTickerData(responseData.tickers)
-        // console.log(searchData)
+
+        // let trimmed_companylist = () => {
+        //   let array = responseData.tickers.map(ele => ele.ticker)
+        //   return array.filter(ele => ele.includes('.'))
+
+        // }
+        // setCompanyTickerData(trimmed_companylist())
+        // // console.log(searchData)
 
     })()
 }, []);
@@ -98,7 +102,7 @@ if (removeSignUpFromNavBar) {
         <div className="search_container">
           <input placeholder="Search" className="search" type="text" value={search} onChange={(e) => setSearch(e.target.value)}></input>
               <div class="dropdown">
-                {search !== '' && <div id="myDropdown" class="dropdown-content">
+                {search !== '' &&  <div id="myDropdown" class="dropdown-content">
                 {search !== '' &&
                     //filter method on the data grabbed from our useEffect
                     companyTickerData.filter((e) => e.ticker.startsWith(search.toUpperCase())).map(dicOfCompany => (

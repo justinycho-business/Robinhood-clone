@@ -62,14 +62,15 @@ def dashboard_data(id):
         for tuple0 in list0:
             company_data = Company.query.filter_by(id = tuple0[1]).first()
             comp_ticker = company_data.ticker
+            # comp_quantity = company_data.quantity
             company_details = company_data.to_dict()
             company_details['quantity'] = tuple0[0]
             res = requests.get(f'https://financialmodelingprep.com/api/v3/historical-chart/1hour/{comp_ticker}?apikey={apikey2}')
             jsonData = res.json()
             company_details['weekdata'] = jsonData
             result[comp_ticker] = company_details
-
-
+            if company_details['quantity'] < 1:
+                del result[comp_ticker]
         return result
 
     watchlist_array = [watchlist.to_dict() for watchlist in watchlistData]

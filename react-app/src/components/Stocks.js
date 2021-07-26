@@ -54,8 +54,11 @@ const Stocks = () => {
     const oneDayGraphData = useSelector(state => state?.priceData?.oneDayDataStocks)
     const companyInfo = useSelector(state => state?.dashboard?.userData)
     const id = useParams();
+    console.log(id);
+    console.log(typeof(id.ticker));
     let watchlistButton;
     const timePeriodGraphData = useSelector(state => state?.priceData?.timePeriodData)
+    const quantityofstock = useSelector(state => state?.dashboard?.userData?.portfolio)
 
     const oneDayGraphDataTrimmed = (data) => {
         const result = []
@@ -86,6 +89,15 @@ const Stocks = () => {
         if (result.length === 0) {
             for (let i = 0; i < data.length; i++) {
                 if (data[i].date.startsWith(`${moment().subtract(3, 'days').format('YYYY-MM-DD')}`)) {
+                    result.push(data[i])
+                }
+            }
+        }
+
+        //just in case
+        if (result.length === 0) {
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].date.startsWith(`${moment().subtract(4, 'days').format('YYYY-MM-DD')}`)) {
                     result.push(data[i])
                 }
             }
@@ -214,6 +226,9 @@ const Stocks = () => {
 
     }, [setBuyingPower]);
 
+    const updatestockquant = () => {
+        dispatch(getDashboardData(user.id))
+    }
 
 
     useEffect(() => {
@@ -245,7 +260,7 @@ const Stocks = () => {
         el.innerHTML = `You sold ${sellShares} shares of ${ticker}`;
         setTimeout(function () {
             el.parentNode.removeChild(el);
-        }, 4000);
+        }, 7000);
         document.body.appendChild(el);
     }
 
@@ -319,7 +334,7 @@ const Stocks = () => {
         el.innerHTML = `You bought ${totalStocks} shares of ${ticker}`;
         setTimeout(function () {
             el.parentNode.removeChild(el);
-        }, 4000);
+        }, 7000);
         document.body.appendChild(el);
     }
 
@@ -418,11 +433,12 @@ const Stocks = () => {
                                     <h1 className='total-price'>${sellShares * (stockdata?.latestPrice.toFixed(2))}</h1>
                                 </div>
                                 <div className='buy-btn-container'>
-                                    <button className='buy-btn'>Sell</button>
+                                    {quantityofstock[id.ticker] && <button className='buy-btn' onClick={updatestockquant}>Sell</button>}
                                 </div>
                             </form>
                             <div className='buying-power-container'>
-                                <h2>${buyingPower} buying power available</h2>
+                                {quantityofstock[id.ticker] && <h2> You own {quantityofstock[id.ticker]['quantity']} share of this stock</h2>}
+                                {!quantityofstock[id.ticker] && <h2> You cannot sell this unowned stock</h2>}
                             </div>
                         </div>
                     )
@@ -431,6 +447,8 @@ const Stocks = () => {
                 <div className='company-graph'>
 
                     {/* One day graph */}
+                    {oneDayGraphData && oneDayGraphData[0] && oneDayGraphData[0]?.oneDay[0] && graphstate === "1D" && oneDayGraphDataTrimmed(oneDayGraphData[0]?.oneDay[0]).length === 0 &&
+                    <div>no data as trading hours begin at 9:30 EST</div>}
                     {oneDayGraphData && oneDayGraphData[0] && oneDayGraphData[0]?.oneDay[0] && graphstate === "1D" &&
                         <div>
                             <ResponsiveContainer width="100%" aspect={2}>
@@ -444,7 +462,7 @@ const Stocks = () => {
                                     //      ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
                                     // tickFormatter={formatXAxis}
                                     />
-                                    <YAxis hide={false} domain={[min(oneDayGraphDataTrimmed(oneDayGraphData[0]?.oneDay[0])),
+                                    <YAxis hide={true} domain={[min(oneDayGraphDataTrimmed(oneDayGraphData[0]?.oneDay[0])),
                                     max(oneDayGraphDataTrimmed(oneDayGraphData[0]?.oneDay[0]))]} />
                                     <Tooltip />
                                 </LineChart>
