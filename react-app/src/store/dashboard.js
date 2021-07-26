@@ -3,7 +3,6 @@
 // Define action types
 const DASHBOARD_DATA = 'dashboard/DASHBOARD_DATA';
 const ADD_FUNDS = 'dashboard/ADD_FUNDS';
-const GET_LIL_GRAPHS = 'dashboard/GET_LIL_GRAPHS';
 const TIME_PERIOD_BUTTON = 'dashboard/TIME_PERIOD_BUTTON';
 
 
@@ -18,11 +17,6 @@ const addFunds = (amount) => ({
     payload: amount
 });
 
-const action_getlilgraphs = (lilgraphdata) => ({
-    type: GET_LIL_GRAPHS,
-    payload: lilgraphdata
-})
-
 const timePeriodButton = (timePeriodData) => ({
     type: TIME_PERIOD_BUTTON,
     payload: timePeriodData
@@ -30,19 +24,6 @@ const timePeriodButton = (timePeriodData) => ({
 
 
 // Define Thunks
-export const getlilgraphs = (tickerlist) => async (dispatch) => {
-    const response = await fetch(`/api/dashboard/lilgraphs`, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({tickerlist})
-        });
-
-    if(response.ok) {
-        const watchlistData = await response.json();
-        dispatch(action_getlilgraphs(watchlistData));
-    }
-}
-
 export const getDashboardData = (id) => async (dispatch) => {
     const response = await fetch(`/api/dashboard/${id}`)
 
@@ -89,8 +70,6 @@ export default function dashboardReducer(state = initialState, action) {
             return {...state, amount: action.payload }
         case DASHBOARD_DATA:
             return {...state, userData: action.payload}
-        case GET_LIL_GRAPHS:
-            return {...state, lilgraphs: [action.payload]}
         case TIME_PERIOD_BUTTON:
             return {...state, graphButtonData: [action.payload]}
         default:

@@ -239,6 +239,7 @@ margin-left: 40px;
   outline: none;
 }
 
+
 .trade-alert-buy{
   position:absolute;
   top:59%;
@@ -263,3 +264,23 @@ margin-left: 40px;
   0%,100% { opacity: 0; }
   50% { opacity: 1; }
 }
+
+.time-btn {
+  border: none;
+  font-weight: bold;
+  background-color: white;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 5px;
+}
+
+.time-btn:active {
+  background-color: black;
+}
+
+.time-btn:hover {
+  color: #6afa27;
+  background-color: black;
+  border-radius: 3px;
+}
+

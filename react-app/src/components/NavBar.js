@@ -24,7 +24,6 @@ useEffect(() => {
         // companyTickerData = responseData.tickers
         setCompanyTickerData(responseData.tickers)
         // console.log(searchData)
-        console.log(companyTickerData)
     })()
 }, []);
 
@@ -38,8 +37,6 @@ const searchResult = async(e) => {
     const data = e.target.value
     history.push(`/stocks/${data}`)
 }
-
-console.log(companyTickerData)
 
 // // create queue for the data and add initial node
 //    let companyTickerData = new Queue(this.nodes.length);
@@ -89,9 +86,8 @@ if (removeSignUpFromNavBar) {
       // className="search_outer_container"
       >
         {/* <div className = "search_inner_container"> */}
+        <div className="search_container">
           <input placeholder="Search" className="search" type="text" value={search} onChange={(e) => setSearch(e.target.value)}></input>
-            <div>
-              <div>
               <div class="dropdown">
                 <div id="myDropdown" class="dropdown-content">
                 {search !== '' &&
@@ -103,7 +99,8 @@ if (removeSignUpFromNavBar) {
                     ))
                   }
                 </div>
-                </div>
+              </div>
+          </div>
                 {/* <ul>
                   {
                     //filter method on the data grabbed from our useEffect
@@ -114,8 +111,6 @@ if (removeSignUpFromNavBar) {
                     ))
                   }
                 </ul> */}
-              </div>
-            </div>
         {/* </div> */}
       </div>
        {/* } */}
