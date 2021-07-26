@@ -24,7 +24,6 @@ function Dashboard() {
     const lilgraphs = useSelector((state) => state?.dashboard?.lilgraphs);
     const watchlistcharts = useSelector((state) => state?.dashboard?.userData?.watchlistOneDayData);
     const portfolio_comps = useSelector((state) => state?.dashboard?.userData?.portfolio);
-
     const [portfolioValue, setPortolioValue] = useState("");
     const [watchlistchartinfo, setwatchlistchartinfo] = useState(undefined)
 
@@ -237,7 +236,11 @@ function Dashboard() {
         {userData && (
             <div class="wrapper">
                 <div className="portfolioDiv">
-                    <h1>{user.username}'s Current Portfolio Value <span>${add_buyingpower(portfolio_total_value_over_one_week(portfolio_comps))[add_buyingpower(portfolio_total_value_over_one_week(portfolio_comps)).length -1].close}</span>
+                    <h1>{user.username}'s Current Portfolio Value
+                    {portfolio_to_array(portfolio_comps).length >= 1 && <span> ${add_buyingpower(portfolio_total_value_over_one_week(portfolio_comps))[add_buyingpower(portfolio_total_value_over_one_week(portfolio_comps)).length -1].close}</span>}
+                    {!(portfolio_to_array(portfolio_comps).length >= 1) && <span> $0</span>}
+
+
                     </h1>
 
                     {/* <h1>Add Total Portfolio Value Monday {user.username}</h1> */}
@@ -245,7 +248,8 @@ function Dashboard() {
                 </div>
                 <div className="graph">
                     <div>
-                        <ResponsiveContainer width="100%" aspect={2}>
+                    {!portfolio_to_array(portfolio_comps).length >= 1 && <div className="warning">Please add funds with the below form and purchase stocks to view your portfolio chart</div>}
+                    {portfolio_to_array(portfolio_comps).length >= 1 && <ResponsiveContainer width="100%" aspect={2}>
                             <LineChart data={add_buyingpower(portfolio_total_value_over_one_week(portfolio_comps))}>
                             <Line
                                 dataKey="close"
@@ -262,7 +266,7 @@ function Dashboard() {
                             />
                             <Tooltip />
                             </LineChart>
-                        </ResponsiveContainer>
+                        </ResponsiveContainer>}
                     </div>
                     {/* <button className='dashboard-button' onClick={() => timePeriodButton({'string': 'oneDay', 'id': user.id})}>1D</button>
                     <button className='dashboard-button' onClick={() => timePeriodButton({'string': 'oneWeek', 'id': user.id})}>1W</button> */}
