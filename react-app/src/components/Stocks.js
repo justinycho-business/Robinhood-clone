@@ -253,7 +253,7 @@ const Stocks = () => {
         event.preventDefault()
         dispatch(sellSharesButton({ 'shares': sellShares, 'id': user.id, 'ticker': urlTicker }))
         tradeAlertSell()
-        setBuyingPower((buyingPower + (stockdata?.latestPrice * totalStocks)).toFixed(2))
+        setStockPrice((buyingPower + (stockdata?.latestPrice * sellShares)).toFixed(2))
     }
 
     const min = (data) => {
