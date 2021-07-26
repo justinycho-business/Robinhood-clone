@@ -17,6 +17,7 @@ import Footer from './components/Footer';
 import AboutUs from './components/AboutUs';
 
 import { authenticate } from './store/session';
+import './components/styles/App.css'
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -35,8 +36,8 @@ function App() {
 
   return (
     <BrowserRouter>
-      <NavBar />
-      <Switch>
+      <NavBar className='NavBar'/>
+      <Switch className='Switch'>
         <Route path='/login' exact={true}>
           <LoginForm />
         </Route>
@@ -65,7 +66,7 @@ function App() {
           <AboutUs />
         </Route>
       </Switch>
-      <Footer />
+      <Footer className='Footer'/>
     </BrowserRouter>
   );
 }

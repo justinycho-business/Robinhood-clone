@@ -150,7 +150,9 @@ function Dashboard() {
             // credit to: " https://codepen.io/martinvd "
         );
     }
-
+    const shoot = () => {
+        window.location.reload(true);
+    }
     return (
         <>
         {userData && (
@@ -194,13 +196,13 @@ function Dashboard() {
                     <form className ='add-funds-form' onSubmit={addFundsSubmit}>
                         <input className='form-input'
                             type="text"
-                            placeholder="Amount to add"
+                            placeholder="Amount to add in dollars. (This field takes in an integer)"
                             name="portfolioValue"
                             value={portfolioValue}
                             onChange={(e) => setPortolioValue(e.target.value)}
                             required
                         />
-                        <button className='dashboard-button' type="submit">
+                        <button onClick={shoot} className='dashboard-button' type="submit">
                             Submit Funds
                         </button>
                     </form>
@@ -221,7 +223,7 @@ function Dashboard() {
                                             <XAxis hide={true} dataKey="date" />
                                             <YAxis
                                             hide={true}
-                                            // domain={[min(intradayData), max(intradayData)]}
+                                            domain={[min(oneWeekGraphDataTrimmed(companyArray.weekdata)), max(oneWeekGraphDataTrimmed(companyArray.weekdata))]}
                                             />
                                             <Tooltip />
                                             </LineChart>
@@ -229,7 +231,7 @@ function Dashboard() {
                                     </div>
                                     <div className ='port-div'>
                                         <p className='shares'>{`shares: ${companyArray.quantity}`}</p>
-                                        <p className='price'>${companyArray.weekdata[0].close.toFixed(2)}</p>
+                                        <p className='price'>Current Price ${companyArray.weekdata[0].close.toFixed(2)}</p>
                                         {/* <div className='percent'>Percent Change</div> */}
                                     </div>
                                 </li>

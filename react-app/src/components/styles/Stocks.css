@@ -1,19 +1,21 @@
 .stocks-background{
     display: flex;
     justify-content: center;
-    position: relative;
+    position: static;
     top:0;
     left: 0;
+    z-index: 0;
     width:100%;
     height:100%;
     /* background-color: black; */
 }
 .stocks-info-container{
     display: flex;
+    position: static;
     justify-content: flex-start;
     margin-top: 70px;
     padding-top: 36px;
-    height: 50vw;
+    height: 40vw;
     width: 50%;
     background-color: white;
 }
@@ -283,4 +285,3 @@ margin-left: 40px;
   background-color: black;
   border-radius: 3px;
 }
-

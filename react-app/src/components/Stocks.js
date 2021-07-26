@@ -353,7 +353,7 @@ const Stocks = () => {
 
 
     return (
-        <div className='stocks-background'>
+        <div className='stocks-background Switch'>
             <div className='stocks-info-container'>
                 <div className='stock-details'>
                     <h2 className='stock-title'>{stockdata?.companyName}</h2>
