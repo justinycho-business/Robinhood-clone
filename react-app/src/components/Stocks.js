@@ -36,6 +36,7 @@ const Stocks = () => {
     const [graphstate, setgraphstate] = useState("1D")
     const [stockdata, setstockdata] = useState(null);
     const [totalStocks, setTotalStocks] = useState(1);
+    const [stockPrice, setStockPrice] = useState(0)
     const [sellShares, setSellShares] = useState(1);
     const [ticker, setTicker] = useState(getTicker(urlString))
     const [userId, setUserId] = useState(null)
@@ -252,6 +253,7 @@ const Stocks = () => {
         event.preventDefault()
         dispatch(sellSharesButton({ 'shares': sellShares, 'id': user.id, 'ticker': urlTicker }))
         tradeAlertSell()
+        setBuyingPower((buyingPower + (stockdata?.latestPrice * totalStocks)).toFixed(2))
     }
 
     const min = (data) => {
