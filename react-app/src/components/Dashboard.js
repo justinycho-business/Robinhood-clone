@@ -208,15 +208,11 @@ function Dashboard() {
                 <div className= 'sidebar-div'>
                     <div className='porfolioListDiv'>
                         <h1>Portfolio</h1>
-                        <ul className='portfolioUl'>
-
-                            {
-                            userData && portfolio_comps &&
-                                 portfolio_to_array(portfolio_comps).map((companyArray) => (
-                                    //  <div> {companyArray.ticker}</div>
+                        <ul className='porfolioUl'>
+                            {userData && portfolio_comps &&
+                                portfolio_to_array(portfolio_comps).map((companyArray) => (
                                 <li key={companyArray.id} className='porfolioLi'>
                                     <div className='ticker'>{companyArray.ticker}</div>
-                                    <div className='shares'>{companyArray.quantity}</div>
                                     <div className='lilGraph'>
                                         <ResponsiveContainer width="100%" aspect={2}>
                                             <LineChart data={oneWeekGraphDataTrimmed(companyArray.weekdata)}>
@@ -231,10 +227,13 @@ function Dashboard() {
                                             </LineChart>
                                         </ResponsiveContainer>
                                     </div>
-                                    <div className='price'>$ {companyArray.weekdata[0].close}</div>
-                                    {/* <div className='percent'>Percent Change</div> */}
+                                    <div className ='port-div'>
+                                        <p className='shares'>{`shares: ${companyArray.quantity}`}</p>
+                                        <p className='price'>${companyArray.weekdata[0].close.toFixed(2)}</p>
+                                        {/* <div className='percent'>Percent Change</div> */}
+                                    </div>
                                 </li>
-                                 ))}
+                                ))}
                         </ul>
                     </div>
                     <div className="watchlistDiv">
