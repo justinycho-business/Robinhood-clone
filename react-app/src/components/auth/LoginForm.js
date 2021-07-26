@@ -40,7 +40,7 @@ const LoginForm = () => {
       </div>
       <div class="column-2">
         <form classname='login-form'>
-          <label className='login-title'> Welcome to our App </label>
+          <label className='login-title'> Welcome to Mr. Hood </label>
           <div className='input-div'>
             <label htmlFor='email' className='form-label'>Email or username</label>
             <input

@@ -27,7 +27,7 @@ html, body {
 }
 
 label {
-    margin-top: 40px;
+    margin-top: 20px;
     margin-left: 80px;
     display: flex;
     flex-direction: row;
@@ -67,10 +67,10 @@ label {
     display: flex;
     margin-top: 90px;
     margin-left: 80px;
-    /* background-color: rgb(13, 223, 24); */
-    background-color: rgb(207, 30, 68);
+    background-color: rgb(13, 223, 24);
+    /* background-color: rgb(207, 30, 68); */
     border: none;
-    color: white;
+    color: black;
     padding: 15px 40px;
     text-align: center;
     align-self: flex-start;
@@ -78,15 +78,18 @@ label {
     display: inline-block;
     font-size: 16px;
     border-radius: 4px;
+    font-weight: bold;
   }
   .login-form-btn:hover{
     /* background-color: rgb(10, 168, 18); */
     background-color: rgb(128, 17, 41);
   }
   .login-title{
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 24px;
-    font-weight: 500;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 20px;
+    text-decoration: none;
+    font-size: 27px;
+    color:black;
   }
   .form-label{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
