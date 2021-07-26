@@ -73,7 +73,7 @@ const shoot = () => {
 if (removeSignUpFromNavBar) {
   return (
   <>{companyTickerData &&
-    <nav className='NavBar'>
+    <nav className='logged_in_navbar'>
       <div className="firstbox">
         <NavLink to='/' exact={true} activeClassName='active' className='home'>
           <div className="feather_icon">
@@ -128,23 +128,23 @@ if (removeSignUpFromNavBar) {
           Users
         </NavLink>
       </div> */}
-      <div className="fourthbox"
-      className="nav_icons">
-        <div>
+      {/* <div className="nav_icons_container"> */}
+      {/* className="fourthbox" */}
+        <div className="nav_icons">
           <NavLink to={`/dashboard/${user.id}`} onClick={shoot} exact={true} activeClassName='active' className='dashboard'>
             Dashboard
           </NavLink>
+          <div>
+            <LogoutButton />
+          </div>
         </div>
-        <div>
-          <LogoutButton />
-        </div>
-      </div>
+      {/* </div> */}
     </nav>}
     </>
   )
 } else {
   return (
-    <nav>
+    <nav className='logged_out_navbar'>
       <div className="firstbox">
         <NavLink to='/' exact={true} activeClassName='active' className='home'>
           <div className = "feather_icon_container">
