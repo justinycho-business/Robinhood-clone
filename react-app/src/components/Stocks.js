@@ -433,7 +433,8 @@ const Stocks = () => {
                                     <h1 className='total-price'>${sellShares * (stockdata?.latestPrice.toFixed(2))}</h1>
                                 </div>
                                 <div className='buy-btn-container'>
-                                    {quantityofstock[id.ticker] && <button className='buy-btn' onClick={updatestockquant}>Sell</button>}
+                                    {quantityofstock[id.ticker] && (sellShares <= quantityofstock[id.ticker]['quantity']) && <button className='buy-btn' onClick={updatestockquant}>Sell</button>}
+                                    {quantityofstock[id.ticker] && (sellShares > quantityofstock[id.ticker]['quantity']) && <div>You cannot sell more shares than you own</div>}
                                 </div>
                             </form>
                             <div className='buying-power-container'>
