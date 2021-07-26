@@ -238,3 +238,22 @@ margin-left: 40px;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   outline: none;
 }
+
+.time-btn {
+  border: none;
+  font-weight: bold;
+  background-color: white;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 5px;
+}
+
+.time-btn:active {
+  background-color: black;
+}
+
+.time-btn:hover {
+  color: #6afa27;
+  background-color: black;
+  border-radius: 3px;
+}
