@@ -238,9 +238,20 @@ const Stocks = () => {
     }
 
 
+    const tradeAlertSell = () => {
+        const el = document.createElement("div");
+        el.className = "trade-alert-buy"
+        el.innerHTML = `You sold ${sellShares} shares of ${ticker}`;
+        setTimeout(function () {
+            el.parentNode.removeChild(el);
+        }, 4000);
+        document.body.appendChild(el);
+    }
+
     const sellButtonFunc = (event) => {
         event.preventDefault()
         dispatch(sellSharesButton({ 'shares': sellShares, 'id': user.id, 'ticker': urlTicker }))
+        tradeAlertSell()
     }
 
     const min = (data) => {
@@ -306,9 +317,10 @@ const Stocks = () => {
         el.innerHTML = `You bought ${totalStocks} shares of ${ticker}`;
         setTimeout(function () {
             el.parentNode.removeChild(el);
-        }, 9000);
+        }, 4000);
         document.body.appendChild(el);
     }
+
 
 
     const buyStock = async (e) => {
