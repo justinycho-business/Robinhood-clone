@@ -43,6 +43,7 @@ const Stocks = () => {
     const [buySell, setBuySell] = useState('buy')
     const [watchlistContainer, setContainer] = useState('')
     const [optionText, setOptionText] = useState('')
+    const [tradeAlert, setTradeAlert] = useState('d')
 
     const [buyingPower, setBuyingPower] = useState(0)
 
@@ -237,9 +238,20 @@ const Stocks = () => {
     }
 
 
+    const tradeAlertSell = () => {
+        const el = document.createElement("div");
+        el.className = "trade-alert-buy"
+        el.innerHTML = `You sold ${sellShares} shares of ${ticker}`;
+        setTimeout(function () {
+            el.parentNode.removeChild(el);
+        }, 4000);
+        document.body.appendChild(el);
+    }
+
     const sellButtonFunc = (event) => {
         event.preventDefault()
         dispatch(sellSharesButton({ 'shares': sellShares, 'id': user.id, 'ticker': urlTicker }))
+        tradeAlertSell()
     }
 
     const min = (data) => {
@@ -299,6 +311,18 @@ const Stocks = () => {
         return sellButtonArray
     };
 
+    const tradeAlertBuy = () => {
+        const el = document.createElement("div");
+        el.className = "trade-alert-buy"
+        el.innerHTML = `You bought ${totalStocks} shares of ${ticker}`;
+        setTimeout(function () {
+            el.parentNode.removeChild(el);
+        }, 4000);
+        document.body.appendChild(el);
+    }
+
+
+
     const buyStock = async (e) => {
         e.preventDefault();
         if (user?.buying_power > totalStocks * stockdata?.latestPrice.toFixed(2)) {
@@ -317,12 +341,15 @@ const Stocks = () => {
             const data = await post.json();
             console.log("yay enough buying power", data.Success.toFixed(2))
             setBuyingPower(data.Success.toFixed(2))
+            tradeAlertBuy()
             return ["yay enough buying power", data]
         } else {
             console.log("Oh no not working just yet :(")
             return "Oh no not working just yet :("
         }
     }
+
+
 
 
     return (
@@ -564,7 +591,7 @@ const Stocks = () => {
                     )
                 }
             </div>
-        </div>
+        </div >
     )
 }
 

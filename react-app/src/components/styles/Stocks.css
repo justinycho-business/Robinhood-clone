@@ -239,6 +239,32 @@ margin-left: 40px;
   outline: none;
 }
 
+
+.trade-alert-buy{
+  position:absolute;
+  top:59%;
+  left:60.7%;
+  width: 251px;
+  height: 39px;
+  text-align: center;
+  vertical-align: center;
+  color: white;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  background-color:rgb(37, 250, 37);
+  -webkit-animation: fadeinout 4s linear forwards;
+  animation: fadeinout 4s linear forwards;
+}
+
+@-webkit-keyframes fadeinout {
+  0%,100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+@keyframes fadeinout {
+  0%,100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
 .time-btn {
   border: none;
   font-weight: bold;
@@ -257,3 +283,4 @@ margin-left: 40px;
   background-color: black;
   border-radius: 3px;
 }
+
