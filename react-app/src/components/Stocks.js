@@ -295,21 +295,21 @@ const Stocks = () => {
     }
 
 
-    const findCompanyShare = (array) => {
-        let sellButtonArray = []
-        const shares = array.forEach((porfolioArray) => {
-            if (porfolioArray.company_details.ticker === urlTicker) {
-                console.log(porfolioArray.company_details.quantity, '============259==============')
-                const result = porfolioArray.company_details.quantity
-                sellButtonArray.push(`${result} Shares Owned`)
-            } else {
-                console.log(sellButtonArray, 'No true values')
-                sellButtonArray.push('No Shares Owned')
-            }
-        })
-        console.log(sellButtonArray, '=========================')
-        return sellButtonArray
-    };
+    // const findCompanyShare = (array) => {
+    //     let sellButtonArray = []
+    //     const shares = array.forEach((porfolioArray) => {
+    //         if (porfolioArray.company_details.ticker === urlTicker) {
+    //             console.log(porfolioArray.company_details.quantity, '============259==============')
+    //             const result = porfolioArray.company_details.quantity
+    //             sellButtonArray.push(`${result} Shares Owned`)
+    //         } else {
+    //             console.log(sellButtonArray, 'No true values')
+    //             sellButtonArray.push('No Shares Owned')
+    //         }
+    //     })
+    //     console.log(sellButtonArray, '=========================')
+    //     return sellButtonArray
+    // };
 
     const tradeAlertBuy = () => {
         const el = document.createElement("div");
@@ -420,11 +420,8 @@ const Stocks = () => {
                                 </div>
                             </form>
                             <div className='buying-power-container'>
-                                <h2>{companyInfo && findCompanyShare(companyInfo.portfolio)[0]}</h2>
-                            </div>
-                            {/* <div className='buying-power-container'>
                                 <h2>${buyingPower} buying power available</h2>
-                            </div> */}
+                            </div>
                         </div>
                     )
                     }
