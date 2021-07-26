@@ -1,0 +1,11 @@
+.NavBar {
+    z-index: 10;
+}
+
+.Switch{
+    z-index: 0;
+}
+
+.Footer{
+    z-index: 5;
+}

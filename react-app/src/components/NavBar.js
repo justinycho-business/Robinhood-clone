@@ -22,8 +22,12 @@ useEffect(() => {
         const response = await fetch(`/api/search/all`)
         const responseData = await response.json()
         // companyTickerData = responseData.tickers
+        // let trimmed_companylist = () => {
+        //   responseData.tickers
+        // }
         setCompanyTickerData(responseData.tickers)
         // console.log(searchData)
+
     })()
 }, []);
 
@@ -36,6 +40,11 @@ const searchResult = async(e) => {
     e.preventDefault()
     const data = e.target.value
     history.push(`/stocks/${data}`)
+}
+
+const shoot = () => {
+  history.push(`/dashboard/${user.id}`);
+  window.location.reload(true);
 }
 
 // // create queue for the data and add initial node
@@ -64,7 +73,7 @@ const searchResult = async(e) => {
 if (removeSignUpFromNavBar) {
   return (
   <>{companyTickerData &&
-    <nav>
+    <nav className='NavBar'>
       <div className="firstbox">
         <NavLink to='/' exact={true} activeClassName='active' className='home'>
           <div className="feather_icon">
@@ -89,7 +98,7 @@ if (removeSignUpFromNavBar) {
         <div className="search_container">
           <input placeholder="Search" className="search" type="text" value={search} onChange={(e) => setSearch(e.target.value)}></input>
               <div class="dropdown">
-                <div id="myDropdown" class="dropdown-content">
+                {search !== '' && <div id="myDropdown" class="dropdown-content">
                 {search !== '' &&
                     //filter method on the data grabbed from our useEffect
                     companyTickerData.filter((e) => e.ticker.startsWith(search.toUpperCase())).map(dicOfCompany => (
@@ -98,7 +107,7 @@ if (removeSignUpFromNavBar) {
                       </a>
                     ))
                   }
-                </div>
+                </div>}
               </div>
           </div>
                 {/* <ul>
@@ -122,7 +131,7 @@ if (removeSignUpFromNavBar) {
       <div className="fourthbox"
       className="nav_icons">
         <div>
-          <NavLink to={`/dashboard/${user.id}`} exact={true} activeClassName='active' className='dashboard'>
+          <NavLink to={`/dashboard/${user.id}`} onClick={shoot} exact={true} activeClassName='active' className='dashboard'>
             Dashboard
           </NavLink>
         </div>
