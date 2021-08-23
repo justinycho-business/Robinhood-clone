@@ -34,6 +34,12 @@ const LoginForm = () => {
     return <Redirect to={`/dashboard/${user.id}`} />;
   }
 
+  const demoUserLogin = async (e) => {
+    e.preventDefault();
+    await dispatch(login('demo@aa.io', 'password'))
+
+  };
+
   return (
     <div className='row'>
       <div className='column-1'>
@@ -74,6 +80,7 @@ const LoginForm = () => {
         </div>
         <div className='login-form-btn-container'>
           <button type='submit' className='login-form-btn' onClick={onLogin}>Sign In</button>
+          <button type='submit' className='login-form-btn' onClick={demoUserLogin}>Demo</button>
         </div>
       </div>
     </div >
