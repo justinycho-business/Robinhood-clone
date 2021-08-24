@@ -44,9 +44,6 @@ const Stocks = () => {
     const oneDayGraphData = useSelector(state => state?.priceData?.oneDayDataStocks)
     const companyInfo = useSelector(state => state?.dashboard?.userData)
     const id = useParams();
-    console.log(id);
-    console.log(typeof (id.ticker));
-    let watchlistButton;
     const timePeriodGraphData = useSelector(state => state?.priceData?.timePeriodData)
     const quantityofstock = useSelector(state => state?.dashboard?.userData?.portfolio)
 
@@ -403,7 +400,7 @@ const Stocks = () => {
                                 </div>
                                 <div className='est-cost-container'>
                                     <label className='form-item'>Estimated Value:</label>
-                                    <h1 className='total-price'>${sellShares * (stockdata?.latestPrice.toFixed(2))}</h1>
+                                    <h1 className='total-price'>${(sellShares * (stockdata?.latestPrice)).toFixed(2)}</h1>
                                 </div>
                                 <div className='buy-btn-container'>
                                     {quantityofstock[id.ticker] && (sellShares <= quantityofstock[id.ticker]['quantity']) && <button className='buy-btn' onClick={updatestockquant}>Sell</button>}

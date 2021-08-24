@@ -290,7 +290,6 @@ margin-left: 40px;
 .watchlist-btn-add{
   position: absolute;
   display: flex;
-  /* background-color: rgb(13, 223, 24); */
   background-color: white;
   border: none;
   color: rgb(74, 192, 70);
@@ -301,11 +300,9 @@ margin-left: 40px;
   display: inline-block;
   font-size: 16px;
   border-radius: 4px;
-  /* margin-left: 400px; */
   margin-top: 450px;
   outline: 1px solid;
 }
 .watchlist-btn-add:hover{
-  /* background-color: rgb(10, 168, 18); */
   color: rgb(9, 104, 40);
 }
