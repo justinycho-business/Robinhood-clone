@@ -82,6 +82,7 @@ label {
 .login-form-btn:hover{
   /* background-color: rgb(10, 168, 18); */
   background-color: rgb(128, 17, 41);
+  cursor: pointer;
 }
 .login-title{
   font-family: Georgia, 'Times New Roman', Times, serif;

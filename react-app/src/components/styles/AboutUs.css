@@ -12,7 +12,7 @@
   border-bottom: 1px solid black;
   padding: 120px 0px;
   box-sizing: border-box;
-  background: rgb(225, 235, 220);
+  background: rgb(216, 211, 211);
 }
 
 .about_us_inner_container {
@@ -34,21 +34,6 @@
   flex-direction: row;
 }
 
-/* .person_container {
-  margin-left: 6px;
-  margin-right: 6px;
-  width: calc(50% - 12px);
-  display: block;
-  visibility: visible;
-}
-
-.person_inner_container {
-  margin-left: 9px;
-  margin-right: 9px;
-  width: 288px;
-  display: block;
-  visibility: visible;
-} */
 
 .each_person {
   /* border: 0.5px solid grey;
