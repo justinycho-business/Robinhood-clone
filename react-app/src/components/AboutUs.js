@@ -22,7 +22,7 @@ const AboutUs = () => {
                             <div className="person_desc">
                                 <h3>Gary Rios</h3>
                                 <h2>
-                                    eSports Player-manager / Video editor / Software Engineer
+                                    Software Engineer / ex-eSports Player-manager / Video editor
                                 </h2>
 
                             </div>
@@ -37,7 +37,7 @@ const AboutUs = () => {
                                 </div>
                             </a>
                             <div className="person_desc">
-                                <h3>Justin Cho.</h3>
+                                <h3>Justin Cho</h3>
                                 <h2>
                                     "You can always improve your mind, body, or spirit. There is no time for complacency." -Justin Cho | I seek challenges and learn every day. Go higher, always.
                                 </h2>
@@ -54,6 +54,9 @@ const AboutUs = () => {
                             </a>
                             <div className="person_desc">
                                 <h3>Josh Williams</h3>
+                                <h2>
+                                    Full Stack Software Engineer | Python | Javascript | React.js | Redux.js | Express.js | Flask | sqlAlchemy | PostgreSQL
+                                </h2>
                             </div>
                         </div>
                         <div className="each_person">
@@ -67,6 +70,9 @@ const AboutUs = () => {
                             </a>
                             <div className="person_desc">
                                 <h3>Ebrahim Tayara</h3>
+                                <h2>
+                                    I post projects I'm working on and code on here. Glad to be part of the community! Most of my repos are private, but feel free to request collaborator access. ツ
+                                </h2>
                             </div>
                         </div>
 
