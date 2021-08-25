@@ -336,7 +336,11 @@ const Stocks = () => {
         }
     }
 
-
+    const formSwitch = (e) => {
+        e.preventDefault();
+        setBuySell(e.target.value);
+        dispatch(getDashboardData(user.id))
+    }
 
 
     return (
@@ -352,7 +356,7 @@ const Stocks = () => {
                     {buySell === "buy" ? (
                         <div className='actions-container'>
                             <form className='buy-form'>
-                                <select className='option-select' onClick={(e) => setBuySell(e.target.value)}>
+                                <select className='option-select' onClick={formSwitch}>
                                     <option className='option-buy' value={"buy"} > Buy {stockdata?.symbol}</option>
                                     <option className='option-sell' value={"sell"}  > Sell {stockdata?.symbol}</option>
                                     {/* <label className='form-title'> {buySell} {stockdata?.symbol} :</label> */}
@@ -383,7 +387,7 @@ const Stocks = () => {
                     ) : (
                         <div className='actions-container'>
                             <form className='buy-form' onSubmit={sellButtonFunc}>
-                                <select className="option-select" onClick={(e) => setBuySell(e.target.value)}>
+                                <select className="option-select" onClick={formSwitch}>
                                     <option value={"buy"} > Buy {stockdata?.symbol}</option>
                                     <option value={"sell"}  > Sell {stockdata?.symbol}</option>
                                 </select>
@@ -585,3 +589,35 @@ const Stocks = () => {
 
 
 export default Stocks;
+
+// const merge = (arr1, arr2) => {
+//     let sortedArray = [];
+//     let num1;
+//     let num2;
+//     while (arr1.length || arr2.length) {
+//         num1 = arr1.length ? arr1[0] : Infinity;
+//         num2 = arr2.length ? arr2[0] : Infinity;
+//         let next;
+//         if (num1 > num2) {
+//             next = arr2.shift();
+//         }
+//         else if (num2 > num1) {
+//             next = arr1.shift();
+//         };
+//         sortedArray.push(next);
+//     };
+//     return sortedArray
+
+// };
+
+// const myMergeSort = (arr) => {
+//     if (arr.length <= 1) return arr;
+//     const midPoint = Math.floor(arr.length / 2);
+//     const leftHalf = arr.slice(0, midPoint);
+//     const rightHalf = arr.slice(midPoint);
+//     return merge(leftHalf, rightHalf);
+// };
+
+// const testarr = [6, 3, 4, 9, 2, 1, 10, 5, 7, 8]
+
+// console.log(myMergeSort(testarr))
