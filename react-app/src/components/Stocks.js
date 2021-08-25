@@ -211,7 +211,7 @@ const Stocks = () => {
             dispatch(get1dayData(ticker))
         })()
 
-    }, [setBuyingPower]);
+    }, [setBuyingPower, quantityofstock]);
 
     const updatestockquant = () => {
         dispatch(getDashboardData(user.id))
@@ -370,7 +370,7 @@ const Stocks = () => {
                                 </div>
                                 <div className='est-cost-container'>
                                     <label className='form-item'>Estimated Cost:</label>
-                                    <h1 className='total-price'>${totalStocks * (stockdata?.latestPrice.toFixed(2))}</h1>
+                                    <h1 className='total-price'>${(totalStocks * (stockdata?.latestPrice)).toFixed(2)}</h1>
                                 </div>
                                 <div className='buy-btn-container'>
                                     <button className='buy-btn' onClick={buyStock}>Buy</button>
