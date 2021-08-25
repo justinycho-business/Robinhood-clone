@@ -14,7 +14,14 @@
     ;
     width: 100%;
 }
+.linkstostocks{
+    border: 1px solid black;
+    background-color: greenyellow;
+    text-decoration: none;
+    padding: 3px;
+    border-radius: 5px;
 
+}
 .portfolioDiv {
     grid-area: portfolioDiv;
     /* background-color: rgb(211, 147, 182); */

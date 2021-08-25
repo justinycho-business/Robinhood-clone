@@ -55,9 +55,12 @@ nav{
     grid-template-columns: 1fr 1fr 1fr 1fr; */
 /* } */
 .firstbox{
-    grid-column: 1;
+    display: flex;
+    flex-direction: row;
 }
-
+.spacer{
+    color: white;
+}
 .secondbox{
     grid-column: 2;
 }
@@ -68,12 +71,14 @@ nav{
     margin-right: 283px; */
     position: relative;
     display: flex;
-    min-width: 100px;
+    justify-content: center;
+    align-items: center;
+    min-width: 200px;
 }
 
 .fourthbox{
-    grid-column: 4;
-    margin-right: 300px;
+    width: 40px;
+    color: white;
 }
 
 .signup{
@@ -106,10 +111,13 @@ nav{
 }
 
 .login{
-    color: black;
+    color: white;
     text-decoration: none;
     align-items: center;
     box-sizing: border-box;
+    border-radius: 24px;
+    background-color: black;
+    margin-right: 1vw;
     display: inline-flex;
     justify-content: center;
     overflow: hidden;
@@ -189,19 +197,20 @@ nav{
     padding: 5px;
 }
 
-.search_outer_container {
+/* .search_outer_container {
     display: flex;
 }
 
 .search_inner_container {
     display: flex;
     justify-content: end;
-}
+} */
 
 .search_container {
-    display: inline-block;
+    display:flex;
+    width: 30vw;
     /* margin-inline: 350px; */
-    margin-right: 1470px;
+
 }
 
 .search {
@@ -218,7 +227,7 @@ nav{
     padding: 2px 23px 2px 30px;
     outline: 0;
     background-color: #f5f5f5;
-    margin-left: 80px;
+
 }
 
 .search:hover, .search:focus {
@@ -251,9 +260,12 @@ nav{
     display:flex;
     flex-direction: column;
     position: fixed;
+    top: 46px;
     background-color: #f6f6f6;
-    min-width: 100px;
-    max-width: 200px;
+    width: 40vw;
+    right: 34.9vw;
+    min-width: 10vw;
+    max-width: 30vw;
     height: 300px;
     border: 1px solid #ddd;
     z-index: 100;
@@ -267,6 +279,7 @@ nav{
     padding: 12px 16px;
     text-decoration: none;
     display: block;
+
 
   }
 

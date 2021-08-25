@@ -456,7 +456,7 @@ const Stocks = () => {
                                     //     ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200),
                                     //      ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
                                     />
-                                    <YAxis hide={false} domain={[min(oneWeekGraphDataTrimmed(timePeriodGraphData[0]?.oneWeek)),
+                                    <YAxis hide={true} domain={[min(oneWeekGraphDataTrimmed(timePeriodGraphData[0]?.oneWeek)),
                                     max(oneWeekGraphDataTrimmed(timePeriodGraphData[0]?.oneWeek))]} />
                                     <Tooltip />
                                 </LineChart>
@@ -475,7 +475,7 @@ const Stocks = () => {
                                     //     ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200),
                                     //      ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
                                     />
-                                    <YAxis hide={false} domain={[min(oneMonthGraphDataTrimmed(timePeriodGraphData[0]?.oneMonth.historical)),
+                                    <YAxis hide={true} domain={[min(oneMonthGraphDataTrimmed(timePeriodGraphData[0]?.oneMonth.historical)),
                                     max(oneMonthGraphDataTrimmed(timePeriodGraphData[0]?.oneMonth.historical))]} />
                                     <Tooltip />
                                 </LineChart>
@@ -494,7 +494,7 @@ const Stocks = () => {
                                     //     ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200),
                                     //      ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
                                     />
-                                    <YAxis hide={false} domain={[min(threeMonthGraphDataTrimmed(timePeriodGraphData[0]?.threeMonths.historical)),
+                                    <YAxis hide={true} domain={[min(threeMonthGraphDataTrimmed(timePeriodGraphData[0]?.threeMonths.historical)),
                                     max(threeMonthGraphDataTrimmed(timePeriodGraphData[0]?.threeMonths.historical))]} />
                                     <Tooltip />
                                 </LineChart>
@@ -514,7 +514,7 @@ const Stocks = () => {
                                     //     ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200),
                                     //      ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
                                     />
-                                    <YAxis hide={false} domain={[min(oneYearGraphDataTrimmed(timePeriodGraphData[0]?.oneYear.historical)),
+                                    <YAxis hide={true} domain={[min(oneYearGraphDataTrimmed(timePeriodGraphData[0]?.oneYear.historical)),
                                     max(oneYearGraphDataTrimmed(timePeriodGraphData[0]?.oneYear.historical))]} />
                                     <Tooltip />
                                 </LineChart>
@@ -534,7 +534,7 @@ const Stocks = () => {
                                     //     ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200),
                                     //      ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
                                     />
-                                    <YAxis hide={false} domain={[min(fiveYearGraphDataTrimmed(timePeriodGraphData[0]?.fiveYears.historical)),
+                                    <YAxis hide={true} domain={[min(fiveYearGraphDataTrimmed(timePeriodGraphData[0]?.fiveYears.historical)),
                                     max(fiveYearGraphDataTrimmed(timePeriodGraphData[0]?.fiveYears.historical))]} />
                                     <Tooltip />
                                 </LineChart>
