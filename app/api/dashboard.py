@@ -113,7 +113,7 @@ def get_graph_data_on_click():
     request_data = request.get_json()
     graph_button_string = request_data['string']
     id = request_data['id']
-    print(graph_button_string, id, '=============================')
+
 
     portfolioData = Transaction.query.with_entities(func.sum(Transaction.quantity), Transaction.company_id).filter_by(user_id = id).group_by(Transaction.company_id).all()
 

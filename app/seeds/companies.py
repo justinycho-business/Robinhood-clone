@@ -4,7 +4,6 @@ from app.seeds.data.company_names import big_data
 
 # Adds a demo user, you can add other users here if you want
 def seed_companies():
-    print(big_data[0]['symbol'], '==============================')
     for company in big_data:
         seed = Company(
                 ticker = company['symbol'],

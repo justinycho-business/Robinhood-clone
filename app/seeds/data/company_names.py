@@ -1,4 +1,4 @@
-[ {
+big_data = [{
   "symbol" : "SPY",
   "name" : "SPDR S&P 500 ETF Trust",
   "price" : 432.035,
