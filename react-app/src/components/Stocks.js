@@ -336,10 +336,10 @@ const Stocks = () => {
         }
     }
 
-    const formSwitch = (e) => {
+    const formSwitch = async (e) => {
         e.preventDefault();
         setBuySell(e.target.value);
-        dispatch(getDashboardData(user.id))
+        await dispatch(getDashboardData(user.id))
     }
 
 
