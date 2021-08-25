@@ -285,3 +285,24 @@ margin-left: 40px;
   background-color: black;
   border-radius: 3px;
 }
+
+
+.watchlist-btn-add{
+  position: absolute;
+  display: flex;
+  background-color: white;
+  border: none;
+  color: rgb(74, 192, 70);
+  padding: 15px 40px;
+  text-align: center;
+  align-self: flex-start;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 4px;
+  margin-top: 450px;
+  outline: 1px solid;
+}
+.watchlist-btn-add:hover{
+  color: rgb(9, 104, 40);
+}

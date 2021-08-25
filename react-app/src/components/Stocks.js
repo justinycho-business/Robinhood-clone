@@ -5,17 +5,7 @@ import moment from 'moment';
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
 import { get1dayData, graphTimePeriodButton, sellSharesButton } from '../store/stocks';
 import { getDashboardData } from '../store/dashboard'
-import ticks from "../data/1dayticks"
 import './styles/Stocks.css';
-
-// console.log(ticks);
-// console.log(new Date());
-// console.log(new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000)
-// console.log(new Date("2021-07-22 13:50:00").getTime() / 1000);
-// console.log((new Date('2021-07-13 09:30:00').getTime() / 1000) - 25200)// 9 30 =  1626168600
-// console.log((new Date('2021-07-13 16:00:00').getTime() / 1000) - 25200) // needs to equal 1626969600
-// console.log(moment().format('YYYY-MM-DD'))
-// console.log(typeof(moment().format('YYYY-MM-DD')));
 
 
 const Stocks = () => {
@@ -54,9 +44,6 @@ const Stocks = () => {
     const oneDayGraphData = useSelector(state => state?.priceData?.oneDayDataStocks)
     const companyInfo = useSelector(state => state?.dashboard?.userData)
     const id = useParams();
-    console.log(id);
-    console.log(typeof(id.ticker));
-    let watchlistButton;
     const timePeriodGraphData = useSelector(state => state?.priceData?.timePeriodData)
     const quantityofstock = useSelector(state => state?.dashboard?.userData?.portfolio)
 
@@ -224,7 +211,7 @@ const Stocks = () => {
             dispatch(get1dayData(ticker))
         })()
 
-    }, [setBuyingPower]);
+    }, [setBuyingPower, quantityofstock]);
 
     const updatestockquant = () => {
         dispatch(getDashboardData(user.id))
@@ -311,23 +298,6 @@ const Stocks = () => {
         )
     }
 
-
-    // const findCompanyShare = (array) => {
-    //     let sellButtonArray = []
-    //     const shares = array.forEach((porfolioArray) => {
-    //         if (porfolioArray.company_details.ticker === urlTicker) {
-    //             console.log(porfolioArray.company_details.quantity, '============259==============')
-    //             const result = porfolioArray.company_details.quantity
-    //             sellButtonArray.push(`${result} Shares Owned`)
-    //         } else {
-    //             console.log(sellButtonArray, 'No true values')
-    //             sellButtonArray.push('No Shares Owned')
-    //         }
-    //     })
-    //     console.log(sellButtonArray, '=========================')
-    //     return sellButtonArray
-    // };
-
     const tradeAlertBuy = () => {
         const el = document.createElement("div");
         el.className = "trade-alert-buy"
@@ -400,7 +370,7 @@ const Stocks = () => {
                                 </div>
                                 <div className='est-cost-container'>
                                     <label className='form-item'>Estimated Cost:</label>
-                                    <h1 className='total-price'>${totalStocks * (stockdata?.latestPrice.toFixed(2))}</h1>
+                                    <h1 className='total-price'>${(totalStocks * (stockdata?.latestPrice)).toFixed(2)}</h1>
                                 </div>
                                 <div className='buy-btn-container'>
                                     <button className='buy-btn' onClick={buyStock}>Buy</button>
@@ -430,7 +400,7 @@ const Stocks = () => {
                                 </div>
                                 <div className='est-cost-container'>
                                     <label className='form-item'>Estimated Value:</label>
-                                    <h1 className='total-price'>${sellShares * (stockdata?.latestPrice.toFixed(2))}</h1>
+                                    <h1 className='total-price'>${(sellShares * (stockdata?.latestPrice)).toFixed(2)}</h1>
                                 </div>
                                 <div className='buy-btn-container'>
                                     {quantityofstock[id.ticker] && (sellShares <= quantityofstock[id.ticker]['quantity']) && <button className='buy-btn' onClick={updatestockquant}>Sell</button>}
@@ -449,7 +419,7 @@ const Stocks = () => {
 
                     {/* One day graph */}
                     {oneDayGraphData && oneDayGraphData[0] && oneDayGraphData[0]?.oneDay[0] && graphstate === "1D" && oneDayGraphDataTrimmed(oneDayGraphData[0]?.oneDay[0]).length === 0 &&
-                    <div>no data as trading hours begin at 9:30 EST</div>}
+                        <div>no data as trading hours begin at 9:30 EST</div>}
                     {oneDayGraphData && oneDayGraphData[0] && oneDayGraphData[0]?.oneDay[0] && graphstate === "1D" &&
                         <div>
                             <ResponsiveContainer width="100%" aspect={2}>
@@ -604,7 +574,7 @@ const Stocks = () => {
                         </div>
                     ) : (
                         <div className={"add-to"}>
-                            <button className='watchlist-btn' onClick={addToWatchlist}>{optionText}</button>
+                            <button className='watchlist-btn-add' onClick={addToWatchlist}>{optionText}</button>
                         </div>
                     )
                 }

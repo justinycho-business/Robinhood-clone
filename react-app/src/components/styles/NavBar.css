@@ -165,8 +165,11 @@ nav{
     margin-right: 5px;
 }
 
-.welcome_message_container {
+.welcome_message {
 
+}
+.welcome_message:hover {
+    cursor: pointer;
 }
 
 .welcome_message_outer_container {
