@@ -231,13 +231,16 @@ function Dashboard() {
     const shoot = () => {
         window.location.reload(true);
     }
+
+    const value = parseFloat(add_buyingpower(portfolio_total_value_over_one_week(portfolio_comps))[add_buyingpower(portfolio_total_value_over_one_week(portfolio_comps)).length -1].close)
+
     return (
         <>
         {userData && (
             <div class="wrapper">
                 <div className="portfolioDiv">
                     <h1>{user.username}'s Current Portfolio Value
-                    {portfolio_to_array(portfolio_comps).length >= 1 && <span> ${add_buyingpower(portfolio_total_value_over_one_week(portfolio_comps))[add_buyingpower(portfolio_total_value_over_one_week(portfolio_comps)).length -1].close}</span>}
+                    {portfolio_to_array(portfolio_comps).length >= 1 && <span> ${value.toLocaleString('en-US', {maximumFractionDigits:2})}</span>}
                     {!(portfolio_to_array(portfolio_comps).length >= 1) && <span> $0</span>}
 
 
@@ -277,7 +280,7 @@ function Dashboard() {
                     <button className='dashboard-button' onClick={() => timePeriodButton({'string': 'all', 'id': user.id})}>All</button> */}
                 </div>
                 <div className="addFundsDiv">
-                    <h3 className = 'available-funds-h3'>{`$${user.buying_power} Available for investment`}</h3>
+                    <h3 className = 'available-funds-h3'>{`$${user.buying_power.toLocaleString('en-US', {maximumFractionDigits:2})} Available for investment`}</h3>
                     <p className='add-funds-pTag'>Add funds to your account</p>
                     <form className ='add-funds-form' onSubmit={addFundsSubmit}>
                         <input className='form-input'
@@ -300,7 +303,7 @@ function Dashboard() {
                             {userData && portfolio_comps &&
                                 portfolio_to_array(portfolio_comps).map((companyArray) => (
                                 <li key={companyArray.id} className='porfolioLi'>
-                                    <div className='ticker'>{companyArray.ticker}</div>
+                                    <div className='ticker'><a className="linkstostocks" href={`/stocks/${companyArray.ticker}`}>{companyArray.ticker}</a></div>
                                     <div className='lilGraph'>
                                         <ResponsiveContainer width="100%" aspect={2}>
                                             <LineChart data={oneWeekGraphDataTrimmed(companyArray.weekdata)}>
@@ -331,7 +334,7 @@ function Dashboard() {
                                 userData?.watchlistAPICallData.map((company) => (
                                 <li className="watchlistLi" key={company[0].ticker}>
                                     <div className="ticker">
-                                        <p>{company[0].symbol}</p>
+                                        <a className="linkstostocks" href={`/stocks/${company[0].symbol}`}>{company[0].symbol}</a>
                                     </div>
                                     <div className="lilGraph">
                                         <ResponsiveContainer width="100%" aspect={2}>
