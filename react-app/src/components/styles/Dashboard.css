@@ -27,9 +27,12 @@
     /* background-color: rgb(211, 147, 182); */
     margin: 0px;
     padding-left: 10px;
+    padding-bottom: 30px;
+
     position: relative;
-    bottom: 0;
-    border-bottom: black solid 1px;
+    padding-bottom: 50px;
+    margin-bottom: 5px;
+
 }
 
 .portfolioDiv h1 {
@@ -41,8 +44,9 @@
 .graph {
     grid-area: graph;
     margin: 0;
-    padding: 10px;
-    border-bottom: black solid 2px;
+    padding: 5px;
+    border-bottom: black solid 3px;
+    border-top: black solid 3px;
 }
 
 .addFundsDiv {
@@ -243,9 +247,16 @@
     margin-top: 10px;
     margin-bottom: 3px;
     border: black solid 1px;
-    border-radius: 3px;
+    border-radius: 30px;
 }
-
+.spandollars{
+    border: 1px solid black;
+    padding: 2px;
+    padding-bottom: 2px;
+    color: greenyellow;
+    background-color: black;
+    border-radius: 5px;
+}
 .warning{
     color: red;
     font-weight: bold;
@@ -258,6 +269,16 @@
     cursor: pointer;
     font-size: 14px;
     padding: 5px;
+}
+
+.dashboard-button1 {
+    border: none;
+    font-weight: bold;
+    background-color: greenyellow;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 5px;
+    border-radius: 30px;
 }
 
 .dashboard-button:active {

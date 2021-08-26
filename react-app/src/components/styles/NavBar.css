@@ -208,7 +208,7 @@ nav{
 
 .search_container {
     display:flex;
-    width: 30vw;
+    width: 20vw;
     /* margin-inline: 350px; */
 
 }
@@ -262,8 +262,8 @@ nav{
     position: fixed;
     top: 46px;
     background-color: #f6f6f6;
-    width: 40vw;
-    right: 34.9vw;
+    width: 20vw;
+    right: 40.4vw;
     min-width: 10vw;
     max-width: 30vw;
     height: 300px;

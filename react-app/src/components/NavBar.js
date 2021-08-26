@@ -33,7 +33,7 @@ const NavBar = () => {
       // // console.log(searchData)
 
     })()
-  }, []);
+  }, [user]);
 
   // useEffect(() => {
 

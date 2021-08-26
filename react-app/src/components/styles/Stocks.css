@@ -1,11 +1,13 @@
 .stocks-background{
     display: flex;
     justify-content: center;
+    align-items: flex-start;
     position: static;
     top:0;
     left: 0;
+    margin-left: 10vw;
     z-index: 0;
-    width:100%;
+    width:80%;
     height:100%;
     /* background-color: black; */
 }
@@ -31,6 +33,12 @@
     margin-left: 10px;
     font-size: 36px;
     font-weight: 700;
+    border: 1px solid black;
+    padding: 2px;
+    padding-bottom: 2px;
+    color: greenyellow;
+    background-color: black;
+    border-radius: 5px;
 }
 .stock-change{
     margin-top: 0px;

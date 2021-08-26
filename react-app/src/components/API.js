@@ -10,14 +10,14 @@ function Api() {
 
     (async function fetchData() {
       const response = await fetch('/api/company');
-      console.log(response);
+
       const responseData = await response.json();
-      console.log(responseData);
+
         setstockdata(responseData);
     })()
 
   }, []);
-    console.log(stockdata);
+
     return (
     <>
     {stockdata &&
