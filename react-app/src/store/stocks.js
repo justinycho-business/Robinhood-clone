@@ -55,7 +55,6 @@ export const sellSharesButton = (payload_obj) => async(dispatch) => {
     if(response.ok) {
         const confirmation = await response.json()
         dispatch(sellShares(confirmation.confirmation))
-        console.log(confirmation.confirmation, '=============================')
     }
 }
 
