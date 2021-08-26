@@ -5,6 +5,7 @@ import './styles/Footer.css';
 const Footer = () => {
   return(
     <div className="footer_container">
+      <NavLink to='/about-us' className='about_us' exact={true}>
       <div className="footer">
             <div>
             <NavLink to='/about-us' className='about_us' exact={true}>
@@ -12,6 +13,7 @@ const Footer = () => {
             </NavLink>
             </div>
       </div>
+      </NavLink>
     </div>
   )
 }
