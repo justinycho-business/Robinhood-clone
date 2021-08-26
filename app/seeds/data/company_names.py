@@ -6983,4 +6983,10 @@ big_data = [{
   "name" : "Seagen Inc.",
   "price" : 145.02,
   "exchange" : "Nasdaq Global Select"
+},
+{
+  "symbol" : "GOOGL",
+  "name" : "Alphabet Inc Class A",
+  "price" : 51.3569,
+  "exchange" : "Nasdaq Global Select"
 }]
