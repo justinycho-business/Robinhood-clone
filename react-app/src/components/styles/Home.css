@@ -1,7 +1,7 @@
 .row-home{
     display: flex;
     flex-direction: row;
-    height:80vw;
+    height:55vw;
     width: 100%;
     background-color: rgb(200,252,68);
 }
@@ -28,7 +28,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: center; */
-    height: 80vw;
+
     width: 50%;
     margin-left: 10vw;
     background-color: rgb(200,252,68);
@@ -39,12 +39,18 @@
 
 .home-column-2-top {
     background-color: rgb(200,252,68);
-    height: 50%;
-    width: 100%;
-    background-size: contain;
-    background-image: url('../styles/images/credits_to_robinhood.com.gif');
+    height: 40vh;
+    width: 40vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
 }
 
+.gifrobin{
+    height: 30vw;
+    width: 30vw;
+}
 .home-column-2-bottom {
     background-color: rgb(200,252,68);
     padding: 5vw 10vw;
@@ -55,6 +61,20 @@
 
 }
 
+.lihome {
+    font-family: "Capsule Sans Display",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 36px;
+    -webkit-letter-spacing: -0.24px;
+    -moz-letter-spacing: -0.24px;
+    -ms-letter-spacing: -0.24px;
+    letter-spacing: -0.24px;
+    -webkit-text-decoration: unset;
+    text-decoration: unset;
+    color: black;
+}
 
 /* .h2-0{
     margin-left: 10px;
@@ -143,8 +163,29 @@
     background-color: white;
     font-size: 20px;
     font-weight: bold;
+    margin-right: 1vw;
 }
 
+.demologin {
+    color: black;
+    text-decoration: none;
+    align-items: center;
+    box-sizing: border-box;
+    display: inline-flex;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    white-space: nowrap;
+    padding: 0px 36px;
+    height: 48px;
+    min-width: 144px;
+    border-radius: 24px;
+    cursor: pointer;
+    background-color: greenyellow;
+    font-size: 20px;
+    font-weight: bold;
+}
 .sign_up_outer_container {
     display: flex;
 }

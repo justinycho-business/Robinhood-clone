@@ -33,7 +33,7 @@ const NavBar = () => {
       // // console.log(searchData)
 
     })()
-  }, []);
+  }, [user]);
 
   // useEffect(() => {
 
@@ -90,15 +90,16 @@ const NavBar = () => {
                 <i className="fas fa-feather"></i>
               </div>
             </NavLink>
-          </div>
-          <div className="secondbox"
-          // className = "welcome_message_container"
-          >
             <div className="welcome_message_outer_container">
               <div className="welcome_message_inner_container">
                 <div className="welcome_message" onClick={homePageRedirect}>Welcome {user.username}</div>
               </div>
             </div>
+          </div>
+          <div className="secondbox"
+          // className = "welcome_message_container"
+          >
+            <p className="spacer">spacer</p>
           </div>
           {/* {companyTickerData && */}
           <div className="thirdbox"
@@ -138,7 +139,10 @@ const NavBar = () => {
           Users
         </NavLink>
       </div> */}
-          <div className="fourthbox"
+          <div className="fourthbox">
+            Spacer
+          </div>
+          <div
             className="nav_icons">
             <div>
               <NavLink to={`/dashboard/${user.id}`} onClick={shoot} exact={true} activeClassName='active' className='dashboard'>

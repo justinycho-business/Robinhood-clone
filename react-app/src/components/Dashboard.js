@@ -231,13 +231,16 @@ function Dashboard() {
     const shoot = () => {
         window.location.reload(true);
     }
+
+    const value = parseFloat(add_buyingpower(portfolio_total_value_over_one_week(portfolio_comps))[add_buyingpower(portfolio_total_value_over_one_week(portfolio_comps)).length -1].close)
+
     return (
         <>
         {userData && (
             <div class="wrapper">
                 <div className="portfolioDiv">
-                    <h1>{user.username}'s Current Portfolio Value
-                    {portfolio_to_array(portfolio_comps).length >= 1 && <span> ${add_buyingpower(portfolio_total_value_over_one_week(portfolio_comps))[add_buyingpower(portfolio_total_value_over_one_week(portfolio_comps)).length -1].close}</span>}
+                    <h1>{user.username}'s Current Portfolio Value:
+                    {portfolio_to_array(portfolio_comps).length >= 1 && <span className='spandollars'> ${value.toLocaleString('en-US', {maximumFractionDigits:2})}</span>}
                     {!(portfolio_to_array(portfolio_comps).length >= 1) && <span> $0</span>}
 
 
@@ -277,7 +280,7 @@ function Dashboard() {
                     <button className='dashboard-button' onClick={() => timePeriodButton({'string': 'all', 'id': user.id})}>All</button> */}
                 </div>
                 <div className="addFundsDiv">
-                    <h3 className = 'available-funds-h3'>{`$${user.buying_power} Available for investment`}</h3>
+                    <h3 className = 'available-funds-h3'> <span className='spandollars'>{`$${user.buying_power.toLocaleString('en-US', {maximumFractionDigits:2})}`}</span> Available for investment</h3>
                     <p className='add-funds-pTag'>Add funds to your account</p>
                     <form className ='add-funds-form' onSubmit={addFundsSubmit}>
                         <input className='form-input'
@@ -288,7 +291,7 @@ function Dashboard() {
                             onChange={(e) => setPortolioValue(e.target.value)}
                             required
                         />
-                        <button onClick={shoot} className='dashboard-button' type="submit">
+                        <button onClick={shoot} className='dashboard-button1' type="submit">
                             Submit Funds
                         </button>
                     </form>
@@ -300,7 +303,7 @@ function Dashboard() {
                             {userData && portfolio_comps &&
                                 portfolio_to_array(portfolio_comps).map((companyArray) => (
                                 <li key={companyArray.id} className='porfolioLi'>
-                                    <div className='ticker'>{companyArray.ticker}</div>
+                                    <div className='ticker'><a className="linkstostocks" href={`/stocks/${companyArray.ticker}`}>{companyArray.ticker}</a></div>
                                     <div className='lilGraph'>
                                         <ResponsiveContainer width="100%" aspect={2}>
                                             <LineChart data={oneWeekGraphDataTrimmed(companyArray.weekdata)}>
@@ -317,7 +320,7 @@ function Dashboard() {
                                     </div>
                                     <div className ='port-div'>
                                         <p className='shares'>{`shares: ${companyArray.quantity}`}</p>
-                                        <p className='price'>Current Price ${companyArray.weekdata[0].close.toFixed(2)}</p>
+                                        <p className='price'>Current Price ${parseFloat(companyArray.weekdata[0].close.toFixed(2)).toLocaleString('en-US', {maximumFractionDigits:2})}</p>
                                         {/* <div className='percent'>Percent Change</div> */}
                                     </div>
                                 </li>
@@ -331,7 +334,7 @@ function Dashboard() {
                                 userData?.watchlistAPICallData.map((company) => (
                                 <li className="watchlistLi" key={company[0].ticker}>
                                     <div className="ticker">
-                                        <p>{company[0].symbol}</p>
+                                        <a className="linkstostocks" href={`/stocks/${company[0].symbol}`}>{company[0].symbol}</a>
                                     </div>
                                     <div className="lilGraph">
                                         <ResponsiveContainer width="100%" aspect={2}>
@@ -355,7 +358,7 @@ function Dashboard() {
                                         </ResponsiveContainer>
                                     </div>
                                     <div className="price">
-                                        <p>${company[0].price}</p>
+                                        <p>${parseFloat(company[0].price.toFixed(2)).toLocaleString('en-US', {maximumFractionDigits:2})}</p>
                                     </div>
                                     {/* <p className='percent'>{company.ticker}</p> */}
                                 </li>

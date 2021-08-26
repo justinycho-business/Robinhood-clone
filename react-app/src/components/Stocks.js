@@ -96,8 +96,7 @@ const Stocks = () => {
     // console.log(`${moment().subtract(10, 'days').format('YYYY-MM-DD')}`)
 
     const oneWeekGraphDataTrimmed = (data) => {
-        console.log(`${moment().subtract(10, 'days').calendar()}`)
-        console.log(data);
+
         let result;
         for (let i = 0; i < data.length; i++) {
             if (data[i].date === `${moment().subtract(7, 'days').format('YYYY-MM-DD')} 10:00:00` ||
@@ -232,7 +231,7 @@ const Stocks = () => {
                 setOptionText("Remove from Watchlist")
             }
             dispatch(get1dayData(ticker))
-            console.log("line 203==================================");
+
         })();
     }, []);
 
@@ -326,12 +325,12 @@ const Stocks = () => {
             };
             const post = await fetch('/api/stocks/buy', requestOptions);
             const data = await post.json();
-            console.log("yay enough buying power", data.Success.toFixed(2))
+
             setBuyingPower(data.Success.toFixed(2))
             tradeAlertBuy()
             return ["yay enough buying power", data]
         } else {
-            console.log("Oh no not working just yet :(")
+
             return "Oh no not working just yet :("
         }
     }
@@ -348,9 +347,9 @@ const Stocks = () => {
             <div className='stocks-info-container'>
                 <div className='stock-details'>
                     <h2 className='stock-title'>{stockdata?.companyName}</h2>
-                    <h2 className='stock-price'>${(stockdata?.latestPrice.toFixed(2))}</h2>
+                    <h2 className='stock-price'>${parseFloat(stockdata?.latestPrice.toFixed(2)).toLocaleString('en-US', {maximumFractionDigits:2})}</h2>
                     {/* make dollar change and percent change the value of state and set state on button push for time period */}
-                    <h2 className='stock-change'> $ {(stockdata?.change.toFixed(2))} ({(stockdata?.changePercent.toFixed(2))}%) Change Today</h2>
+                    <h2 className='stock-change'> $ {parseFloat(stockdata?.change.toFixed(2)).toLocaleString('en-US', {maximumFractionDigits:2})} ({(stockdata?.changePercent.toFixed(2))}%) Change Today</h2>
                 </div>
                 <div className='side-bar-content'>
                     {buySell === "buy" ? (
@@ -370,18 +369,18 @@ const Stocks = () => {
                                 </div>
                                 <div className='form-market-price'>
                                     <label className='form-item'>Market Price :</label>
-                                    <h1 className='market-price'>{(stockdata?.latestPrice.toFixed(2))}</h1>
+                                    <h1 className='market-price'>{parseFloat(stockdata?.latestPrice.toFixed(2)).toLocaleString('en-US', {maximumFractionDigits:2})}</h1>
                                 </div>
                                 <div className='est-cost-container'>
                                     <label className='form-item'>Estimated Cost:</label>
-                                    <h1 className='total-price'>${(totalStocks * (stockdata?.latestPrice)).toFixed(2)}</h1>
+                                    <h1 className='total-price'>${parseFloat((totalStocks * (stockdata?.latestPrice)).toFixed(2)).toLocaleString('en-US', {maximumFractionDigits:2})}</h1>
                                 </div>
                                 <div className='buy-btn-container'>
                                     <button className='buy-btn' onClick={buyStock}>Buy</button>
                                 </div>
                             </form>
                             <div className='buying-power-container'>
-                                <h2>${buyingPower} buying power available</h2>
+                                <h2>${parseFloat(buyingPower).toLocaleString('en-US', {maximumFractionDigits:2})} buying power available</h2>
                             </div>
                         </div>
                     ) : (
@@ -400,11 +399,11 @@ const Stocks = () => {
                                 </div>
                                 <div className='form-market-price'>
                                     <label className='form-item'>Market Price :</label>
-                                    <h1 className='market-price'>{(stockdata?.latestPrice.toFixed(2))}</h1>
+                                    <h1 className='market-price'>{parseFloat(stockdata?.latestPrice.toFixed(2)).toLocaleString('en-US', {maximumFractionDigits:2})}</h1>
                                 </div>
                                 <div className='est-cost-container'>
                                     <label className='form-item'>Estimated Value:</label>
-                                    <h1 className='total-price'>${(sellShares * (stockdata?.latestPrice)).toFixed(2)}</h1>
+                                    <h1 className='total-price'>${parseFloat((sellShares * (stockdata?.latestPrice)).toFixed(2)).toLocaleString('en-US', {maximumFractionDigits:2})}</h1>
                                 </div>
                                 <div className='buy-btn-container'>
                                     {quantityofstock[id.ticker] && (sellShares <= quantityofstock[id.ticker]['quantity']) && <button className='buy-btn' onClick={updatestockquant}>Sell</button>}
@@ -456,7 +455,7 @@ const Stocks = () => {
                                     //     ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200),
                                     //      ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
                                     />
-                                    <YAxis hide={false} domain={[min(oneWeekGraphDataTrimmed(timePeriodGraphData[0]?.oneWeek)),
+                                    <YAxis hide={true} domain={[min(oneWeekGraphDataTrimmed(timePeriodGraphData[0]?.oneWeek)),
                                     max(oneWeekGraphDataTrimmed(timePeriodGraphData[0]?.oneWeek))]} />
                                     <Tooltip />
                                 </LineChart>
@@ -475,7 +474,7 @@ const Stocks = () => {
                                     //     ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200),
                                     //      ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
                                     />
-                                    <YAxis hide={false} domain={[min(oneMonthGraphDataTrimmed(timePeriodGraphData[0]?.oneMonth.historical)),
+                                    <YAxis hide={true} domain={[min(oneMonthGraphDataTrimmed(timePeriodGraphData[0]?.oneMonth.historical)),
                                     max(oneMonthGraphDataTrimmed(timePeriodGraphData[0]?.oneMonth.historical))]} />
                                     <Tooltip />
                                 </LineChart>
@@ -494,7 +493,7 @@ const Stocks = () => {
                                     //     ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200),
                                     //      ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
                                     />
-                                    <YAxis hide={false} domain={[min(threeMonthGraphDataTrimmed(timePeriodGraphData[0]?.threeMonths.historical)),
+                                    <YAxis hide={true} domain={[min(threeMonthGraphDataTrimmed(timePeriodGraphData[0]?.threeMonths.historical)),
                                     max(threeMonthGraphDataTrimmed(timePeriodGraphData[0]?.threeMonths.historical))]} />
                                     <Tooltip />
                                 </LineChart>
@@ -514,7 +513,7 @@ const Stocks = () => {
                                     //     ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200),
                                     //      ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
                                     />
-                                    <YAxis hide={false} domain={[min(oneYearGraphDataTrimmed(timePeriodGraphData[0]?.oneYear.historical)),
+                                    <YAxis hide={true} domain={[min(oneYearGraphDataTrimmed(timePeriodGraphData[0]?.oneYear.historical)),
                                     max(oneYearGraphDataTrimmed(timePeriodGraphData[0]?.oneYear.historical))]} />
                                     <Tooltip />
                                 </LineChart>
@@ -534,7 +533,7 @@ const Stocks = () => {
                                     //     ((new Date(`${moment().format('YYYY-MM-DD')} 09:30:00`).getTime() / 1000) - 25200),
                                     //      ((new Date(`${moment().format('YYYY-MM-DD')} 16:00:00`).getTime() / 1000) - 25200)]}
                                     />
-                                    <YAxis hide={false} domain={[min(fiveYearGraphDataTrimmed(timePeriodGraphData[0]?.fiveYears.historical)),
+                                    <YAxis hide={true} domain={[min(fiveYearGraphDataTrimmed(timePeriodGraphData[0]?.fiveYears.historical)),
                                     max(fiveYearGraphDataTrimmed(timePeriodGraphData[0]?.fiveYears.historical))]} />
                                     <Tooltip />
                                 </LineChart>
@@ -543,32 +542,32 @@ const Stocks = () => {
                     <button className='time-btn' onClick={() => {
                         timePeriodButton({ 'string': 'oneDay', 'ticker': urlTicker })
                         setgraphstate("1D")
-                        console.log(graphstate);
+
                     }}>1D</button>
                     <button className='time-btn' onClick={() => {
                         timePeriodButton({ 'string': 'oneWeek', 'ticker': urlTicker })
                         setgraphstate("1W")
-                        console.log(graphstate);
+
                     }}>1W</button>
                     <button className='time-btn' onClick={() => {
                         timePeriodButton({ 'string': 'oneMonth', 'ticker': urlTicker })
                         setgraphstate("1M")
-                        console.log(graphstate);
+
                     }}>1M</button>
                     <button className='time-btn' onClick={() => {
                         timePeriodButton({ 'string': 'threeMonths', 'ticker': urlTicker })
                         setgraphstate("3M")
-                        console.log(graphstate);
+
                     }}>3M</button>
                     <button className='time-btn' onClick={() => {
                         timePeriodButton({ 'string': 'oneYear', 'ticker': urlTicker })
                         setgraphstate("1Y")
-                        console.log(graphstate);
+
                     }}>1Y</button>
                     <button className='time-btn' onClick={() => {
                         timePeriodButton({ 'string': 'fiveYears', 'ticker': urlTicker })
                         setgraphstate("5Y")
-                        console.log(graphstate);
+
                     }}>5Y</button>
                 </div>
                 {
