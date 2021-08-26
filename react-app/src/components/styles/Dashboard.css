@@ -291,6 +291,11 @@
     border-radius: 3px;
 }
 
+.dashboard-button1:hover {
+    color: #6afa27;
+    background-color: black;
+    border-radius: 3px;
+}
 .add-funds-pTag {
     margin: 8px;
 }
