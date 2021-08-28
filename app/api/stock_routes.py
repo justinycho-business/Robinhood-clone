@@ -7,7 +7,7 @@ import requests
 import ast
 import os
 
-apikey = os.environ.get('API_FIN_PUBLIC')
+apikey = os.environ.get('API_FIN_PUBLIC_justin')
 apikey2 = os.environ.get('API_2_FIN')
 
 stock_routes = Blueprint('stocks', __name__)
