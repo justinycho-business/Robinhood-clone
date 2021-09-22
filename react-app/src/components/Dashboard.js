@@ -303,7 +303,7 @@ function Dashboard() {
                             {userData && portfolio_comps &&
                                 portfolio_to_array(portfolio_comps).map((companyArray) => (
                                 <li key={companyArray.id} className='porfolioLi'>
-                                    <div className='ticker'><a className="linkstostocks" href={`/stocks/${companyArray.ticker}`}>{companyArray.ticker}</a></div>
+                                    <div className='ticker'><a className="link-to-stocks" href={`/stocks/${companyArray.ticker}`}>{companyArray.ticker}</a></div>
                                     <div className='lilGraph'>
                                         <ResponsiveContainer width="100%" aspect={2}>
                                             <LineChart data={oneWeekGraphDataTrimmed(companyArray.weekdata)}>
