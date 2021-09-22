@@ -35,9 +35,7 @@ const Stocks = () => {
     const [watchlistContainer, setContainer] = useState('')
     const [optionText, setOptionText] = useState('')
     const [tradeAlert, setTradeAlert] = useState('d')
-
     const [buyingPower, setBuyingPower] = useState(0)
-
     const watchlist = useSelector(state => state?.dashboard)
     const priceData = useSelector(state => state?.priceData?.oneDayDataStocks)
     const user = useSelector(state => state.session.user);
