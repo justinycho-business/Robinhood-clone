@@ -11,7 +11,6 @@ import './styles/Stocks.css';
 const Stocks = () => {
     const dispatch = useDispatch()
     const urlTicker = useParams().ticker
-
     const urlString = window.location.href;
 
     const getTicker = (string) => {
