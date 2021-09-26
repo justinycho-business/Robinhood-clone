@@ -77,6 +77,11 @@ function Dashboard() {
 
         for (let i = 0; i < result.length; i++) {
             for (let j = 0; j < result[i].length; j++) {
+                if (!result[i][j] || !sumofport[j]) {
+                    console.log("🚀 ~ Dashboard ~ !sumofport[j]", sumofport[j])
+                    console.log("🚀 ~ Dashboard ~ result[i][j]", result[i][j])
+                    continue
+                }
                 let adding_number = result[i][j].close
                     sumofport[j].close += (adding_number * array_of_stocks_owned[i].quantity);
             }
