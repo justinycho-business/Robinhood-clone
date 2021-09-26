@@ -18,7 +18,12 @@ stock_routes = Blueprint('stocks', __name__)
 def stock(ticker):
     res = requests.get(
         f'https://cloud.iexapis.com/stable/stock/{ticker}/quote?token={apikey}')
-    return res.json()
+    print('************STOCK ROUTE RES**************😂',res)
+    try:
+        return res.json()
+    except Exception as error:
+        raise Exception(res.text)
+    # return res.json()
 
 
 @stock_routes.route('/<ticker>')
